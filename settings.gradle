@@ -1,0 +1,6 @@
+include 'demo-service-interface',
+        'demo-service',
+        'demo-service-db-migration',
+        'demo-site'
+
+includeBuild '../core-ng-project'        

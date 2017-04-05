@@ -1,0 +1,10 @@
+.idea/
+.gradle/
+build/
+*.iml
+classes/
+gradle.properties
+*/src/dev/java/
+*/src/main/dev/
+.DS_Store
+node_modules/

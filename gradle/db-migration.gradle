@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-gradle-plugin:4.1.2'
+    }
+}
+
+// use gradlew -Penv=${env} to pass
+def environment = hasProperty('env') ? env : null
+
+apply plugin: org.flywaydb.gradle.FlywayPlugin
+
+dependencies {
+    runtime 'mysql:mysql-connector-java:6.0.6'
+}
+
+flyway {
+    placeholderReplacement = false
+
+    def flywayProperties = environment == null ? "src/main/resources/flyway.properties" : "conf/${environment}/resources/flyway.properties"
+    assert project.file(flywayProperties).exists()
+
+    Properties properties = new Properties()
+    project.file(flywayProperties).withInputStream {
+        properties.load(it)
+    }
+    properties.each { key, value ->
+        project.ext[key as String] = value
+    }
+}
