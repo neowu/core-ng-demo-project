@@ -16,6 +16,7 @@ subprojects {
 def coreNGVersion = '4.11.2'
 def redisVersion = '2.9.0'
 def kafkaVersion = '0.10.2.0'
+def jacksonVersion = '2.8.7'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
@@ -53,6 +54,20 @@ project(':demo-service') {
     dependencies {
         compile(
                 project(':demo-service-interface')
+        )
+    }
+}
+
+project(':benchmark') {
+    dependencies {
+        compile(
+                "core.framework:core-ng:${coreNGVersion}",
+                'org.openjdk.jmh:jmh-generator-annprocess:1.18',
+                "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+                "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonVersion}",
+                "com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}",
+                "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
+                "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVersion}"
         )
     }
 }
