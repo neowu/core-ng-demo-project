@@ -17,7 +17,7 @@ public class ProductUpdatedBulkMessageHandler implements BulkMessageHandler<Prod
     @Override
     public void handle(List<Message<ProductUpdatedMessage>> messages) throws Exception {
         for (Message<ProductUpdatedMessage> message : messages) {
-            logger.debug(message.key + " " + message.value.name);
+            logger.info("{}-{}", message.key, message.value.name);
         }
     }
 }
