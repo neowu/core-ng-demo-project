@@ -15,11 +15,11 @@ import java.time.temporal.ChronoUnit;
 public class JobModule extends Module {
     @Override
     protected void initialize() {
-        schedule().timeZone(ZoneId.of("America/New_York"));
+        schedule().timeZone(ZoneId.of("America/Los_Angeles"));
 
         DemoJob job = bind(DemoJob.class);
         schedule().fixedRate("fixed-rate-job", job, Duration.ofSeconds(15));
-        LocalTime time = LocalTime.now().plusSeconds(10).truncatedTo(ChronoUnit.SECONDS);
+        LocalTime time = LocalTime.now().minusHours(3).plusSeconds(10).truncatedTo(ChronoUnit.SECONDS);
 
         schedule().dailyAt("daily-job", job, time);
         schedule().weeklyAt("weekly-job", job, DayOfWeek.MONDAY, time);
