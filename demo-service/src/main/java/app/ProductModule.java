@@ -10,6 +10,7 @@ import app.demo.product.web.ProductWebServiceImpl;
 import core.framework.api.Module;
 
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author neo
@@ -26,7 +27,7 @@ public class ProductModule extends Module {
         api().service(ProductWebService.class, bind(ProductWebServiceImpl.class));
 
         http().limitRate()
-              .add("product", 3, 1);
+              .add("product", 3, 20, TimeUnit.MINUTES);
     }
 
     private void configureKafka() {
