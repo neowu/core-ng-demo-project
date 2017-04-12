@@ -24,6 +24,8 @@ public class ProductModule extends Module {
         configureKafka();
 
         api().service(ProductWebService.class, bind(ProductWebServiceImpl.class));
+
+        http().limitRate().add("product", 3, 1);
     }
 
     private void configureKafka() {
