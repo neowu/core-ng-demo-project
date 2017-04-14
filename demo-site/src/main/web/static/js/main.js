@@ -1,7 +1,9 @@
 "use strict";
 
 function test() {
-    document.write("hello world");
+    const data = {};
+    data.value = "world";
+    document.write(`hello ${data.hello}`);
 }
 
 test();
