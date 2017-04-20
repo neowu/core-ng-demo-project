@@ -56,7 +56,8 @@ project(':demo-service') {
         compile(
                 project(':demo-service-interface'),
                 "org.mongodb:mongo-java-driver:${mongoVersion}",
-                'com.google.guava:guava:21.0'
+                "org.apache.kafka:kafka-clients:${kafkaVersion}",
+                "org.apache.kafka:kafka-streams:${kafkaVersion}"
         )
     }
 }
