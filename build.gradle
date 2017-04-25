@@ -21,6 +21,10 @@ def mongoVersion = '3.4.2'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
+
+    dependencies {
+        runtime 'mysql:mysql-connector-java:6.0.6'
+    }
 }
 
 configure(subprojects.findAll { it.name.matches('.*-service-interface') }) {
