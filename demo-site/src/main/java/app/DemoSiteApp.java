@@ -11,9 +11,8 @@ public class DemoSiteApp extends App {
     protected void initialize() {
         load(new SystemModule("sys.properties"));
 
-        http().httpsPort(8443);
-
-        site().enableWebSecurity();
+//        http().httpsPort(8443);
+//        site().enableWebSecurity();
 
         load(new WebModule());
     }
