@@ -4,4 +4,3 @@ include 'demo-service-interface',
         'demo-site',
         'benchmark'
 
-includeBuild '../core-ng-project'
