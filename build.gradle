@@ -13,7 +13,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '4.12.6'
+def coreNGVersion = '4.12.7'
 def redisVersion = '2.9.0'
 def kafkaVersion = '0.11.0.0'
 def jacksonVersion = '2.8.7'
@@ -60,8 +60,7 @@ project(':demo-service') {
         compile(
                 project(':demo-service-interface'),
                 "org.mongodb:mongo-java-driver:${mongoVersion}",
-                "org.apache.kafka:kafka-clients:${kafkaVersion}",
-                "org.apache.kafka:kafka-streams:${kafkaVersion}"
+                "org.apache.kafka:kafka-clients:${kafkaVersion}"
         )
     }
 }
