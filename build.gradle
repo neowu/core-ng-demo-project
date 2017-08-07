@@ -16,7 +16,6 @@ subprojects {
 def coreNGVersion = '4.13.0'
 def redisVersion = '2.9.0'
 def kafkaVersion = '0.11.0.0'
-def jacksonVersion = '2.8.7'
 def mongoVersion = '3.4.2'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
@@ -69,12 +68,7 @@ project(':benchmark') {
     dependencies {
         compile(
                 "core.framework:core-ng:${coreNGVersion}",
-                'org.openjdk.jmh:jmh-generator-annprocess:1.19',
-                "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
-                "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jacksonVersion}",
-                "com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}",
-                "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}",
-                "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:${jacksonVersion}"
+                'org.openjdk.jmh:jmh-generator-annprocess:1.19'
         )
     }
 }
