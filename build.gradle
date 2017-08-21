@@ -16,7 +16,8 @@ subprojects {
 def coreNGVersion = '4.15.0'
 def redisVersion = '2.9.0'
 def kafkaVersion = '0.11.0.0'
-def mongoVersion = '3.4.2'
+def mongoVersion = '3.5.0'
+def hsqlVersion = '2.4.0'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
@@ -60,6 +61,9 @@ project(':demo-service') {
                 project(':demo-service-interface'),
                 "org.mongodb:mongo-java-driver:${mongoVersion}",
                 "org.apache.kafka:kafka-clients:${kafkaVersion}"
+        )
+        testRuntime(
+                "org.hsqldb:hsqldb:${hsqlVersion}"
         )
     }
 }
