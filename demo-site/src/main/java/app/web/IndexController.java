@@ -28,6 +28,7 @@ public class IndexController {
 //        session.set("hello", "world");
         Response response = Response.html("/template/index.html", model, languageManager.language());
         response.cookie(Cookies.TEST, "1+2");
+        response.cookie(Cookies.TEST1, "hello \"\" cookies");
         return response;
     }
 
