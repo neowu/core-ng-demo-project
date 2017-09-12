@@ -9,6 +9,6 @@ import core.framework.api.web.Response;
  */
 public class WildcardController {
     public Response wildcard(Request request) {
-        return Response.text("catch all url", ContentType.TEXT_HTML);
+        return Response.text("catch all url").contentType(ContentType.TEXT_HTML);
     }
 }
