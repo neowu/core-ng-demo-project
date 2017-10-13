@@ -13,7 +13,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '4.16.3'
+def coreNGVersion = '4.16.4'
 def redisVersion = '2.9.0'
 def kafkaVersion = '0.11.0.1'
 def mongoVersion = '3.5.0'
