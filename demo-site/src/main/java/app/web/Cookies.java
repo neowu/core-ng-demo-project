@@ -1,6 +1,6 @@
 package app.web;
 
-import core.framework.api.web.CookieSpec;
+import core.framework.web.CookieSpec;
 
 import java.time.Duration;
 

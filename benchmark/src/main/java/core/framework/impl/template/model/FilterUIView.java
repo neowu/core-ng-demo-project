@@ -1,7 +1,7 @@
 package core.framework.impl.template.model;
 
-import core.framework.api.util.Lists;
-import core.framework.api.util.Strings;
+import core.framework.util.Lists;
+import core.framework.util.Strings;
 
 import java.text.DecimalFormat;
 import java.util.List;

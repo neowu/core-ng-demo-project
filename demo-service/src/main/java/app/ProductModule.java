@@ -7,7 +7,7 @@ import app.demo.product.kafka.ProductUpdatedBulkMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
-import core.framework.api.Module;
+import core.framework.module.Module;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;

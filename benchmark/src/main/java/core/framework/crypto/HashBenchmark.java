@@ -1,5 +1,6 @@
-package core.framework.api.util;
+package core.framework.crypto;
 
+import core.framework.util.Lists;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
@@ -18,7 +19,7 @@ import java.util.List;
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 3)
 @Measurement(iterations = 10)
-public class ASCIIToUpperCaseBenchmark {
+public class HashBenchmark {
     private final List<String> values = Lists.newArrayList();
 
     @Setup
@@ -34,7 +35,7 @@ public class ASCIIToUpperCaseBenchmark {
     @Benchmark
     public void current() {
         for (String value : values) {
-            ASCII.toUpperCase(value);
+            Hash.md5Hex(value);
         }
     }
 }

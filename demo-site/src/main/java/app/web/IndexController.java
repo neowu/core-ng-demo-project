@@ -1,9 +1,9 @@
 package app.web;
 
 import app.web.interceptor.Protected;
-import core.framework.api.web.Request;
-import core.framework.api.web.Response;
-import core.framework.api.web.site.Message;
+import core.framework.web.Request;
+import core.framework.web.Response;
+import core.framework.web.site.Message;
 
 import javax.inject.Inject;
 

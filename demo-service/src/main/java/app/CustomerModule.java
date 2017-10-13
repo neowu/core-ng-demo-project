@@ -4,7 +4,7 @@ import app.demo.api.CustomerWebService;
 import app.demo.customer.domain.Customer;
 import app.demo.customer.service.CustomerService;
 import app.demo.customer.web.CustomerWebServiceImpl;
-import core.framework.api.Module;
+import core.framework.module.Module;
 
 public class CustomerModule extends Module {
     @Override

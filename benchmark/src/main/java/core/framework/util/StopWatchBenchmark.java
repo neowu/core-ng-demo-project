@@ -1,4 +1,4 @@
-package core.framework.api.util;
+package core.framework.util;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;

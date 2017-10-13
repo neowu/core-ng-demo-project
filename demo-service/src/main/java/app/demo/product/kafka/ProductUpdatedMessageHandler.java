@@ -1,7 +1,7 @@
 package app.demo.product.kafka;
 
 import app.demo.api.product.kafka.ProductUpdatedMessage;
-import core.framework.api.kafka.MessageHandler;
+import core.framework.kafka.MessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

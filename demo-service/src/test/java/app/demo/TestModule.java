@@ -1,7 +1,7 @@
 package app.demo;
 
 import app.DemoServiceApp;
-import core.framework.api.AbstractTestModule;
+import core.framework.module.AbstractTestModule;
 
 /**
  * @author neo

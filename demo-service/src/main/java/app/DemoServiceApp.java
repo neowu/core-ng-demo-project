@@ -1,7 +1,7 @@
 package app;
 
-import core.framework.api.App;
-import core.framework.api.module.SystemModule;
+import core.framework.module.App;
+import core.framework.module.SystemModule;
 
 /**
  * @author neo

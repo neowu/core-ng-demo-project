@@ -1,7 +1,7 @@
 package app.demo.product.service;
 
-import core.framework.api.http.HTTPRequest;
-import core.framework.api.web.service.WebServiceClientInterceptor;
+import core.framework.http.HTTPRequest;
+import core.framework.web.service.WebServiceClientInterceptor;
 
 /**
  * @author neo

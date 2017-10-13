@@ -1,4 +1,4 @@
-import core.framework.api.util.StopWatchBenchmark;
+import core.framework.util.StopWatchBenchmark;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;

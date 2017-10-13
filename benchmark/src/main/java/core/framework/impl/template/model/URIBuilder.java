@@ -1,7 +1,7 @@
 package core.framework.impl.template.model;
 
-import core.framework.api.util.Encodings;
-import core.framework.api.util.Exceptions;
+import core.framework.util.Encodings;
+import core.framework.util.Exceptions;
 
 /**
  * @author neo

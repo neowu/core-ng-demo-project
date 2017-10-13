@@ -1,8 +1,8 @@
 package core.framework.impl.template.model;
 
-import core.framework.api.util.Lists;
-import core.framework.api.util.Sets;
-import core.framework.api.util.Strings;
+import core.framework.util.Lists;
+import core.framework.util.Sets;
+import core.framework.util.Strings;
 
 import java.util.List;
 import java.util.Set;

@@ -1,6 +1,6 @@
 package app.demo.job;
 
-import core.framework.api.scheduler.Job;
+import core.framework.scheduler.Job;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

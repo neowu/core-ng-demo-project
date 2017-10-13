@@ -1,7 +1,7 @@
 package app;
 
 import app.demo.job.DemoJob;
-import core.framework.api.Module;
+import core.framework.module.Module;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;

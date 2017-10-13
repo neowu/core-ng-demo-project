@@ -8,11 +8,11 @@ import app.web.UploadPage;
 import app.web.WildcardController;
 import app.web.ajax.AJAXController;
 import app.web.interceptor.TestInterceptor;
-import core.framework.api.Module;
-import core.framework.api.http.ContentType;
 import core.framework.api.http.HTTPStatus;
-import core.framework.api.util.Lists;
-import core.framework.api.web.Response;
+import core.framework.http.ContentType;
+import core.framework.module.Module;
+import core.framework.util.Lists;
+import core.framework.web.Response;
 
 import java.util.List;
 

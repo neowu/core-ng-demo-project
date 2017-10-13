@@ -1,8 +1,8 @@
 package app.web;
 
-import core.framework.api.web.MultipartFile;
-import core.framework.api.web.Request;
-import core.framework.api.web.Response;
+import core.framework.web.MultipartFile;
+import core.framework.web.Request;
+import core.framework.web.Response;
 
 import javax.inject.Inject;
 

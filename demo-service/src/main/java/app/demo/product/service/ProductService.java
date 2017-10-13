@@ -2,7 +2,7 @@ package app.demo.product.service;
 
 import app.demo.api.product.CreateProductRequest;
 import app.demo.api.product.ProductView;
-import core.framework.api.util.Maps;
+import core.framework.util.Maps;
 
 import java.time.LocalDateTime;
 import java.util.Map;

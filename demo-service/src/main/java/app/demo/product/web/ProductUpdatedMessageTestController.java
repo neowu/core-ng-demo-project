@@ -1,10 +1,10 @@
 package app.demo.product.web;
 
 import app.demo.api.product.kafka.ProductUpdatedMessage;
-import core.framework.api.kafka.MessagePublisher;
-import core.framework.api.web.Controller;
-import core.framework.api.web.Request;
-import core.framework.api.web.Response;
+import core.framework.kafka.MessagePublisher;
+import core.framework.web.Controller;
+import core.framework.web.Request;
+import core.framework.web.Response;
 
 import javax.inject.Inject;
 

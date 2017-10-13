@@ -1,4 +1,4 @@
-package core.framework.api.util;
+package core.framework.util;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -18,26 +18,23 @@ import java.util.List;
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 3)
 @Measurement(iterations = 10)
-public class URIEncodingBenchmark {
-    private final List<String> pathSegments = Lists.newArrayList();
+public class ASCIIToUpperCaseBenchmark {
+    private final List<String> values = Lists.newArrayList();
 
     @Setup
     public void setup() {
-        pathSegments.add("path1");
-        pathSegments.add("path2");
-        pathSegments.add("path3");
-        pathSegments.add("value1 value2");
-        pathSegments.add("value1+value2");
-        pathSegments.add("value1/value2");
-        pathSegments.add("/value1");
-        pathSegments.add("utf-8-✓");
-        pathSegments.add("value1?value2");
+        values.add("abcdefghigklmnopqrstuvwxyz012345679");
+        values.add("ABCDEFGHIGKLMNOPQRSTUVWXYZ012345679");
+        values.add("012345679ABCDEFGHIGKLMNOPQRSTUVWXYZ");
+        values.add("012345679abcdefghigklmnopqrstuvwxyz");
+        values.add("012345679abcdefghigkLMNOPQRSTUvwxyz");
+        values.add("012345679ABCDEFGHIGKlmnopqrstuVWXYZ");
     }
 
     @Benchmark
     public void current() {
-        for (String pathSegment : pathSegments) {
-            Encodings.uriComponent(pathSegment);
+        for (String value : values) {
+            ASCII.toUpperCase(value);
         }
     }
 }

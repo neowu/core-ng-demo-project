@@ -1,10 +1,10 @@
 package core.framework.impl.template;
 
-import core.framework.api.util.ClasspathResources;
-import core.framework.api.util.JSON;
-import core.framework.api.util.Properties;
 import core.framework.impl.template.model.FilterUIView;
 import core.framework.impl.template.source.StringTemplateSource;
+import core.framework.json.JSON;
+import core.framework.util.ClasspathResources;
+import core.framework.util.Properties;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;

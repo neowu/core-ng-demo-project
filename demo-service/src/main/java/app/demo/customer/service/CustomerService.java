@@ -6,11 +6,11 @@ import app.demo.api.customer.SearchCustomerRequest;
 import app.demo.api.customer.SearchCustomerResponse;
 import app.demo.api.customer.UpdateCustomerRequest;
 import app.demo.customer.domain.Customer;
-import core.framework.api.db.Query;
-import core.framework.api.db.Repository;
-import core.framework.api.util.Strings;
-import core.framework.api.web.exception.ConflictException;
-import core.framework.api.web.exception.NotFoundException;
+import core.framework.db.Query;
+import core.framework.db.Repository;
+import core.framework.util.Strings;
+import core.framework.web.exception.ConflictException;
+import core.framework.web.exception.NotFoundException;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
