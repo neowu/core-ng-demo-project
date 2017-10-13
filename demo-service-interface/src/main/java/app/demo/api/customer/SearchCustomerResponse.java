@@ -1,17 +1,13 @@
 package app.demo.api.customer;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import core.framework.api.json.Property;
+
 import java.util.List;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SearchCustomerResponse {
-    @XmlElement(name = "total")
+    @Property(name = "total")
     public Integer total;
 
-    @XmlElementWrapper(name = "customers")
-    @XmlElement(name = "customer")
+    @Property(name = "customers")
     public List<CustomerView> customers;
 }

@@ -1,27 +1,24 @@
 package app.demo.api.product;
 
+import core.framework.api.json.Property;
 import core.framework.api.validate.NotNull;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDateTime;
 
 /**
  * @author neo
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class ProductView {
-    @XmlElement(name = "id")
+    @Property(name = "id")
     public String id;
 
     @NotNull(message = "name is required")
-    @XmlElement(name = "name")
+    @Property(name = "name")
     public String name;
 
-    @XmlElement(name = "desc")
+    @Property(name = "desc")
     public String description;
 
-    @XmlElement(name = "created_time")
+    @Property(name = "created_time")
     public LocalDateTime createdTime;
 }

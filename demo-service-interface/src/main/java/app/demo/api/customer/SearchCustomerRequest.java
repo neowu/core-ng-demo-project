@@ -1,23 +1,20 @@
 package app.demo.api.customer;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import core.framework.api.json.Property;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SearchCustomerRequest {
-    @XmlElement(name = "skip")
+    @Property(name = "skip")
     public Integer skip = 0;
 
-    @XmlElement(name = "limit")
+    @Property(name = "limit")
     public Integer limit = 1000;
 
-    @XmlElement(name = "email")
+    @Property(name = "email")
     public String email;
 
-    @XmlElement(name = "first_name")
+    @Property(name = "first_name")
     public String firstName;
 
-    @XmlElement(name = "last_name")
+    @Property(name = "last_name")
     public String lastName;
 }
