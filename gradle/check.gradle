@@ -1,11 +1,12 @@
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco'
 
 checkstyle {
     dependencies {
-        checkstyle 'com.puppycrawl.tools:checkstyle:7.8.1'
-        checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.24.0'
+        checkstyle 'com.puppycrawl.tools:checkstyle:8.3'
+        checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.24.2'
     }
 
     configFile = rootProject.file('gradle/checkstyle/checkstyle.xml')
@@ -15,7 +16,7 @@ checkstyle {
 pmd {
     ruleSets = []
     ruleSetFiles = rootProject.files('gradle/pmd/rule-set.xml')
-    toolVersion = '5.7.0'
+    toolVersion = '5.8.1'
     consoleOutput = true
 }
 
@@ -30,5 +31,14 @@ tasks.withType(FindBugs) {
     reports {
         xml.enabled = false
         html.enabled = true
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        xml.destination rootProject.file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled false
+        csv.enabled false
     }
 }

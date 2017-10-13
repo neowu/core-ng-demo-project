@@ -1,5 +1,6 @@
 package app.demo.api.product.kafka;
 
+import core.framework.api.validate.NotEmpty;
 import core.framework.api.validate.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,6 +16,10 @@ public class ProductUpdatedMessage {
     @XmlElement(name = "id")
     public String id;
 
+    @NotEmpty
     @XmlElement(name = "name")
     public String name;
+
+    @XmlElement(name = "desc")
+    public String desc;
 }

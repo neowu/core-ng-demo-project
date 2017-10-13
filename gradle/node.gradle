@@ -1,0 +1,43 @@
+// use gradlew -Penv=${env} to pass
+def env = hasProperty('env') ? env : null
+
+def npm(String... params) {
+    def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
+    return {
+        workingDir "${rootDir}/gradle/node"
+        def command = isWindows ? ['cmd', '/c', 'yarn'] : ['yarn']
+        command.addAll(params)
+        commandLine command
+    }
+}
+
+clean {
+    if (project.file('src/main/web').exists()) {
+        doLast {
+            exec npm('install')
+            exec npm('run', 'clean', '--root', project.file('.') as String)
+        }
+    }
+}
+
+processResources {
+    if (project.file('src/main/web').exists()) {
+        inputs.file project.file('src/main/web')
+        doLast {
+            exec npm('install')
+            exec npm('run', 'build', '--root', project.file('.') as String)
+        }
+    }
+}
+
+distributions {
+    if (env != null && project.file("conf/${env}/web").exists()) {
+        main {
+            contents {
+                from("conf/${env}/web") {
+                    into "web"
+                }
+            }
+        }
+    }
+}

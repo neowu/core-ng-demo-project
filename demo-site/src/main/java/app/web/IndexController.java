@@ -1,7 +1,6 @@
 package app.web;
 
 import app.web.interceptor.Protected;
-import core.framework.api.http.ContentType;
 import core.framework.api.web.Request;
 import core.framework.api.web.Response;
 import core.framework.api.web.site.Message;
@@ -28,15 +27,16 @@ public class IndexController {
 //        session.set("hello", "world");
         Response response = Response.html("/template/index.html", model, languageManager.language());
         response.cookie(Cookies.TEST, "1+2");
+        response.cookie(Cookies.TEST1, "hello \"\" cookies");
         return response;
     }
 
     public Response submit(Request request) {
-        return Response.text("hello " + request.formParam("name").orElse("nobody"), ContentType.TEXT_PLAIN);
+        return Response.text("hello " + request.formParam("name").orElse("nobody"));
     }
 
     public Response logout(Request request) {
         request.session().invalidate();
-        return Response.text("logout", ContentType.TEXT_PLAIN);
+        return Response.text("logout");
     }
 }
