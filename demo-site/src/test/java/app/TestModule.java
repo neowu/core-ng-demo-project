@@ -1,6 +1,6 @@
 package app;
 
-import core.framework.module.AbstractTestModule;
+import core.framework.test.module.AbstractTestModule;
 
 /**
  * @author neo

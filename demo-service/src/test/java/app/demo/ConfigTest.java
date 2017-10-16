@@ -1,14 +1,15 @@
 package app.demo;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author neo
  */
-public class ConfigTest extends IntegrationTest {
+class ConfigTest extends IntegrationTest {
     @Test
-    public void initialize() {
-        Assert.assertTrue("test context should be initialized successfully", true);
+    void initialize() {
+        assertTrue(true, "test context should be initialized successfully");
     }
 }
