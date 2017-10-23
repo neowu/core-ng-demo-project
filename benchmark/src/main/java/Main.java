@@ -1,4 +1,4 @@
-import core.framework.util.StopWatchBenchmark;
+import core.framework.test.IntToBytesBenchmark;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
@@ -11,8 +11,8 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class Main {
     public static void main(String[] args) throws RunnerException {
         ChainedOptionsBuilder builder = new OptionsBuilder()
-            .include(StopWatchBenchmark.class.getSimpleName())
-            .forks(1);
+                .include(IntToBytesBenchmark.class.getSimpleName())
+                .forks(1);
 
 //        builder.addProfiler(StackProfiler.class)
 //            .jvmArgsAppend("-Djmh.stack.lines=3");
