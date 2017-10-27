@@ -39,7 +39,6 @@ configure([project(':demo-service'),
     apply from: file("${rootDir}/gradle/app.gradle")
     dependencies {
         compile "core.framework:core-ng:${coreNGVersion}"
-        runtime "redis.clients:jedis:${redisVersion}@jar"
         runtime "org.apache.kafka:kafka-clients:${kafkaVersion}"
         testCompile "core.framework:core-ng-test:${coreNGVersion}"
     }
