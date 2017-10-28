@@ -1,10 +1,9 @@
 package app.web;
 
+import core.framework.inject.Inject;
 import core.framework.web.MultipartFile;
 import core.framework.web.Request;
 import core.framework.web.Response;
-
-import javax.inject.Inject;
 
 /**
  * @author neo

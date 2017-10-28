@@ -1,12 +1,11 @@
 package app.demo.product.web;
 
 import app.demo.api.product.kafka.ProductUpdatedMessage;
+import core.framework.inject.Inject;
 import core.framework.kafka.MessagePublisher;
 import core.framework.web.Controller;
 import core.framework.web.Request;
 import core.framework.web.Response;
-
-import javax.inject.Inject;
 
 /**
  * @author neo

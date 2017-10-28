@@ -8,11 +8,11 @@ import app.demo.api.customer.UpdateCustomerRequest;
 import app.demo.customer.domain.Customer;
 import core.framework.db.Query;
 import core.framework.db.Repository;
+import core.framework.inject.Inject;
 import core.framework.util.Strings;
 import core.framework.web.exception.ConflictException;
 import core.framework.web.exception.NotFoundException;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,7 +52,7 @@ public class CustomerService {
         SearchCustomerResponse result = new SearchCustomerResponse();
         Query<Customer> query = customerRepository.select();
         query.skip(request.skip)
-            .limit(request.limit);
+             .limit(request.limit);
         if (!Strings.isEmpty(request.email)) {
             query.where("email = ?", request.email);
         }

@@ -7,8 +7,7 @@ import app.demo.api.customer.SearchCustomerRequest;
 import app.demo.api.customer.SearchCustomerResponse;
 import app.demo.api.customer.UpdateCustomerRequest;
 import app.demo.customer.service.CustomerService;
-
-import javax.inject.Inject;
+import core.framework.inject.Inject;
 
 public class CustomerWebServiceImpl implements CustomerWebService {
     @Inject

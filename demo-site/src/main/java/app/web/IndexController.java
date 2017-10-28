@@ -1,11 +1,10 @@
 package app.web;
 
 import app.web.interceptor.Protected;
+import core.framework.inject.Inject;
 import core.framework.web.Request;
 import core.framework.web.Response;
 import core.framework.web.site.Message;
-
-import javax.inject.Inject;
 
 /**
  * @author neo

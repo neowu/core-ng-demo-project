@@ -5,11 +5,11 @@ import app.demo.api.product.CreateProductRequest;
 import app.demo.api.product.ProductView;
 import app.demo.api.product.SearchProductRequest;
 import app.demo.product.service.ProductService;
+import core.framework.inject.Inject;
 import core.framework.log.ActionLogContext;
 import core.framework.util.Lists;
 import core.framework.web.rate.LimitRate;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
