@@ -14,6 +14,11 @@ public class CustomerWebServiceImpl implements CustomerWebService {
     CustomerService customerService;
 
     @Override
+    public CustomerView get(Long id) {
+        return customerService.get(id);
+    }
+
+    @Override
     public CustomerView create(CreateCustomerRequest request) {
         return customerService.create(request);
     }

@@ -21,10 +21,15 @@ public class CustomerService {
     @Inject
     Repository<Customer> customerRepository;
 
+    public CustomerView get(Long id) {
+        Customer customer = customerRepository.get(id).orElseThrow(() -> new NotFoundException("customer not found, id=" + id));
+        return view(customer);
+    }
+
     public CustomerView create(CreateCustomerRequest request) {
         Optional<Customer> existingCustomer = customerRepository.selectOne("email = ?", request.email);
         if (existingCustomer.isPresent()) {
-            throw new ConflictException("customer already exists, email = " + request.email);
+            throw new ConflictException("customer already exists, email=" + request.email);
         }
 
         Customer customer = new Customer();
@@ -38,7 +43,7 @@ public class CustomerService {
     }
 
     public CustomerView update(Long id, UpdateCustomerRequest request) {
-        Customer customer = customerRepository.get(id).orElseThrow(() -> new NotFoundException("customer not found, id = " + id.toString()));
+        Customer customer = customerRepository.get(id).orElseThrow(() -> new NotFoundException("customer not found, id=" + id));
         customer.updatedTime = LocalDateTime.now();
         customer.firstName = request.firstName;
         if (request.lastName != null) {
