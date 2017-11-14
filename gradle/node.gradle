@@ -1,7 +1,7 @@
 // use gradlew -Penv=${env} to pass
 def env = hasProperty('env') ? env : null
 
-def npm(String... params) {
+def yarn(String... params) {
     def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
     return {
         workingDir "${rootDir}/gradle/node"
@@ -14,18 +14,18 @@ def npm(String... params) {
 clean {
     if (project.file('src/main/web').exists()) {
         doLast {
-            exec npm('install')
-            exec npm('run', 'clean', '--root', project.file('.') as String)
+            exec yarn('install')
+            exec yarn('run', 'clean', '--root', project.file('.') as String)
         }
     }
 }
 
 processResources {
     if (project.file('src/main/web').exists()) {
-        inputs.file project.file('src/main/web')
+        inputs.dir project.file('src/main/web')
         doLast {
-            exec npm('install')
-            exec npm('run', 'build', '--root', project.file('.') as String)
+            exec yarn('install')
+            exec yarn('run', 'build', '--root', project.file('.') as String)
         }
     }
 }
