@@ -1,16 +1,13 @@
 package app.web.ajax;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import core.framework.api.json.Property;
 
 /**
  * @author neo
  */
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Bean {
-    @XmlElement(name = "name")
+    @Property(name = "name")
     public String name;
-    @XmlElement(name = "desc")
+    @Property(name = "desc")
     public String description;
 }

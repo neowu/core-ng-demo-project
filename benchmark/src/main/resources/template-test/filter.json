@@ -2529,12 +2529,12 @@
   "searchProductRequest": {
     "query": null,
     "filter": {
-      "country_code": "gt",
+      "countryCode": "gt",
       "tag": null,
-      "category_id": null,
-      "min_price": null,
-      "max_price": null,
-      "vendor_numbers": [
+      "categoryId": null,
+      "minPrice": null,
+      "maxPrice": null,
+      "vendorNumbers": [
         "V00024"
       ],
       "brands": null,
