@@ -32,8 +32,8 @@ public class FilterUIView {
 
     public Boolean isMainFilterSelected() {
         return selectedCategory != null
-            || (searchProductRequest.filter.brands != null && !searchProductRequest.filter.brands.isEmpty())
-            || (searchProductRequest.filter.vendorNumbers != null && !searchProductRequest.filter.vendorNumbers.isEmpty());
+                || searchProductRequest.filter.brands != null && !searchProductRequest.filter.brands.isEmpty()
+                || searchProductRequest.filter.vendorNumbers != null && !searchProductRequest.filter.vendorNumbers.isEmpty();
     }
 
     public Boolean hasColors() {
