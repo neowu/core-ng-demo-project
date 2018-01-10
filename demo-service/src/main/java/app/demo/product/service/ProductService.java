@@ -2,7 +2,9 @@ package app.demo.product.service;
 
 import app.demo.api.product.CreateProductRequest;
 import app.demo.api.product.ProductView;
+import app.demo.api.product.UpdateProductRequest;
 import core.framework.util.Maps;
+import core.framework.web.exception.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -26,5 +28,11 @@ public class ProductService {
         product.description = request.description;
         product.createdTime = LocalDateTime.now();
         products.put(product.id, product);
+    }
+
+    public void update(String id, UpdateProductRequest request) {
+        ProductView product = products.get(id);
+        if (product == null) throw new NotFoundException("product not found");
+        if (request.name != null) product.name = request.name;
     }
 }

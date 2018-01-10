@@ -4,6 +4,7 @@ import app.demo.api.ProductWebService;
 import app.demo.api.product.CreateProductRequest;
 import app.demo.api.product.ProductView;
 import app.demo.api.product.SearchProductRequest;
+import app.demo.api.product.UpdateProductRequest;
 import app.demo.product.service.ProductService;
 import core.framework.inject.Inject;
 import core.framework.log.ActionLogContext;
@@ -35,5 +36,10 @@ public class ProductWebServiceImpl implements ProductWebService {
     @Override
     public void create(CreateProductRequest request) {
         productService.create(request);
+    }
+
+    @Override
+    public void update(String id, UpdateProductRequest request) {
+        productService.update(id, request);
     }
 }
