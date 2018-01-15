@@ -1,3 +1,4 @@
+// This is old way of handling frontend project (gulp+server side template), now we moved to webpack (clearer frontend backend separation), refer to frontend.gradle and check https://github.com/neowu/frontend-demo-project
 // use gradlew -Penv=${env} to pass
 def env = hasProperty('env') ? env : null
 
