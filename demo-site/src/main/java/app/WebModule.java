@@ -14,6 +14,7 @@ import core.framework.module.Module;
 import core.framework.util.Lists;
 import core.framework.web.Response;
 
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -29,9 +30,9 @@ public class WebModule extends Module {
         route().get("/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
         route().get("/hello-redirect", request -> Response.redirect("/hello"));
 
-        site().staticContent("/static");
-        site().staticContent("/favicon.ico");
-        site().staticContent("/robots.txt");
+        site().staticContent("/static", Duration.ofHours(1));
+        site().staticContent("/favicon.ico", Duration.ofHours(1));
+        site().staticContent("/robots.txt", null);
 
         List<String> messages = Lists.newArrayList("messages/main.properties", "messages/main_en.properties", "messages/main_en_CA.properties");
         site().message(messages, "en_US", "en_CA");
