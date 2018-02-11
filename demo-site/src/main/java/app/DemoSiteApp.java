@@ -2,6 +2,7 @@ package app;
 
 import core.framework.module.App;
 import core.framework.module.SystemModule;
+import core.framework.util.Sets;
 
 /**
  * @author neo
@@ -13,7 +14,7 @@ public class DemoSiteApp extends App {
 
         http().enableGZip();
         http().httpsPort(8443);
-//        http().allowSourceIPs(Sets.newHashSet("123.123.444.333"));
+        http().allowClientIP(Sets.newHashSet("123.123.444.333/32"));
         site().enableWebSecurity();
 
         load(new WebModule());
