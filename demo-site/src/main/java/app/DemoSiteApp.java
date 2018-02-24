@@ -14,7 +14,7 @@ public class DemoSiteApp extends App {
 
         http().enableGZip();
         http().httpsPort(8443);
-        http().allowClientIP(Sets.newHashSet("123.123.444.333/32"));
+        http().allowClientIP(Sets.newHashSet("123.123.123.123/32"));
         site().enableWebSecurity();
 
         load(new WebModule());
