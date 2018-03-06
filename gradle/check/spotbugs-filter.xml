@@ -36,4 +36,10 @@
                 PZLA_PREFER_ZERO_LENGTH_ARRAYS,
                 OBL_UNSATISFIED_OBLIGATION"/>
     </Match>
+
+    <Match>
+        <!--DM_EXIT: Method invokes System.exit(...)-->
+        <Class name="core.framework.module.App"/>
+        <Bug pattern="DM_EXIT"/>
+    </Match>
 </FindBugsFilter>

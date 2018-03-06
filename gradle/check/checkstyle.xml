@@ -135,4 +135,6 @@
     <module name="BeforeExecutionExclusionFileFilter">
         <property name="fileNamePattern" value="module\-info\.java$"/>
     </module>
+
+    <module name="SuppressWarningsFilter"/>
 </module>
