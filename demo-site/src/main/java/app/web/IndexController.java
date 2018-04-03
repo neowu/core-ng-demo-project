@@ -10,6 +10,7 @@ import core.framework.web.site.Message;
  * @author neo
  */
 public class IndexController {
+    private final Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Inject
     Message message;
     @Inject
@@ -31,6 +32,7 @@ public class IndexController {
     }
 
     public Response submit(Request request) {
+        logger.warn("test");
         return Response.text("hello " + request.formParam("name").orElse("nobody"));
     }
 
