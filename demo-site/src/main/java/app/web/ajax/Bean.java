@@ -10,4 +10,6 @@ public class Bean {
     public String name;
     @Property(name = "desc")
     public String description;
+    @Property(name = "password")
+    public String password;
 }
