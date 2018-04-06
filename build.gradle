@@ -58,6 +58,6 @@ project(':demo-site') {
 project(':benchmark') {
     dependencies {
         compile "core.framework:core-ng:${coreNGVersion}"
-        compile 'org.openjdk.jmh:jmh-generator-annprocess:1.19'
+        compile 'org.openjdk.jmh:jmh-generator-annprocess:1.20'
     }
 }
