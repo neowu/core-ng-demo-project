@@ -56,8 +56,8 @@ public class CustomerService {
     public SearchCustomerResponse search(SearchCustomerRequest request) {
         SearchCustomerResponse result = new SearchCustomerResponse();
         Query<Customer> query = customerRepository.select();
-        query.skip(request.skip)
-             .limit(request.limit);
+        query.skip(request.skip);
+        query.limit(request.limit);
         if (!Strings.isEmpty(request.email)) {
             query.where("email = ?", request.email);
         }
