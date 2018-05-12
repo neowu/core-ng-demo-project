@@ -4,7 +4,10 @@ import app.web.interceptor.Protected;
 import core.framework.inject.Inject;
 import core.framework.web.Request;
 import core.framework.web.Response;
+import core.framework.web.Session;
 import core.framework.web.site.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author neo
@@ -22,9 +25,9 @@ public class IndexController {
         model.name = message.get("key.name", languageManager.language()).orElse("world not found");
         model.imageURL = "https://image.com/image123.jpg";
 
-//        Session session = request.session();
-////        Optional<String> hello = session.get("hello");
-//        session.set("hello", "world");
+        Session session = request.session();
+//        Optional<String> hello = session.get("hello");
+        session.set("hello", "world");
         Response response = Response.html("/template/index.html", model, languageManager.language());
         response.cookie(Cookies.TEST, "1+2");
         response.cookie(Cookies.TEST1, "hello \"\" cookies");

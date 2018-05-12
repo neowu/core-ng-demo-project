@@ -3,7 +3,8 @@ package app;
 import app.demo.job.DemoJob;
 import core.framework.module.Module;
 
-import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -17,11 +18,14 @@ public class JobModule extends Module {
         schedule().timeZone(ZoneId.of("America/Los_Angeles"));
 
         DemoJob job = bind(DemoJob.class);
-        schedule().secondly("fixed-rate-job", job, 5);
-        LocalTime time = LocalTime.now().minusHours(3).plusSeconds(10).truncatedTo(ChronoUnit.SECONDS);
+        LocalTime time = LocalTime.now().plusSeconds(5).truncatedTo(ChronoUnit.SECONDS);
 
+        schedule().fixedRate("fixed-rate-job", job, Duration.ofSeconds(10));
         schedule().dailyAt("daily-job", job, time);
-        schedule().weeklyAt("weekly-job", job, DayOfWeek.MONDAY, time);
-        schedule().monthlyAt("monthly-job", job, 10, time);
+
+        schedule().trigger("trigger-job", job, previous -> previous.plusSeconds(30));
+
+        schedule().weeklyAt("weekly-job", job, LocalDate.now().getDayOfWeek(), time);
+        schedule().monthlyAt("monthly-job", job, 28, time);
     }
 }

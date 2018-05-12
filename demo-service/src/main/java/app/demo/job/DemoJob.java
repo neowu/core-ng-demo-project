@@ -11,7 +11,7 @@ public class DemoJob implements Job {
     private final Logger logger = LoggerFactory.getLogger(DemoJob.class);
 
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         logger.debug("run job");
     }
 }
