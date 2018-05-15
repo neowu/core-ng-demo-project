@@ -11,9 +11,8 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.2.2'
+def coreNGVersion = '6.3.0'
 def kafkaVersion = '1.1.0'
-def mongoVersion = '3.5.0'
 def hsqlVersion = '2.4.0'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
@@ -44,7 +43,6 @@ configure([project(':demo-service'),
 project(':demo-service') {
     dependencies {
         compile project(':demo-service-interface')
-        compile "org.mongodb:mongo-java-driver:${mongoVersion}"
         compile "org.apache.kafka:kafka-clients:${kafkaVersion}"
         runtime 'mysql:mysql-connector-java:6.0.6'
         testRuntime "org.hsqldb:hsqldb:${hsqlVersion}"
