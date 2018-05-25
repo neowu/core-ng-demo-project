@@ -14,7 +14,7 @@ public class DemoSiteApp extends App {
         http().enableGZip();
         http().httpsPort(8443);
 
-        site().webSecurity(null);
+        site().webSecurity();
         log().maskFields("password");
 
         load(new WebModule());
