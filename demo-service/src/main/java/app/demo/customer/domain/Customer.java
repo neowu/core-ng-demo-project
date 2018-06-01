@@ -15,6 +15,10 @@ public class Customer {
     public Long id;
 
     @NotNull
+    @Column(name = "status")
+    public CustomerStatus status;
+
+    @NotNull
     @NotEmpty
     @Column(name = "email")
     public String email;

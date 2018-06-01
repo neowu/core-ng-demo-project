@@ -6,6 +6,7 @@ import app.demo.api.customer.SearchCustomerRequest;
 import app.demo.api.customer.SearchCustomerResponse;
 import app.demo.api.customer.UpdateCustomerRequest;
 import app.demo.customer.domain.Customer;
+import app.demo.customer.domain.CustomerStatus;
 import core.framework.db.Query;
 import core.framework.db.Repository;
 import core.framework.inject.Inject;
@@ -33,11 +34,12 @@ public class CustomerService {
         }
 
         Customer customer = new Customer();
+        customer.status = CustomerStatus.ACTIVE;
         customer.email = request.email;
         customer.firstName = request.firstName;
         customer.lastName = request.lastName;
         customer.updatedTime = LocalDateTime.now();
-        customer.id = customerRepository.insert(customer).get();
+        customer.id = customerRepository.insert(customer).orElseThrow();
 
         return view(customer);
     }
