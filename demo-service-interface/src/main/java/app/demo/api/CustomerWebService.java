@@ -27,7 +27,7 @@ public interface CustomerWebService {
     @Path("/customer/:id")
     CustomerView update(@PathParam("id") Long id, UpdateCustomerRequest request);
 
-    @PUT
-    @Path("/customer/search")
+    @GET
+    @Path("/customer")
     SearchCustomerResponse search(SearchCustomerRequest request);
 }
