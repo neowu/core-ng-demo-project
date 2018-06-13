@@ -2,7 +2,7 @@ package app;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static core.framework.test.Assertions.assertConf;
 
 
 /**
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class ConfigTest extends IntegrationTest {
     @Test
-    void initialize() {
-        assertTrue(true, "test context should be initialized successfully");
+    void conf() {
+        assertConf().overridesDefaultResources();
     }
 }
