@@ -4,6 +4,7 @@ import app.demo.api.ProductWebService;
 import app.demo.api.product.CreateProductRequest;
 import app.demo.api.product.ProductView;
 import app.demo.api.product.SearchProductRequest;
+import app.demo.api.product.SearchProductResponse;
 import app.demo.api.product.UpdateProductRequest;
 import app.demo.product.service.ProductService;
 import core.framework.inject.Inject;
@@ -11,7 +12,6 @@ import core.framework.log.ActionLogContext;
 import core.framework.util.Lists;
 import core.framework.web.rate.LimitRate;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,8 +22,10 @@ public class ProductWebServiceImpl implements ProductWebService {
     ProductService productService;
 
     @Override
-    public List<ProductView> search(SearchProductRequest request) {
-        return Lists.newArrayList();
+    public SearchProductResponse search(SearchProductRequest request) {
+        SearchProductResponse response = new SearchProductResponse();
+        response.products = Lists.newArrayList();
+        return response;
     }
 
     @LimitRate("product")

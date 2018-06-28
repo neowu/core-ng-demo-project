@@ -3,6 +3,7 @@ package app.demo.api;
 import app.demo.api.product.CreateProductRequest;
 import app.demo.api.product.ProductView;
 import app.demo.api.product.SearchProductRequest;
+import app.demo.api.product.SearchProductResponse;
 import app.demo.api.product.UpdateProductRequest;
 import core.framework.api.http.HTTPStatus;
 import core.framework.api.web.service.GET;
@@ -12,7 +13,6 @@ import core.framework.api.web.service.Path;
 import core.framework.api.web.service.PathParam;
 import core.framework.api.web.service.ResponseStatus;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,7 +21,7 @@ import java.util.Optional;
 public interface ProductWebService {
     @GET
     @Path("/product")
-    List<ProductView> search(SearchProductRequest request);
+    SearchProductResponse search(SearchProductRequest request);
 
     @GET
     @Path("/product/:id")
