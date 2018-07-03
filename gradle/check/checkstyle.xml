@@ -28,6 +28,8 @@
         <module name="PublicReferenceToPrivateTypeCheck"/>  <!--provided by sevntu-checkstyle-->
 
         <!--Coding:-->
+        <module name="AvoidConstantAsFirstOperandInConditionCheck"/>    <!--provided by sevntu-checkstyle-->
+        <module name="AvoidHidingCauseExceptionCheck"/>                 <!--provided by sevntu-checkstyle-->
         <module name="DefaultComesLast"/>
         <module name="EmptyStatement"/>                 <!--Detects empty statements (standalone ';').-->
         <module name="EqualsAvoidNull"/>                <!--Checks that any combination of String literals with optional assignment is on the left side of an equals() comparison.-->
@@ -65,13 +67,14 @@
         </module>
 
         <!--Modifiers:-->
-        <module name="RedundantModifier"/>          <!--Checks for redundant modifiers in interface and annotation definitions, final modifier on methods of final classes, inner interface declarations that are declared as static, non public class constructors and enum constructors, nested enum definitions that are declared as static.-->
+        <module name="RedundantModifier"/>          <!--Checks for redundant modifiers in interface and annotation definitions.-->
         <module name="ModifierOrder"/>              <!--Checks that the order of modifiers conforms to the suggestions in the Java Language specification, sections 8.1.1, 8.3.1 and 8.4.3.-->
 
         <!--Naming Conventions:-->
         <module name="ClassTypeParameterName"/>
         <module name="ConstantName"/>
         <module name="InterfaceTypeParameterName"/>
+        <module name="LambdaParameterName"/>
         <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName"/>
         <module name="MemberName"/>

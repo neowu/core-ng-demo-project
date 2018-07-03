@@ -13,7 +13,7 @@ subprojects {
 
 def coreNGVersion = '6.4.2'
 def kafkaVersion = '1.1.0'
-def hsqlVersion = '2.4.0'
+def hsqlVersion = '2.4.1'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
