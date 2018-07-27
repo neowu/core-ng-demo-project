@@ -46,6 +46,7 @@ project(':demo-service') {
         compile "org.apache.kafka:kafka-clients:${kafkaVersion}"
         runtime 'mysql:mysql-connector-java:6.0.6'
         testRuntime "org.hsqldb:hsqldb:${hsqlVersion}"
+        compile 'com.google.cloud:google-cloud-storage:1.37.1'
     }
 }
 
