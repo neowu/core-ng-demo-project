@@ -51,7 +51,7 @@ public class CustomerService {
         if (request.lastName != null) {
             customer.lastName = request.lastName;
         }
-        customerRepository.update(customer);
+        customerRepository.partialUpdate(customer);
         return view(customer);
     }
 

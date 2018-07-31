@@ -11,8 +11,8 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.5.2'
-def kafkaVersion = '1.1.0'
+def coreNGVersion = '6.6.0'
+def kafkaVersion = '1.1.1'
 def hsqlVersion = '2.4.1'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
