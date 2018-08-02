@@ -11,7 +11,6 @@ import app.web.interceptor.TestInterceptor;
 import core.framework.api.http.HTTPStatus;
 import core.framework.http.ContentType;
 import core.framework.module.Module;
-import core.framework.util.Lists;
 import core.framework.web.Response;
 
 import java.time.Duration;
@@ -34,7 +33,7 @@ public class WebModule extends Module {
         site().staticContent("/favicon.ico").cache(Duration.ofHours(1));
         site().staticContent("/robots.txt");
 
-        List<String> messages = Lists.newArrayList("messages/main.properties", "messages/main_en.properties", "messages/main_en_CA.properties");
+        List<String> messages = List.of("messages/main.properties", "messages/main_en.properties", "messages/main_en_CA.properties");
         site().message(messages, "en_US", "en_CA");
 
         site().template("/template/index.html", IndexPage.class);

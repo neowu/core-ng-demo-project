@@ -1,7 +1,5 @@
 package app.web;
 
-import core.framework.util.Lists;
-
 import java.util.List;
 
 /**
@@ -17,7 +15,7 @@ public class IndexPage {
     }
 
     public List<String> items() {
-        return Lists.newArrayList("a", "b", "c");
+        return List.of("a", "b", "c");
     }
 
     public Boolean selected(String item) {

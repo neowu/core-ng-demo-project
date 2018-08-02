@@ -1,9 +1,9 @@
 package core.framework.impl.template.model;
 
 import core.framework.util.Lists;
-import core.framework.util.Sets;
 import core.framework.util.Strings;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -185,7 +185,7 @@ public class SearchURLBuilder {
     }
 
     String join(List<String> list, String... values) {
-        Set<String> concat = Sets.newHashSet(values);
+        Set<String> concat = new HashSet<>(Set.of(values));
         if (list != null) {
             concat.addAll(list);
         }

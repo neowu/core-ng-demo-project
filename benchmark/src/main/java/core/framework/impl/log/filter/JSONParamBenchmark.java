@@ -1,7 +1,6 @@
 package core.framework.impl.log.filter;
 
 import core.framework.util.Charsets;
-import core.framework.util.Sets;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
@@ -24,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class JSONParamBenchmark {
     private byte[] message = "\"{\"field1\": \"value1\",\\n  \"password\": \"pass12356789\",\\n  \"passwordConfirm\": \"pass1234\",\\n  \"field2\": \"value2\",\\n  \"nested\": {\\n    \"password\": \"pass\\\"1234\",\\n    \"passwordConfirm\": \"pa34\"}}\"".getBytes();
-    private Set<String> maskedFields = Sets.newHashSet("passwordConfirm", "password");
+    private Set<String> maskedFields = Set.of("passwordConfirm", "password");
 
     @Benchmark
     public void current() {
