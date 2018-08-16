@@ -12,7 +12,7 @@ public class ProductUpdatedMessageHandler implements MessageHandler<ProductUpdat
     private final Logger logger = LoggerFactory.getLogger(ProductUpdatedMessageHandler.class);
 
     @Override
-    public void handle(String key, ProductUpdatedMessage messages) throws Exception {
+    public void handle(String key, ProductUpdatedMessage messages) {
         logger.info("{}-{}", key, messages.name);
     }
 }

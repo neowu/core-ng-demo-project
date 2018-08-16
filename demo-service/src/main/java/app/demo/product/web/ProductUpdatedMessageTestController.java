@@ -15,7 +15,7 @@ public class ProductUpdatedMessageTestController implements Controller {
     MessagePublisher<ProductUpdatedMessage> publisher;
 
     @Override
-    public Response execute(Request request) throws Exception {
+    public Response execute(Request request) {
         for (int i = 0; i < 100; i++) {
             ProductUpdatedMessage value = new ProductUpdatedMessage();
             value.id = String.valueOf(i);
