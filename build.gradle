@@ -11,7 +11,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.6.5'
+def coreNGVersion = '6.6.6'
 def kafkaVersion = '2.0.0'
 def hsqlVersion = '2.4.1'
 
@@ -57,6 +57,6 @@ project(':demo-site') {
 project(':benchmark') {
     dependencies {
         compile "core.framework:core-ng:${coreNGVersion}"
-        compile 'org.openjdk.jmh:jmh-generator-annprocess:1.20'
+        compile 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
     }
 }
