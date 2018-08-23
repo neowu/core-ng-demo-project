@@ -1,6 +1,5 @@
 package core.framework.impl.log.filter;
 
-import core.framework.util.Charsets;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
@@ -10,6 +9,7 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -27,19 +27,19 @@ public class JSONParamBenchmark {
 
     @Benchmark
     public void current() {
-        JSONParam param = new JSONParam(message, Charsets.UTF_8);
+        JSONParam param = new JSONParam(message, StandardCharsets.UTF_8);
         String masked = param.filter(maskedFields);
     }
 
     @Benchmark
     public void oldV0() {
-        JSONParamV0 param = new JSONParamV0(message, Charsets.UTF_8);
+        JSONParamV0 param = new JSONParamV0(message, StandardCharsets.UTF_8);
         String masked = param.filter(maskedFields);
     }
 
     @Benchmark
     public void oldV1() {
-        JSONParamV1 param = new JSONParamV1(message, Charsets.UTF_8);
+        JSONParamV1 param = new JSONParamV1(message, StandardCharsets.UTF_8);
         String masked = param.filter(maskedFields);
     }
 }
