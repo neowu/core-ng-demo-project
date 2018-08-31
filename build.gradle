@@ -19,14 +19,13 @@ configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
 
     dependencies {
-        runtime 'mysql:mysql-connector-java:8.0.12'
+        runtimeOnly 'mysql:mysql-connector-java:8.0.12'
     }
 }
 
 configure(subprojects.findAll { it.name.matches('.*-service-interface') }) {
     dependencies {
-        compile "core.framework:core-ng-api:${coreNGVersion}"
-        testCompile "core.framework:core-ng-test:${coreNGVersion}"
+        implementation "core.framework:core-ng-api:${coreNGVersion}"
     }
 }
 
@@ -34,19 +33,17 @@ configure([project(':demo-service'),
            project(':demo-site')]) {
     apply from: file("${rootDir}/gradle/app.gradle")
     dependencies {
-        compile "core.framework:core-ng:${coreNGVersion}"
-        runtime "org.apache.kafka:kafka-clients:${kafkaVersion}"
-        testCompile "core.framework:core-ng-test:${coreNGVersion}"
+        implementation "core.framework:core-ng:${coreNGVersion}"
+        runtimeOnly "org.apache.kafka:kafka-clients:${kafkaVersion}"
+        testImplementation "core.framework:core-ng-test:${coreNGVersion}"
     }
 }
 
 project(':demo-service') {
     dependencies {
-        compile project(':demo-service-interface')
-        compile "org.apache.kafka:kafka-clients:${kafkaVersion}"
-        runtime 'mysql:mysql-connector-java:8.0.12'
-        testRuntime "org.hsqldb:hsqldb:${hsqlVersion}"
-        compile 'com.google.cloud:google-cloud-storage:1.37.1'
+        implementation project(':demo-service-interface')
+        runtimeOnly 'mysql:mysql-connector-java:8.0.12'
+        testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
     }
 }
 
@@ -56,7 +53,7 @@ project(':demo-site') {
 
 project(':benchmark') {
     dependencies {
-        compile "core.framework:core-ng:${coreNGVersion}"
-        compile 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+        implementation "core.framework:core-ng:${coreNGVersion}"
+        implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
     }
 }
