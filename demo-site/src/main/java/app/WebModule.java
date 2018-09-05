@@ -13,6 +13,7 @@ import app.web.interceptor.TestInterceptor;
 import core.framework.api.http.HTTPStatus;
 import core.framework.http.ContentType;
 import core.framework.module.Module;
+import core.framework.util.Threads;
 import core.framework.web.Response;
 
 import java.time.Duration;
@@ -26,7 +27,10 @@ public class WebModule extends Module {
     protected void initialize() {
         http().intercept(bind(TestInterceptor.class));
 
-        route().get("/hello", request -> Response.text("hello").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
+        route().get("/hello", request -> {
+            Threads.sleepRoughly(Duration.ofSeconds(20));
+            return Response.text("hello").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN);
+        });
         route().get("/hello/", request -> Response.text("hello with trailing slash").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
         route().get("/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
         route().get("/hello-redirect", request -> Response.redirect("/hello"));
