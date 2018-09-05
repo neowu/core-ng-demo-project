@@ -43,4 +43,8 @@ public class IndexController {
         request.session().invalidate();
         return Response.text("logout");
     }
+
+    public Response chat(Request request) {
+        return Response.html("/template/chat.html", new ChatPage(), languageManager.language());
+    }
 }

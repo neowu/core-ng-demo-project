@@ -1,5 +1,7 @@
 package app;
 
+import app.web.ChatListener;
+import app.web.ChatPage;
 import app.web.IndexController;
 import app.web.IndexPage;
 import app.web.LanguageManager;
@@ -38,6 +40,7 @@ public class WebModule extends Module {
 
         site().template("/template/index.html", IndexPage.class);
         site().template("/template/upload.html", UploadPage.class);
+        site().template("/template/chat.html", ChatPage.class);
 
         bind(LanguageManager.class);
 
@@ -45,6 +48,7 @@ public class WebModule extends Module {
         route().get("/", index::index);
         route().post("/submit", index::submit);
         route().get("/logout", index::logout);
+        route().get("/chat", index::chat);
 
         UploadController upload = bind(UploadController.class);
         route().get("/upload", upload::get);
@@ -54,5 +58,7 @@ public class WebModule extends Module {
 
         WildcardController wildcardController = bind(WildcardController.class);
         route().get("/:all(*)", wildcardController::wildcard);
+
+        ws().add("/ws/chat", new ChatListener());
     }
 }
