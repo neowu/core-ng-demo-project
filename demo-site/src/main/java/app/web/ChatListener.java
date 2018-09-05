@@ -10,7 +10,9 @@ import core.framework.web.websocket.ChannelListener;
 public class ChatListener implements ChannelListener {
     @Override
     public void onConnect(Request request, Channel channel) {
-
+        channel.context().put("name", "neo");
+        channel.join("all");
+        channel.join("private");
     }
 
     @Override
@@ -20,10 +22,5 @@ public class ChatListener implements ChannelListener {
             return;
         }
         channel.send("mirror back: " + message);
-    }
-
-    @Override
-    public void onClose(Channel channel) {
-        System.out.println();
     }
 }
