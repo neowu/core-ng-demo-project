@@ -11,7 +11,7 @@ public class DemoSiteApp extends App {
     protected void initialize() {
         load(new SystemModule("sys.properties"));
 
-        http().enableGZip();
+        http().gzip();
         http().httpsPort(8443);
 
         site().security();
