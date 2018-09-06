@@ -19,6 +19,9 @@ import core.framework.web.Response;
 import java.time.Duration;
 import java.util.List;
 
+import static core.framework.http.HTTPMethod.GET;
+import static core.framework.http.HTTPMethod.POST;
+
 /**
  * @author neo
  */
@@ -27,10 +30,10 @@ public class WebModule extends Module {
     protected void initialize() {
         http().intercept(bind(TestInterceptor.class));
 
-        route().get("/hello", request -> Response.text("hello").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
-        route().get("/hello/", request -> Response.text("hello with trailing slash").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
-        route().get("/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
-        route().get("/hello-redirect", request -> Response.redirect("/hello"));
+        http().route(GET, "/hello", request -> Response.text("hello").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
+        http().route(GET, "/hello/", request -> Response.text("hello with trailing slash").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
+        http().route(GET, "/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
+        http().route(GET, "/hello-redirect", request -> Response.redirect("/hello"));
 
         site().staticContent("/static").cache(Duration.ofHours(1));
         site().staticContent("/favicon.ico").cache(Duration.ofHours(1));
@@ -45,28 +48,28 @@ public class WebModule extends Module {
         bind(LanguageManager.class);
 
         IndexController index = bind(IndexController.class);
-        route().get("/", index::index);
-        route().post("/submit", index::submit);
-        route().get("/logout", index::logout);
+        http().route(GET, "/", index::index);
+        http().route(POST, "/submit", index::submit);
+        http().route(GET, "/logout", index::logout);
 
         UploadController upload = bind(UploadController.class);
-        route().get("/upload", upload::get);
-        route().post("/upload", upload::post);
+        http().route(GET, "/upload", upload::get);
+        http().route(POST, "/upload", upload::post);
 
-        route().post("/ajax", bind(AJAXController.class)::ajax);
+        http().route(POST, "/ajax", bind(AJAXController.class)::ajax);
 
-        WildcardController wildcardController = bind(WildcardController.class);
-        route().get("/:all(*)", wildcardController::wildcard);
+        var wildcardController = bind(WildcardController.class);
+        http().route(GET, "/:all(*)", wildcardController::wildcard);
 
         configureChat();
     }
 
     private void configureChat() {
-        ws().add("/ws/chat", new ChatListener());
+        ws().listen("/ws/chat", new ChatListener());
 
-        ChatController controller = bind(ChatController.class);
+        var controller = bind(ChatController.class);
         site().template("/template/chat.html", ChatPage.class);
-        route().get("/chat", controller::chat);
-        route().get("/chat-publish", controller::publish);
+        http().route(GET, "/chat", controller::chat);
+        http().route(GET, "/chat-publish", controller::publish);
     }
 }

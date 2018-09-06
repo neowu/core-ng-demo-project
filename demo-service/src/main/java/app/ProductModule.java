@@ -14,6 +14,8 @@ import core.framework.module.Module;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import static core.framework.http.HTTPMethod.GET;
+
 /**
  * @author neo
  */
@@ -41,6 +43,6 @@ public class ProductModule extends Module {
         kafka().poolSize(2);
 
         kafka().publish("product-updated", ProductUpdatedMessage.class);
-        route().get("/kafka-test", bind(ProductUpdatedMessageTestController.class));
+        http().route(GET, "/kafka-test", bind(ProductUpdatedMessageTestController.class));
     }
 }
