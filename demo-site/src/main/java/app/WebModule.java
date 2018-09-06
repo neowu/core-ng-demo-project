@@ -1,7 +1,6 @@
 package app;
 
 import app.web.ChatController;
-import app.web.ChatListener;
 import app.web.ChatPage;
 import app.web.IndexController;
 import app.web.IndexPage;
@@ -11,6 +10,7 @@ import app.web.UploadPage;
 import app.web.WildcardController;
 import app.web.ajax.AJAXController;
 import app.web.interceptor.TestInterceptor;
+import app.web.ws.ChatListener;
 import core.framework.api.http.HTTPStatus;
 import core.framework.http.ContentType;
 import core.framework.module.Module;
