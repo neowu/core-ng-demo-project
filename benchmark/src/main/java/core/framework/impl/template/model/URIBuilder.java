@@ -1,7 +1,8 @@
 package core.framework.impl.template.model;
 
 import core.framework.util.Encodings;
-import core.framework.util.Exceptions;
+
+import static core.framework.util.Strings.format;
 
 /**
  * @author neo
@@ -10,17 +11,13 @@ public class URIBuilder {
     private final StringBuilder uri;
     private boolean queryStarted;
 
-    public URIBuilder() {
-        uri = new StringBuilder();
-    }
-
     public URIBuilder(String prefix) {
         uri = new StringBuilder(prefix);
         queryStarted = prefix.indexOf('?') > 0;
     }
 
     public URIBuilder addPath(String segment) {
-        if (queryStarted) throw Exceptions.error("path segment must not be added after query, uri={}", uri.toString());
+        if (queryStarted) throw new Error(format("path segment must not be added after query, uri={}", uri.toString()));
         if (uri.length() > 0 && uri.charAt(uri.length() - 1) != '/') uri.append('/');
         uri.append(Encodings.uriComponent(segment));
         return this;
