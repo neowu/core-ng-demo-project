@@ -6,8 +6,8 @@ import core.framework.db.DBEnumValue;
  * @author neo
  */
 public enum CustomerStatus {
-    @DBEnumValue("A")
+    @DBEnumValue("ACTIVE")
     ACTIVE,
-    @DBEnumValue("I")
+    @DBEnumValue("INACTIVE")
     INACTIVE
 }
