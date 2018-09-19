@@ -14,6 +14,7 @@ public class Main {
                 .include(RouteBenchmark.class.getSimpleName())
                 .forks(1);
 
+//        builder.addProfiler(GCProfiler.class);
 //        builder.addProfiler(StackProfiler.class)
 //            .jvmArgsAppend("-Djmh.stack.lines=3");
 
