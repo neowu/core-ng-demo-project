@@ -36,7 +36,7 @@ public class IndexController {
 
     public Response submit(Request request) {
         logger.warn("test");
-        return Response.text("hello " + request.formParam("name").orElse("nobody"));
+        return Response.text("hello " + request.formParams().getOrDefault("name", "nobody"));
     }
 
     public Response logout(Request request) {

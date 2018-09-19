@@ -17,7 +17,7 @@ public class UploadController {
     }
 
     public Response post(Request request) {
-        MultipartFile file = request.file("test").get();
+        MultipartFile file = request.files().get("test");
         return Response.text("uploaded, fileName=" + file.fileName);
     }
 }
