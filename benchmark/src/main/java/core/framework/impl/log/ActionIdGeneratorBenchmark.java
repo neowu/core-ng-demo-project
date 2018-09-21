@@ -9,6 +9,7 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
+import java.time.Instant;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,9 @@ import java.util.concurrent.TimeUnit;
 @Warmup(iterations = 3, time = 3)
 @Measurement(iterations = 10, time = 3)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class ActionIdBenchmark {
+public class ActionIdGeneratorBenchmark {
+    private final ActionIdGenerator generator = new ActionIdGenerator();
+
     @Benchmark
     public void uuid() {
         UUID.randomUUID().toString();
@@ -28,6 +31,6 @@ public class ActionIdBenchmark {
 
     @Benchmark
     public void custom() {
-        ActionId.next();
+        generator.next(Instant.now());
     }
 }
