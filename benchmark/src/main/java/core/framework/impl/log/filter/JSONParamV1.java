@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author neo
  */
-public class JSONParamV1 implements FilterParam {   // old version of JSONParam impl
+public class JSONParamV1 implements LogParam {   // old version of JSONLogParam impl
     private final byte[] bytes;
     private final Charset charset;
 

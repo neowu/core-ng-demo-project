@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * @author neo
  */
-public class JSONParamV0 implements FilterParam {   // old impl
+public class JSONParamV0 implements LogParam {   // old impl
     private final byte[] bytes;
     private final Charset charset;
 
