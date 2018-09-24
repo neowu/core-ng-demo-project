@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
 @Warmup(iterations = 3, time = 3)
 @Measurement(iterations = 10, time = 3)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-public class ActionIdGeneratorBenchmark {
-    private final ActionIdGenerator generator = new ActionIdGenerator();
+public class IdGeneratorBenchmark {
+    private final IdGenerator generator = new IdGenerator();
 
     @Benchmark
     public void uuid() {
