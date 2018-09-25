@@ -12,7 +12,6 @@ import app.web.ajax.AJAXController;
 import app.web.interceptor.TestInterceptor;
 import app.web.ws.ChatListener;
 import core.framework.api.http.HTTPStatus;
-import core.framework.http.ContentType;
 import core.framework.module.Module;
 import core.framework.web.Response;
 
@@ -30,9 +29,9 @@ public class WebModule extends Module {
     protected void initialize() {
         http().intercept(bind(TestInterceptor.class));
 
-        http().route(GET, "/hello", request -> Response.text("hello").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
-        http().route(GET, "/hello/", request -> Response.text("hello with trailing slash").status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
-        http().route(GET, "/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED).contentType(ContentType.TEXT_PLAIN));
+        http().route(GET, "/hello", request -> Response.text("hello").status(HTTPStatus.CREATED));
+        http().route(GET, "/hello/", request -> Response.text("hello with trailing slash").status(HTTPStatus.CREATED));
+        http().route(GET, "/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED));
         http().route(GET, "/hello-redirect", request -> Response.redirect("/hello"));
 
         site().staticContent("/static").cache(Duration.ofHours(1));
