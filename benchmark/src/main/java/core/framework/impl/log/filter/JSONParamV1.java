@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author neo
  */
-public class JSONParamV1 implements LogParam {   // old version of JSONLogParam impl
+public class JSONParamV1 {   // old version of JSONLogParam impl
     private final byte[] bytes;
     private final Charset charset;
 
@@ -19,7 +19,6 @@ public class JSONParamV1 implements LogParam {   // old version of JSONLogParam 
         this.charset = charset;
     }
 
-    @Override
     public String filter(Set<String> maskedFields) {
         String value = new String(bytes, charset);
         List<int[]> ranges = maskRanges(value, maskedFields);
