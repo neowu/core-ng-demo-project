@@ -53,7 +53,8 @@ project(':demo-site') {
 
 project(':benchmark') {
     dependencies {
-        implementation "core.framework:core-ng:${coreNGVersion}"
         implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+        implementation "core.framework:core-ng:${coreNGVersion}"
+        implementation 'io.undertow:undertow-core:2.0.13.Final'
     }
 }
