@@ -56,7 +56,7 @@ public class FilterUIView {
     }
 
     public Boolean hasQuery() {
-        return !Strings.isEmpty(searchProductRequest.query);
+        return !Strings.isBlank(searchProductRequest.query);
     }
 
     public Boolean isCategorySelected() {

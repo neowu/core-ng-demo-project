@@ -60,13 +60,13 @@ public class CustomerService {
         Query<Customer> query = customerRepository.select();
         query.skip(request.skip);
         query.limit(request.limit);
-        if (!Strings.isEmpty(request.email)) {
+        if (!Strings.isBlank(request.email)) {
             query.where("email = ?", request.email);
         }
-        if (!Strings.isEmpty(request.firstName)) {
+        if (!Strings.isBlank(request.firstName)) {
             query.where("first_name like ?", Strings.format("{}%", request.firstName));
         }
-        if (!Strings.isEmpty(request.lastName)) {
+        if (!Strings.isBlank(request.lastName)) {
             query.where("last_name like ?", Strings.format("{}%", request.lastName));
         }
         result.customers = query.fetch().stream().map(this::view).collect(Collectors.toList());

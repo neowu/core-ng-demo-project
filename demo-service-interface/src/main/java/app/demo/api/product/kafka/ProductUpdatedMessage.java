@@ -1,7 +1,6 @@
 package app.demo.api.product.kafka;
 
 import core.framework.api.json.Property;
-import core.framework.api.validate.NotEmpty;
 import core.framework.api.validate.NotNull;
 
 /**
@@ -12,7 +11,6 @@ public class ProductUpdatedMessage {
     @Property(name = "id")
     public String id;
 
-    @NotEmpty
     @Property(name = "name")
     public String name;
 
