@@ -9,6 +9,6 @@ import core.framework.web.service.WebServiceClientInterceptor;
 public class ProductWebServiceClientInterceptor implements WebServiceClientInterceptor {
     @Override
     public void intercept(HTTPRequest request) {
-        request.header("Signature", "value");
+        request.headers.put("Signature", "value");
     }
 }
