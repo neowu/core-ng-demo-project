@@ -56,5 +56,7 @@ project(':benchmark') {
         implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
         implementation "core.framework:core-ng:${coreNGVersion}"
         implementation 'io.undertow:undertow-core:2.0.13.Final'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
+        implementation 'com.fasterxml.jackson.module:jackson-module-afterburner:2.9.7'
     }
 }
