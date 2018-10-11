@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static core.framework.internal.json.JSONMapper.OBJECT_MAPPER;
+
 /**
  * @author neo
  */
@@ -43,9 +45,9 @@ public class JSONBenchmark {
 
     @Setup
     public void setup() throws JsonProcessingException {
-        JavaType type = JSON.OBJECT_MAPPER.getTypeFactory().constructType(TestBean.class);
-        reader = JSON.OBJECT_MAPPER.readerFor(type);
-        writer = JSON.OBJECT_MAPPER.writerFor(type);
+        JavaType type = OBJECT_MAPPER.getTypeFactory().constructType(TestBean.class);
+        reader = OBJECT_MAPPER.readerFor(type);
+        writer = OBJECT_MAPPER.writerFor(type);
 
         bean = new TestBean();
         bean.stringField = "value1234567890value1234567890value1234567890value1234567890value1234567890value1234567890";
