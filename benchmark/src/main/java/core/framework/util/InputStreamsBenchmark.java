@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.util.List;
 
 /**
  * @author neo
@@ -44,6 +45,40 @@ public class InputStreamsBenchmark {
         return result;
     }
 
+    // this method does not close stream, it's responsibility of creator of stream
+    public static byte[] bytes(InputStream stream, int initialBufferSize) {
+        List<byte[]> buffers = Lists.newArrayList();
+        int total = 0;
+        byte[] currentBuffer = new byte[initialBufferSize];
+        buffers.add(currentBuffer);
+        int currentBufferPosition = 0;
+        try {
+            while (true) {
+                int bytesToRead = currentBuffer.length - currentBufferPosition;
+                int bytesRead = stream.read(currentBuffer, currentBufferPosition, bytesToRead);
+                if (bytesRead < 0) break;
+                currentBufferPosition += bytesRead;
+                total += bytesRead;
+                if (currentBufferPosition >= currentBuffer.length) {
+                    currentBuffer = new byte[currentBuffer.length << 1];
+                    buffers.add(currentBuffer);
+                    currentBufferPosition = 0;
+                }
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        byte[] result = new byte[total];
+        int position = 0;
+        for (byte[] buffer : buffers) {
+            int length = Math.min(buffer.length, total - position);
+            System.arraycopy(buffer, 0, result, position, length);
+            position += length;
+            if (position >= total) break;
+        }
+        return result;
+    }
+
     private final byte[] content = Strings.bytes("{\"request_id\":\"d2bbf14c-aff0-402d-80a6-ed8a672ab231\",\"product\":{\"vendor_number\":\"V00090\",\"vendor_sku\":\"ELP-430205-C\",\"listing_status\":\"NOT_LIVE\",\"parent_vendor_sku\":\"ELP-430205-C\",\"name\":null,\"description\":null,\"brand_name\":null,\"category_id\":null,\"external_product_id_type\":null,\"external_product_id\":null,\"type\":null,\"unit_cost\":null,\"list_price\":null,\"map_price\":null,\"standard_price\":null,\"sale_price\":null,\"sale_start_date\":null,\"sale_end_date\":null,\"weight\":null,\"harmonized_code\":null,\"on_hold\":null,\"attributes\":{},\"eligible_country_codes\":null,\"images\":[],\"inventories\":[{\"warehouse_code\":\"V00090A\",\"quantity\":0}]},\"requested_by\":\"channel-advisor\",\"result_queue\":\"channel-advisor-service-queue\"}");
 
     @Benchmark
@@ -56,7 +91,7 @@ public class InputStreamsBenchmark {
     @Benchmark
     public void current() throws IOException {
         try (InputStream stream = new ByteArrayInputStream(content)) {
-            InputStreams.bytes(stream, 32);
+            bytes(stream, 32);
         }
     }
 }
