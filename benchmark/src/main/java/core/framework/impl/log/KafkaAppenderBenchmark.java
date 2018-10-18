@@ -1,6 +1,6 @@
 package core.framework.impl.log;
 
-import core.framework.impl.log.message.ActionLogMessage;
+import core.framework.internal.log.message.ActionLogMessage;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
