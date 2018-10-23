@@ -36,7 +36,6 @@ configure([project(':demo-service'),
         implementation "core.framework:core-ng:${coreNGVersion}"
         runtimeOnly "org.apache.kafka:kafka-clients:${kafkaVersion}"
         testImplementation "core.framework:core-ng-test:${coreNGVersion}"
-        compile 'com.squareup.okhttp3:okhttp:3.11.0'
     }
 }
 
