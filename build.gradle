@@ -11,7 +11,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.9.7'
+def coreNGVersion = '6.9.8'
 def kafkaVersion = '2.0.0'
 def hsqlVersion = '2.4.1'
 
@@ -36,6 +36,7 @@ configure([project(':demo-service'),
         implementation "core.framework:core-ng:${coreNGVersion}"
         runtimeOnly "org.apache.kafka:kafka-clients:${kafkaVersion}"
         testImplementation "core.framework:core-ng-test:${coreNGVersion}"
+        compile 'com.squareup.okhttp3:okhttp:3.11.0'
     }
 }
 
