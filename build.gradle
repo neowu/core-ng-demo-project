@@ -11,7 +11,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.9.8'
+def coreNGVersion = '6.9.9'
 def kafkaVersion = '2.0.0'
 def hsqlVersion = '2.4.1'
 
