@@ -45,4 +45,18 @@ public class ProductModule extends Module {
         kafka().publish("product-updated", ProductUpdatedMessage.class);
         http().route(GET, "/kafka-test", bind(ProductUpdatedMessageTestController.class));
     }
+
+    private static class TestTask implements Task {
+        final Executor executor;
+
+        private TestTask(Executor executor) {
+            this.executor = executor;
+        }
+
+        @Override
+        public void execute() throws Exception {
+            System.out.println("hello delayed");
+            executor.submit("delay", this, Duration.ofSeconds(5));
+        }
+    }
 }
