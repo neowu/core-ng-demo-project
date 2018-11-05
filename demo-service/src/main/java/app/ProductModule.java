@@ -15,6 +15,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static core.framework.http.HTTPMethod.GET;
+import static core.framework.http.HTTPMethod.POST;
 
 /**
  * @author neo
@@ -34,6 +35,11 @@ public class ProductModule extends Module {
 
         http().limitRate()
               .add("product", 3, 20, TimeUnit.MINUTES);
+
+        http().route(POST, "/http-test", request -> {
+//            Thread.sleep(10000);
+            return Response.empty().status(HTTPStatus.SERVICE_UNAVAILABLE);
+        });
     }
 
     private void configureKafka() {
@@ -44,19 +50,5 @@ public class ProductModule extends Module {
 
         kafka().publish("product-updated", ProductUpdatedMessage.class);
         http().route(GET, "/kafka-test", bind(ProductUpdatedMessageTestController.class));
-    }
-
-    private static class TestTask implements Task {
-        final Executor executor;
-
-        private TestTask(Executor executor) {
-            this.executor = executor;
-        }
-
-        @Override
-        public void execute() throws Exception {
-            System.out.println("hello delayed");
-            executor.submit("delay", this, Duration.ofSeconds(5));
-        }
     }
 }
