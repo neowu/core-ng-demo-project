@@ -7,15 +7,14 @@ import app.demo.product.kafka.ProductUpdatedMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
-import core.framework.http.HTTPClient;
-import core.framework.http.HTTPClientBuilder;
 import core.framework.module.Module;
+import core.framework.web.Response;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static core.framework.http.HTTPMethod.GET;
-import static core.framework.http.HTTPMethod.POST;
+import static core.framework.http.HTTPMethod.PUT;
 
 /**
  * @author neo
