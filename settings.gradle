@@ -2,6 +2,7 @@ include 'demo-service-interface',
         'demo-service',
         'demo-service-db-migration',
         'demo-site',
+        'demo-es-migration',
         'benchmark'
 
 includeBuild '../core-ng-project'

@@ -1,14 +1,16 @@
-package app.demo;
+package migration;
 
 import app.DemoServiceApp;
-import core.framework.test.module.AbstractTestModule;
+import core.framework.module.App;
 
 /**
  * @author neo
  */
-public class TestModule extends AbstractTestModule {
+public class ESMigrationApp extends App {
     @Override
     protected void initialize() {
         load(new DemoServiceApp());
+
+        bind(ESMigration.class);
     }
 }
