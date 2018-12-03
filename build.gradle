@@ -29,6 +29,9 @@ configure(subprojects.findAll { it.name.endsWith('-es-migration') }) {
         implementation "core.framework:core-ng:${coreNGVersion}"
         implementation "core.framework:core-ng-search:${coreNGVersion}"
     }
+    task esMigrate {
+        dependsOn run
+    }
 }
 
 configure(subprojects.findAll { it.name.matches('.*-service-interface') }) {
@@ -54,12 +57,6 @@ project(':demo-service') {
         runtimeOnly 'mysql:mysql-connector-java:8.0.13'
         testImplementation "core.framework:core-ng-search-test:${coreNGVersion}"
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
-    }
-}
-
-project(':demo-es-migration') {
-    dependencies {
-        implementation project(':demo-service')
     }
 }
 
