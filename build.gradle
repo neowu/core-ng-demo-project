@@ -11,8 +11,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.10.4.1'
-def kafkaVersion = '2.1.0'
+def coreNGVersion = '6.10.4.2'
 def hsqlVersion = '2.4.1'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
@@ -45,7 +44,6 @@ configure([project(':demo-service'),
     apply from: file("${rootDir}/gradle/app.gradle")
     dependencies {
         implementation "core.framework:core-ng:${coreNGVersion}"
-        runtimeOnly "org.apache.kafka:kafka-clients:${kafkaVersion}"
         testImplementation "core.framework:core-ng-test:${coreNGVersion}"
     }
 }
@@ -53,9 +51,7 @@ configure([project(':demo-service'),
 project(':demo-service') {
     dependencies {
         implementation project(':demo-service-interface')
-        implementation "core.framework:core-ng-search:${coreNGVersion}"
         runtimeOnly 'mysql:mysql-connector-java:8.0.13'
-        testImplementation "core.framework:core-ng-search-test:${coreNGVersion}"
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
     }
 }
