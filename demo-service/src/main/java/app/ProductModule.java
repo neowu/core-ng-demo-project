@@ -7,14 +7,14 @@ import app.demo.product.kafka.ProductUpdatedMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
+import core.framework.http.HTTPClient;
+import core.framework.http.HTTPClientBuilder;
 import core.framework.module.Module;
-import core.framework.web.Response;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static core.framework.http.HTTPMethod.GET;
-import static core.framework.http.HTTPMethod.PUT;
 
 /**
  * @author neo
@@ -34,11 +34,6 @@ public class ProductModule extends Module {
 
         http().limitRate()
               .add("product", 3, 20, TimeUnit.MINUTES);
-
-        http().route(POST, "/http-test", request -> {
-//            Thread.sleep(10000);
-            return Response.empty().status(HTTPStatus.SERVICE_UNAVAILABLE);
-        });
     }
 
     private void configureKafka() {
