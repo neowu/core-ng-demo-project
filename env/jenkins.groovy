@@ -5,8 +5,8 @@ properties([pipelineTriggers([pollSCM('* * * * *')]), disableConcurrentBuilds(),
 node {
     stage('checkout') {
         checkout $class: 'GitSCM',
-                branches: [[name: '*/master']],
-                extensions: [[$class: 'PathRestriction', excludedRegions: '', includedRegions: 'demo-service/.*']],
+                branches: [[name: 'refs/heads/master']],
+                extensions: [[$class: 'PathRestriction', includedRegions: 'demo-service/.*']],
                 userRemoteConfigs: [[credentialsId: 'build', url: 'https://github.com/neowu/core-ng-demo-project.git']]
     }
     stage('build') {
