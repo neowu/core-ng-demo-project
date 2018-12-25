@@ -34,6 +34,7 @@ public class WebModule extends Module {
         http().route(GET, "/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED));
         http().route(GET, "/hello-redirect", request -> Response.redirect("/hello"));
 
+
         site().staticContent("/static").cache(Duration.ofHours(1));
         site().staticContent("/favicon.ico").cache(Duration.ofHours(1));
         site().staticContent("/robots.txt");
