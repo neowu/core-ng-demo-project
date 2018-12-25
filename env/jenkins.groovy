@@ -1,6 +1,6 @@
 #!groovy​
 
-properties([pipelineTriggers([pollSCM('H/1 * * * *')]), disableConcurrentBuilds(), buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))])
+properties([pipelineTriggers([pollSCM('* * * * *')]), disableConcurrentBuilds(), buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))])
 
 node {
     stage('checkout') {
