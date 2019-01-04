@@ -28,7 +28,7 @@ configure(subprojects.findAll { it.name.endsWith('-es-migration') }) {
         implementation "core.framework:core-ng:${coreNGVersion}"
         implementation "core.framework:core-ng-search:${coreNGVersion}"
     }
-    task esMigrate {
+    tasks.register('esMigrate') {
         dependsOn run
     }
 }
