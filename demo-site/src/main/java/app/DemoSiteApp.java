@@ -1,6 +1,5 @@
 package app;
 
-import app.web.ajax.Bean;
 import core.framework.module.App;
 import core.framework.module.SystemModule;
 
@@ -19,7 +18,5 @@ public class DemoSiteApp extends App {
         log().maskFields("password");
 
         load(new WebModule());
-
-        api().bean(Bean.class);
     }
 }
