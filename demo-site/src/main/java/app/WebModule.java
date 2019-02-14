@@ -9,6 +9,7 @@ import app.web.UploadController;
 import app.web.UploadPage;
 import app.web.WildcardController;
 import app.web.ajax.AJAXController;
+import app.web.ajax.Bean;
 import app.web.interceptor.TestInterceptor;
 import app.web.ws.ChatListener;
 import core.framework.api.http.HTTPStatus;
@@ -34,7 +35,6 @@ public class WebModule extends Module {
         http().route(GET, "/hello/:name", request -> Response.text("hello " + request.pathParam("name")).status(HTTPStatus.CREATED));
         http().route(GET, "/hello-redirect", request -> Response.redirect("/hello"));
 
-
         site().staticContent("/static").cache(Duration.ofHours(1));
         site().staticContent("/favicon.ico").cache(Duration.ofHours(1));
         site().staticContent("/robots.txt");
@@ -57,6 +57,7 @@ public class WebModule extends Module {
         http().route(POST, "/upload", upload::post);
 
         http().route(POST, "/ajax", bind(AJAXController.class)::ajax);
+        api().bean(Bean.class);
 
         var wildcardController = bind(WildcardController.class);
         http().route(GET, "/:all(*)", wildcardController::wildcard);
