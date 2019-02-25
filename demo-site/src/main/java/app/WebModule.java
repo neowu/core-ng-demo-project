@@ -57,7 +57,7 @@ public class WebModule extends Module {
         http().route(POST, "/upload", upload::post);
 
         http().route(POST, "/ajax", bind(AJAXController.class)::ajax);
-        api().bean(Bean.class);
+        http().bean(Bean.class);
 
         var wildcardController = bind(WildcardController.class);
         http().route(GET, "/:all(*)", wildcardController::wildcard);
