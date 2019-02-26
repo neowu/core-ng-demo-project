@@ -30,14 +30,26 @@ subprojects {
         testLogging.exceptionFormat 'full'
     }
 
+    tasks.named('jar') {
+        // put parent name in final jar name, to resolve collision of child projects with same name under different parents
+        if (parent.depth > 0) {
+            archiveBaseName = "${parent.name}-${archiveBaseName.get()}"
+        }
+    }
+
     afterEvaluate {
+        // update group on afterEvaluate since the project.gradle usually included in the first line of project build.gradle, which project.group is not assigned yet
+        if (parent.depth > 0) {
+            group = "${group}.${parent.name}"    // append parent into group, let child projects with same name under different parent have different artifactId
+        }
+
         tasks.withType(Jar).configureEach {
             manifest {
                 attributes 'Implementation-Title': project.name,
-                    'Implementation-Version': project.version,
-                    'Created-By': "${System.getProperty('java.version')} (${System.getProperty('java.vendor')})",
-                    'Built-With': "gradle ${project.gradle.gradleVersion}",
-                    'Build-Time': Instant.now().toString()
+                        'Implementation-Version': project.version,
+                        'Created-By': "${System.getProperty('java.version')} (${System.getProperty('java.vendor')})",
+                        'Built-With': "gradle ${project.gradle.gradleVersion}",
+                        'Build-Time': Instant.now().toString()
             }
         }
     }
