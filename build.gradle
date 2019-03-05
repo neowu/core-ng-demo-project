@@ -54,7 +54,7 @@ configure([project(':demo-service'),
 project(':demo-service') {
     dependencies {
         implementation project(':demo-service-interface')
-        runtimeOnly 'mysql:mysql-connector-java:8.0.13'
+        runtimeOnly 'mysql:mysql-connector-java:8.0.15'
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
     }
 }
