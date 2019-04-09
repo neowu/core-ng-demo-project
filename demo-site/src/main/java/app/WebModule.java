@@ -10,6 +10,7 @@ import app.web.UploadPage;
 import app.web.WildcardController;
 import app.web.ajax.AJAXController;
 import app.web.ajax.Bean;
+import app.web.ajax.ErrorCodes;
 import app.web.interceptor.TestInterceptor;
 import app.web.ws.ChatListener;
 import core.framework.api.http.HTTPStatus;
@@ -58,6 +59,7 @@ public class WebModule extends Module {
 
         http().route(POST, "/ajax", bind(AJAXController.class)::ajax);
         http().bean(Bean.class);
+        http().bean(ErrorCodes.class);
 
         var wildcardController = bind(WildcardController.class);
         http().route(GET, "/:all(*)", wildcardController::wildcard);
