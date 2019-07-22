@@ -14,7 +14,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.12.9'
+def coreNGVersion = '6.13.2'
 def hsqlVersion = '2.4.1'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
@@ -32,6 +32,17 @@ configure(subprojects.findAll { it.name.endsWith('-es-migration') }) {
         implementation "core.framework:core-ng-search:${coreNGVersion}"
     }
     tasks.register('esMigrate') {
+        dependsOn run
+    }
+}
+
+configure(subprojects.findAll { it.name.endsWith('-mongo-migration') }) {
+    apply from: file("${rootDir}/gradle/app.gradle")
+    dependencies {
+        implementation "core.framework:core-ng:${coreNGVersion}"
+        implementation "core.framework:core-ng-mongo:${coreNGVersion}"
+    }
+    tasks.register('mongoMigrate') {
         dependsOn run
     }
 }
