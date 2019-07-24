@@ -14,7 +14,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '6.13.2'
+def coreNGVersion = '6.13.5'
 def hsqlVersion = '2.4.1'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {

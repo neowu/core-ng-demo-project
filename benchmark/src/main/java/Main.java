@@ -1,4 +1,4 @@
-import core.framework.json.JSONBenchmark;
+import core.framework.impl.web.InetAddressBenchmark;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
@@ -11,7 +11,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 public class Main {
     public static void main(String[] args) throws RunnerException {
         ChainedOptionsBuilder builder = new OptionsBuilder()
-                .include(JSONBenchmark.class.getSimpleName())
+                .include(InetAddressBenchmark.class.getSimpleName())
                 .forks(1);
 
 //        builder.addProfiler(GCProfiler.class);
