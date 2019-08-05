@@ -13,6 +13,7 @@ public class DemoSiteApp extends App {
 
         http().gzip();
         http().httpsPort(8443);
+        http().access().denyFromFile("deny-ip-list.txt");
 
         site().security();
         log().maskFields("password");
