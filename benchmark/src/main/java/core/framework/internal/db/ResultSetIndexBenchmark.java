@@ -1,4 +1,4 @@
-package core.framework.impl.db;
+package core.framework.internal.db;
 
 import core.framework.util.ASCII;
 import core.framework.util.Maps;
