@@ -1,4 +1,4 @@
-package core.framework.impl.log;
+package core.framework.internal.log;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;

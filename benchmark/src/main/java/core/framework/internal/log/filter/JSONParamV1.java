@@ -1,4 +1,4 @@
-package core.framework.impl.log.filter;
+package core.framework.internal.log.filter;
 
 import core.framework.util.Lists;
 

@@ -1,4 +1,4 @@
-package core.framework.internal.log.message;
+package core.framework.internal.log;
 
 import core.framework.json.JSON;
 import org.openjdk.jmh.annotations.Benchmark;

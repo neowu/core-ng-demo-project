@@ -1,4 +1,4 @@
-package core.framework.impl.log.filter;
+package core.framework.internal.log.filter;
 
 import java.nio.charset.Charset;
 import java.util.Set;
