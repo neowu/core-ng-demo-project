@@ -14,7 +14,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '7.0.0'
+def coreNGVersion = '7.1.3'
 def hsqlVersion = '2.5.0'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
@@ -77,7 +77,8 @@ project(':benchmark') {
     dependencies {
         implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
         implementation "core.framework:core-ng:${coreNGVersion}"
-        implementation 'io.undertow:undertow-core:2.0.23.Final'
+        implementation 'io.undertow:undertow-core:2.0.26.Final'
+        implementation 'org.jboss.xnio:xnio-nio:3.7.6.Final'
         implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9'
         implementation 'com.fasterxml.jackson.module:jackson-module-afterburner:2.9.9'
     }
