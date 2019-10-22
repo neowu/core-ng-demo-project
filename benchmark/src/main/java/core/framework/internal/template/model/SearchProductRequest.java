@@ -1,4 +1,4 @@
-package core.framework.impl.template.model;
+package core.framework.internal.template.model;
 
 import java.util.List;
 

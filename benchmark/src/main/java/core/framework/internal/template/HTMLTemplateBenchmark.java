@@ -1,7 +1,7 @@
-package core.framework.impl.template;
+package core.framework.internal.template;
 
-import core.framework.impl.template.model.FilterUIView;
-import core.framework.impl.template.source.StringTemplateSource;
+import core.framework.internal.template.model.FilterUIView;
+import core.framework.internal.template.source.StringTemplateSource;
 import core.framework.json.JSON;
 import core.framework.util.ClasspathResources;
 import core.framework.util.Properties;
