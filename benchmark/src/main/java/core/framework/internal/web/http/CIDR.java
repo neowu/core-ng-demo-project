@@ -1,4 +1,4 @@
-package core.framework.impl.web.http;
+package core.framework.internal.web.http;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

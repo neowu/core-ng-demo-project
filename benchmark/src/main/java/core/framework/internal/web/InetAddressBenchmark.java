@@ -1,4 +1,4 @@
-package core.framework.impl.web;
+package core.framework.internal.web;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;

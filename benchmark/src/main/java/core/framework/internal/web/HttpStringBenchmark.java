@@ -1,4 +1,4 @@
-package core.framework.impl.web;
+package core.framework.internal.web;
 
 import io.undertow.util.HeaderMap;
 import io.undertow.util.Headers;

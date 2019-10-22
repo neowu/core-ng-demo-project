@@ -1,4 +1,4 @@
-package core.framework.impl.web.http;
+package core.framework.internal.web.http;
 
 import core.framework.module.IPv4RangeFileParser;
 import org.openjdk.jmh.annotations.Benchmark;

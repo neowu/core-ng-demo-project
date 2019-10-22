@@ -1,7 +1,7 @@
-package core.framework.impl.web.route;
+package core.framework.internal.web.route;
 
 import core.framework.http.HTTPMethod;
-import core.framework.impl.web.request.PathParams;
+import core.framework.internal.web.request.PathParams;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;

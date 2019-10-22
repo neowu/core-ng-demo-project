@@ -1,4 +1,4 @@
-package core.framework.impl.web.request;
+package core.framework.internal.web.request;
 
 import core.framework.http.HTTPMethod;
 import org.openjdk.jmh.annotations.Benchmark;

@@ -1,6 +1,6 @@
-package core.framework.impl.web.route;
+package core.framework.internal.web.route;
 
-import core.framework.impl.web.request.PathParams;
+import core.framework.internal.web.request.PathParams;
 import core.framework.util.Maps;
 import core.framework.util.Strings;
 
