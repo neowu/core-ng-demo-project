@@ -3,7 +3,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0'
+        classpath 'com.github.spotbugs:spotbugs-gradle-plugin:2.0.1'
     }
 }
 
@@ -17,16 +17,28 @@ subprojects {
 
     checkstyle {
         dependencies {
-            checkstyle 'com.puppycrawl.tools:checkstyle:8.20'
-            checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.35.0'
+            checkstyle 'com.puppycrawl.tools:checkstyle:8.26'
+            checkstyle 'com.github.sevntu-checkstyle:sevntu-checks:1.36.0'
         }
 
         configFile = rootProject.file('gradle/check/checkstyle.xml')
         configProperties['configDir'] = configFile.parentFile
     }
 
-    tasks.withType(Checkstyle).configureEach {
+    tasks.named('checkstyleMain').configure {
         group = 'verification'
+        source = fileTree('.').matching {
+            include 'conf/**'
+            include 'src/main/**'
+        }
+    }
+
+    tasks.named('checkstyleTest').configure {
+        group = 'verification'
+        source = fileTree('.').matching {
+            include 'src/test/java/**'
+            include 'src/test/resources/**/*.properties'    // test resource may contains java file not for compiling, so to skip
+        }
     }
 
     pmd {
@@ -44,7 +56,7 @@ subprojects {
     spotbugs {
         reportLevel = 'low'
         includeFilter = rootProject.file('gradle/check/spotbugs.xml')
-        toolVersion = '3.1.12'
+        toolVersion = '4.0.0-beta4'
     }
 
     dependencies {
