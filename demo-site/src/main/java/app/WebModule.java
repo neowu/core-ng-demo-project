@@ -13,6 +13,7 @@ import app.web.ajax.Bean;
 import app.web.ajax.ErrorCodes;
 import app.web.interceptor.TestInterceptor;
 import app.web.ws.ChatListener;
+import app.web.ws.ChatMessage;
 import core.framework.api.http.HTTPStatus;
 import core.framework.module.Module;
 import core.framework.web.Response;
@@ -68,7 +69,7 @@ public class WebModule extends Module {
     }
 
     private void configureChat() {
-        ws().listen("/ws/chat", new ChatListener());
+        ws().listen("/ws/chat", ChatMessage.class, ChatMessage.class, new ChatListener());
 
         var controller = bind(ChatController.class);
         site().template("/template/chat.html", ChatPage.class);

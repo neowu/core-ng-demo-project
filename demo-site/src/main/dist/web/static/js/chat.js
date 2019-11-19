@@ -9,7 +9,8 @@ socket.onmessage = function (event) {
 
 function send(message) {
     if (socket.readyState === WebSocket.OPEN) {
-        socket.send(message);
+        const bean = {text: message};
+        socket.send(JSON.stringify(bean));
     } else {
         alert("socket is not open.");
     }
