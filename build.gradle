@@ -65,7 +65,6 @@ configure([project(':demo-service'),
 project(':demo-service') {
     dependencies {
         implementation project(':demo-service-interface')
-        implementation "core.framework:core-ng-mongo:${coreNGVersion}"
         runtimeOnly 'mysql:mysql-connector-java:8.0.17'
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
     }
