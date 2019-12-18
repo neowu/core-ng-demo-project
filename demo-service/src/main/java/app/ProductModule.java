@@ -24,7 +24,7 @@ public class ProductModule extends Module {
     protected void initialize() {
         bind(HTTPClient.class, new HTTPClientBuilder().build());
 
-        cache().add(ProductView.class, Duration.ofSeconds(60));
+        cache().remote(ProductView.class, Duration.ofSeconds(60));
 
         bind(ProductService.class);
 
