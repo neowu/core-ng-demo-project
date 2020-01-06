@@ -16,6 +16,7 @@ subprojects {
 
 def coreNGVersion = '7.3.0'
 def hsqlVersion = '2.5.0'
+def jacksonVersion = '2.10.2'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
@@ -79,7 +80,7 @@ project(':benchmark') {
         implementation "core.framework:core-ng:${coreNGVersion}"
         implementation 'io.undertow:undertow-core:2.0.28.Final'
         implementation 'org.jboss.xnio:xnio-nio:3.7.7.Final'
-        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.1'
-        implementation 'com.fasterxml.jackson.module:jackson-module-afterburner:2.10.1'
+        implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+        implementation "com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}"
     }
 }
