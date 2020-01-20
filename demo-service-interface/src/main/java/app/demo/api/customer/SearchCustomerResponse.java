@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SearchCustomerResponse {
     @Property(name = "total")
-    public Integer total;
+    public Long total;
 
     @Property(name = "customers")
     public List<CustomerView> customers;
