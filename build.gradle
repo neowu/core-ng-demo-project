@@ -8,7 +8,7 @@ subprojects {
         maven {
             url 'https://neowu.github.io/maven-repo/'
             content {
-                includeGroupByRegex 'core\\.framework.*'
+                includeGroup 'core.framework'
             }
         }
     }
