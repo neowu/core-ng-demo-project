@@ -19,6 +19,7 @@ subprojects {
                 srcDir 'src/dev/java'
             }
             compileClasspath += sourceSets.main.runtimeClasspath
+            runtimeClasspath += sourceSets.main.runtimeClasspath
         }
     }
 }
