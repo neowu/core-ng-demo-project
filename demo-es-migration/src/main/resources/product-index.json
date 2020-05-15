@@ -4,20 +4,18 @@
     "refresh_interval": "2s"
   },
   "mappings": {
-    "product": {
-      "properties": {
-        "id": {
-          "type": "keyword"
-        },
-        "name": {
-          "type": "text"
-        },
-        "desc": {
-          "type": "text"
-        },
-        "created_time": {
-          "type": "date"
-        }
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text"
+      },
+      "desc": {
+        "type": "text"
+      },
+      "created_time": {
+        "type": "date"
       }
     }
   }
