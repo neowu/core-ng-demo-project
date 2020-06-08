@@ -20,6 +20,7 @@ import core.framework.web.Response;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static core.framework.http.HTTPMethod.GET;
 import static core.framework.http.HTTPMethod.POST;
@@ -69,6 +70,7 @@ public class WebModule extends Module {
     }
 
     private void configureChat() {
+        http().limitRate().add("message", 5, 1, TimeUnit.SECONDS);
         ws().listen("/ws/chat", ChatMessage.class, ChatMessage.class, new ChatListener());
 
         var controller = bind(ChatController.class);

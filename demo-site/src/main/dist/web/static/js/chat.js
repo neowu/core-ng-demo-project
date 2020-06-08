@@ -7,6 +7,10 @@ socket.onmessage = function (event) {
     chat.innerHTML = chat.innerHTML + event.data + "<br />";
 };
 
+socket.onclose = function (event) {
+    alert(event.code + ": " + event.reason);
+}
+
 function send(message) {
     if (socket.readyState === WebSocket.OPEN) {
         const bean = {text: message};

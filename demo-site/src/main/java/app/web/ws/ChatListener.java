@@ -1,6 +1,7 @@
 package app.web.ws;
 
 import core.framework.web.Request;
+import core.framework.web.rate.LimitRate;
 import core.framework.web.websocket.Channel;
 import core.framework.web.websocket.ChannelListener;
 
@@ -15,6 +16,7 @@ public class ChatListener implements ChannelListener<ChatMessage> {
     }
 
     @Override
+    @LimitRate("message")
     public void onMessage(Channel channel, ChatMessage message) {
         if ("stop".equals(message.text)) {
             channel.close();

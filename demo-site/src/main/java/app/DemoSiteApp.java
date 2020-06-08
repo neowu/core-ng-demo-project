@@ -12,7 +12,6 @@ public class DemoSiteApp extends App {
         load(new SystemModule("sys.properties"));
 
         http().gzip();
-        http().httpsPort(8443);
         http().access().denyFromFile("deny-ip-list.txt");
 
         site().security();
