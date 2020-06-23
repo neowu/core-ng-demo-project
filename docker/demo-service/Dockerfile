@@ -4,6 +4,6 @@ LABEL       app=demo-service
 RUN         addgroup --system app && adduser --system --no-create-home --ingroup app app
 USER        app
 # demo of creating layered docker image
-COPY        file/dependency   /opt/app
-COPY        file/app   /opt/app
+ADD         file/dependency.tar   /opt/app
+ADD         file/app.tar   /opt/app
 CMD         ["/opt/app/bin/demo-service"]
