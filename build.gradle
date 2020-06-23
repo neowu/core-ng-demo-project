@@ -24,7 +24,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '7.4.1'
+def coreNGVersion = '7.4.10'
 def hsqlVersion = '2.5.0'
 def jacksonVersion = '2.10.4'
 def mysqlVersion = '8.0.20'
@@ -77,6 +77,8 @@ configure([project(':demo-service'),
 project(':demo-service') {
     dependencies {
         implementation project(':demo-service-interface')
+//        implementation "core.framework:core-ng-mongo:${coreNGVersion}"
+//        testImplementation "core.framework:core-ng-mongo-test:${coreNGVersion}"
         runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
     }
