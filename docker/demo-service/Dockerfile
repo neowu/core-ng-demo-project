@@ -3,5 +3,7 @@ LABEL       app=demo-service
 # RUN         apk add --no-cache fontconfig ttf-dejavu # example to add packages if needed
 RUN         addgroup --system app && adduser --system --no-create-home --ingroup app app
 USER        app
-ADD         file/demo-service.tar    /opt
-CMD         ["/opt/demo-service/bin/demo-service"]
+# demo of creating layered docker image
+COPY        file/dependency   /opt/app
+COPY        file/app   /opt/app
+CMD         ["/opt/app/bin/demo-service"]
