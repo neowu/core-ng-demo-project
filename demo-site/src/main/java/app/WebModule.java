@@ -77,5 +77,6 @@ public class WebModule extends Module {
         site().template("/template/chat.html", ChatPage.class);
         http().route(GET, "/chat", controller::chat);
         http().route(GET, "/chat-publish", controller::publish);
+        http().route(GET, "/chat-close", controller::close);
     }
 }

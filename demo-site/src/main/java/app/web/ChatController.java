@@ -36,4 +36,11 @@ public class ChatController {
 
         return Response.text("done");
     }
+
+    public Response close(Request request) {
+        for (Channel channel : context.all()) {
+            channel.close();
+        }
+        return Response.text("done");
+    }
 }
