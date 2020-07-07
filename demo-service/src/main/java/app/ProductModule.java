@@ -24,11 +24,11 @@ public class ProductModule extends Module {
     protected void initialize() {
         bind(HTTPClient.class, new HTTPClientBuilder().build());
 
-        cache().remote(ProductView.class, Duration.ofSeconds(60));
+        cache().local(ProductView.class, Duration.ofHours(2));
 
         bind(ProductService.class);
 
-        configureKafka();
+//        configureKafka();
 
         api().service(ProductWebService.class, bind(ProductWebServiceImpl.class));
 
