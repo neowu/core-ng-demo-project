@@ -7,8 +7,6 @@ import core.framework.cache.Cache;
 import core.framework.inject.Inject;
 import core.framework.util.Maps;
 import core.framework.web.exception.NotFoundException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -18,21 +16,12 @@ import java.util.Optional;
  * @author neo
  */
 public class ProductService {
-    private final Logger logger = LoggerFactory.getLogger(ProductService.class);
     private final Map<String, ProductView> products = Maps.newConcurrentHashMap();
     @Inject
     Cache<ProductView> cache;
 
     public Optional<ProductView> get(String id) {
-        logger.warn("trace");
-        cache.get(id, key -> {
-            final ProductView view = new ProductView();
-            view.id = id;
-            view.name = "some";
-            return view;
-        });
-
-        ProductView view = products.get(id);
+        ProductView view = cache.get(id, products::get);
         return Optional.ofNullable(view);
     }
 
