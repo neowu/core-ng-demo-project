@@ -22,13 +22,13 @@ import static core.framework.http.HTTPMethod.GET;
 public class ProductModule extends Module {
     @Override
     protected void initialize() {
-        bind(HTTPClient.class, new HTTPClientBuilder().build());
+        bind(HTTPClient.class, HTTPClient.builder().build());
 
         cache().local(ProductView.class, Duration.ofHours(2));
 
         bind(ProductService.class);
 
-        configureKafka();
+//        configureKafka();
 
         api().service(ProductWebService.class, bind(ProductWebServiceImpl.class));
 
