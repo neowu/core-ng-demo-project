@@ -28,7 +28,7 @@ public class ProductModule extends Module {
 
         bind(ProductService.class);
 
-//        configureKafka();
+        configureKafka();
 
         api().service(ProductWebService.class, bind(ProductWebServiceImpl.class));
 
