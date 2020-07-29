@@ -8,16 +8,16 @@ import core.framework.web.websocket.ChannelListener;
 /**
  * @author neo
  */
-public class ChatListener implements ChannelListener<ChatMessage> {
+public class ChatListener implements ChannelListener<ChatMessage, ChatMessage> {
     @Override
-    public void onConnect(Request request, Channel channel) {
+    public void onConnect(Request request, Channel<ChatMessage> channel) {
         channel.context().put("name", request.session().get("hello").orElse("no session"));
         channel.join("private");
     }
 
     @Override
     @LimitRate("message")
-    public void onMessage(Channel channel, ChatMessage message) {
+    public void onMessage(Channel<ChatMessage> channel, ChatMessage message) {
         if ("stop".equals(message.text)) {
             channel.close();
             return;

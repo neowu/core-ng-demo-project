@@ -7,6 +7,8 @@ import core.framework.web.Response;
 import core.framework.web.websocket.Channel;
 import core.framework.web.websocket.WebSocketContext;
 
+import java.util.List;
+
 /**
  * @author neo
  */
@@ -21,15 +23,17 @@ public class ChatController {
     }
 
     public Response publish(Request request) {
-        for (Channel channel : context.all()) {
+        final List<Channel<ChatMessage>> channels = context.all();
+        for (Channel<ChatMessage> channel : channels) {
             String text = "hello " + channel.context().get("neo") + "! (from all)";
-            ChatMessage message = new ChatMessage();
+            var message = new ChatMessage();
             message.text = text;
             channel.send(message);
         }
 
-        for (Channel channel : context.room("private")) {
-            ChatMessage message = new ChatMessage();
+        List<Channel<ChatMessage>> room = context.room("private");
+        for (Channel<ChatMessage> channel : room) {
+            var message = new ChatMessage();
             message.text = "hello from private";
             channel.send(message);
         }
@@ -38,7 +42,7 @@ public class ChatController {
     }
 
     public Response close(Request request) {
-        for (Channel channel : context.all()) {
+        for (Channel<?> channel : context.all()) {
             channel.close();
         }
         return Response.text("done");
