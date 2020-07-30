@@ -2,8 +2,6 @@ package core.framework.internal.template.model;
 
 import core.framework.util.Encodings;
 
-import static core.framework.util.Strings.format;
-
 /**
  * @author neo
  */
@@ -17,7 +15,7 @@ public class URIBuilder {
     }
 
     public URIBuilder addPath(String segment) {
-        if (queryStarted) throw new Error(format("path segment must not be added after query, uri={}", uri.toString()));
+        if (queryStarted) throw new Error("path segment must not be added after query, uri=" + uri.toString());
         if (uri.length() > 0 && uri.charAt(uri.length() - 1) != '/') uri.append('/');
         uri.append(Encodings.uriComponent(segment));
         return this;
