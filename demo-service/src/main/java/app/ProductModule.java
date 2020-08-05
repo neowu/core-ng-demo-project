@@ -7,8 +7,6 @@ import app.demo.product.kafka.ProductUpdatedMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
-import core.framework.http.HTTPClient;
-import core.framework.http.HTTPClientBuilder;
 import core.framework.module.Module;
 
 import java.time.Duration;
