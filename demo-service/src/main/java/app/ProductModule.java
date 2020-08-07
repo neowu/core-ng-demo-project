@@ -7,6 +7,7 @@ import app.demo.product.kafka.ProductUpdatedMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
+import core.framework.http.HTTPClient;
 import core.framework.module.Module;
 
 import java.time.Duration;
@@ -22,7 +23,7 @@ public class ProductModule extends Module {
     protected void initialize() {
         bind(HTTPClient.class, HTTPClient.builder().build());
 
-        cache().local(ProductView.class, Duration.ofHours(2));
+        cache().add(ProductView.class, Duration.ofHours(2)).local();
 
         bind(ProductService.class);
 
@@ -35,7 +36,7 @@ public class ProductModule extends Module {
     }
 
     private void configureKafka() {
-        kafka().uri("localhost:9092");
+        kafka().uri("localhost");
 
         kafka().subscribe("product-updated", ProductUpdatedMessage.class, bind(ProductUpdatedMessageHandler.class));
         kafka().poolSize(2);
