@@ -27,7 +27,7 @@ public class JSONParamBenchmark {
 
     @Benchmark
     public void current() {
-        JSONLogParam param = new JSONLogParam(message, StandardCharsets.UTF_8);
+        BytesLogParam param = new BytesLogParam(message, StandardCharsets.UTF_8);
         param.append(new StringBuilder(), maskedFields, 1000);
     }
 
