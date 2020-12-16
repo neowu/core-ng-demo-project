@@ -28,7 +28,8 @@ public class IndexController {
         Session session = request.session();
 //        Optional<String> hello = session.get("hello");
         session.set("hello", "world");
-        Response response = Response.html("/template/index.html", model, languageManager.language());
+        Response response = Response.html("/template/index.html", model, languageManager.language())
+                .header("Cache-Control", "no-store");
         response.cookie(Cookies.TEST, "1+2");
         response.cookie(Cookies.TEST1, "hello \"\" cookies");
         return response;
