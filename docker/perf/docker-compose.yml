@@ -1,0 +1,14 @@
+version: "3"
+services:
+  client:
+    build: base
+  server:
+    build: base
+    ports:
+    - 8080:8080
+    - 8443:8443
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 512M
