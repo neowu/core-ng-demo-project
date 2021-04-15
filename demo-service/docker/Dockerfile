@@ -1,6 +1,7 @@
-FROM        adoptopenjdk/openjdk15:alpine-jre
+FROM        adoptopenjdk/openjdk16:alpine-jre
 LABEL       app=demo-service
-# RUN         apk add --no-cache fontconfig ttf-dejavu # example to add packages if needed
+# install /lib/ld-linux-x86-64.so.2 for native lib, e.g. kafka/snappy
+RUN         apk add --no-cache gcompat
 RUN         addgroup --system app && adduser --system --no-create-home --ingroup app app
 USER        app
 # demo of creating layered docker image
