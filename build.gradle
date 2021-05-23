@@ -24,7 +24,7 @@ subprojects {
     }
 }
 
-def coreNGVersion = '7.6.14'
+def coreNGVersion = '7.7.0'
 def hsqlVersion = '2.5.1'
 def jacksonVersion = '2.12.0'
 def mysqlVersion = '8.0.23'
@@ -59,7 +59,7 @@ configure(subprojects.findAll { it.name.endsWith('-mongo-migration') }) {
     }
 }
 
-configure(subprojects.findAll { it.name.matches('.*-service-interface') }) {
+configure(subprojects.findAll { it.name.endsWith('-service-interface') }) {
     dependencies {
         implementation "core.framework:core-ng-api:${coreNGVersion}"
     }
@@ -95,5 +95,12 @@ project(':benchmark') {
         implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
         implementation "com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}"
         implementation "com.fasterxml.jackson.module:jackson-module-blackbird:${jacksonVersion}"
+    }
+}
+
+
+project(':kibana-generator') {
+    dependencies {
+        implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     }
 }
