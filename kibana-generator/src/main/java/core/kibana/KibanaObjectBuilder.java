@@ -26,9 +26,9 @@ public class KibanaObjectBuilder {
     }
 
     private void buildVisualization() {
-        objects.add(visualization(splitByTerm("action-count-by-response_code", "context.response_code", true)));
-        objects.add(visualization(splitByTerm("action-count-by-app", "app", false)));
-        objects.add(visualization(splitByTerm("action-count-by-action", "action", true)));
+        objects.add(visualization(splitByTerm("action-count-by-response_code", "context.response_code")));
+        objects.add(visualization(splitByTerm("action-count-by-app", "app")));
+        objects.add(visualization(splitByTerm("action-count-by-action", "action")));
         objects.add(visualization(elapsedByAction()));
         objects.add(visualization(percentile("action-elapsed", "elapsed", "elapsed", color(), new String[]{"99", "90", "50"})));
         objects.add(visualization(percentile("action-cpu_time", "stats.cpu_time", "cpu time", color(), new String[]{"99", "90", "50"})));
@@ -59,14 +59,14 @@ public class KibanaObjectBuilder {
 
         objects.add(visualization(valueTemplate(maxAvg("action-consumer_delay", "action", "stats.consumer_delay", "consumer delay", color(), "number"), "{{value}} ns")));
 
-        objects.add(visualization(kafkaConsumedRate()));
-        objects.add(visualization(kafkaFetchRate(color())));
-        objects.add(visualization(max("stat-kafka_max_lag", "stat", "stats.kafka_consumer_records_max_lag", "max lag", "number", color())));
-        objects.add(visualization(kafkaProduceRate(null)));
-        objects.add(visualization(kafkaRequestSize(null)));
+        objects.add(visualization(kafkaConsumerConsumedRate()));
+        objects.add(visualization(kafkaConsumerFetchRate(color())));
+        objects.add(visualization(max("stat-kafka_consumer_max_lag", "stat", "stats.kafka_consumer_records_max_lag", "max lag", "number", color())));
+        objects.add(visualization(kafkaProducerProducedRate(null)));
+        objects.add(visualization(kafkaProducerRequestSize(null)));
 
-        objects.add(visualization(kafkaProduceRate("log-forwarder")));
-        objects.add(visualization(kafkaRequestSize("log-forwarder")));
+        objects.add(visualization(kafkaProducerProducedRate("log-forwarder")));
+        objects.add(visualization(kafkaProducerRequestSize("log-forwarder")));
 
         addPerf("kafka", "msgs", "kafka");
         objects.add(visualization(heap("kafka")));
@@ -138,10 +138,24 @@ public class KibanaObjectBuilder {
         return tsvb;
     }
 
-    private TSVB kafkaConsumedRate() {
-        var tsvb = new TSVB("stat-kafka_consumed_rate", "stat");
+    private TSVB kafkaConsumerFetchRate(String color) {
+        var tsvb = new TSVB("stat-kafka_consumer_fetch_rate", "stat");
+        var s1 = series("avg", "stats.kafka_consumer_fetch_rate", "avg fetch rate", "number", color);
+        s1.value_template = "{{value}} req/s";
+        tsvb.params.series.add(s1);
+        var s2 = series("min", "stats.kafka_consumer_fetch_rate", "min fetch rate", "number", color);
+        s2.value_template = "{{value}} req/s";
+        tsvb.params.series.add(s2);
+        return tsvb;
+    }
+
+    private TSVB kafkaConsumerConsumedRate() {
+        var tsvb = new TSVB("stat-kafka_consumer_consumed_rate", "stat");
+        tsvb.params.show_grid = 0;
         var s1 = series("avg", "stats.kafka_consumer_bytes_consumed_rate", "bytes consumed rate", "bytes", color());
         s1.value_template = "{{value}}/s";
+        s1.separate_axis = 1;
+        s1.axis_position = "left";  // seems only separate axis respect value_template
         s1.fill = 0;
         tsvb.params.series.add(s1);
         var s2 = series("avg", "stats.kafka_consumer_records_consumed_rate", "records consumed rate", "number", color());
@@ -153,11 +167,14 @@ public class KibanaObjectBuilder {
         return tsvb;
     }
 
-    private TSVB kafkaProduceRate(String name) {
+    private TSVB kafkaProducerProducedRate(String name) {
         String postfix = name == null ? "" : "_" + name;
-        var tsvb = new TSVB("stat-kafka" + postfix + "_produced_rate", "stat");
+        var tsvb = new TSVB("stat-kafka_producer" + postfix + "_produced_rate", "stat");
+        tsvb.params.show_grid = 0;
         var s1 = series("avg", "stats.kafka_producer" + postfix + "_outgoing_byte_rate", "outgoing bytes rate", "bytes", color());
         s1.value_template = "{{value}}/s";
+        s1.separate_axis = 1;
+        s1.axis_position = "left";  // seems only separate axis respect value_template
         s1.fill = 0;
         tsvb.params.series.add(s1);
         var s2 = series("avg", "stats.kafka_producer" + postfix + "_request_rate", "request rate", "number", color());
@@ -166,6 +183,13 @@ public class KibanaObjectBuilder {
         s2.axis_position = "right";
         s2.fill = 0;
         tsvb.params.series.add(s2);
+        return tsvb;
+    }
+
+    private TSVB kafkaProducerRequestSize(String name) {
+        String postfix = name == null ? "" : "_" + name;
+        var tsvb = new TSVB("stat-kafka_producer" + postfix + "_request_size_avg", "stat");
+        tsvb.params.series.add(series("avg", "stats.kafka_producer" + postfix + "_request_size_avg", "avg request size", "bytes", color()));
         return tsvb;
     }
 
@@ -178,24 +202,6 @@ public class KibanaObjectBuilder {
         var s2 = series("avg", "stats.kafka_bytes_out_rate", "bytes out rate", "bytes", color());
         s2.value_template = "{{value}}/s";
         s2.fill = 0;
-        tsvb.params.series.add(s2);
-        return tsvb;
-    }
-
-    private TSVB kafkaRequestSize(String name) {
-        String postfix = name == null ? "" : "_" + name;
-        var tsvb = new TSVB("stat-kafka" + postfix + "_producer_request_size_avg", "stat");
-        tsvb.params.series.add(series("avg", "stats.kafka_producer" + postfix + "_request_size_avg", "avg request size", "bytes", color()));
-        return tsvb;
-    }
-
-    private TSVB kafkaFetchRate(String color) {
-        var tsvb = new TSVB("stat-kafka_fetch_rate", "stat");
-        var s1 = series("min", "stats.kafka_consumer_fetch_rate", "min fetch rate", "number", color);
-        s1.value_template = "{{value}} req/s";
-        tsvb.params.series.add(s1);
-        var s2 = series("avg", "stats.kafka_consumer_fetch_rate", "avg fetch rate", "number", color);
-        s2.value_template = "{{value}} req/s";
         tsvb.params.series.add(s2);
         return tsvb;
     }
@@ -233,6 +239,7 @@ public class KibanaObjectBuilder {
 
     private TSVB gc(String name) {
         var tsvb = new TSVB("stat-" + name + "_gc", "stat");
+        tsvb.params.show_grid = 0;
         var youngElapsed = series("sum", "stats." + name + "_gc_young_elapsed", "young gc elapsed", "number", color());
         youngElapsed.value_template = "{{value}} ns";
         var youngCount = series("sum", "stats." + name + "_gc_young_count", "young gc count", "number", color());
@@ -254,20 +261,20 @@ public class KibanaObjectBuilder {
         return tsvb;
     }
 
-    private TSVB splitByTerm(String id, String term, boolean stacked) {
+    private TSVB splitByTerm(String id, String term) {
         var tsvb = new TSVB(id, "action");
         tsvb.params.show_legend = 1;
 
         var series = new TSVB.Series();
+        series.color = "#000000";
         series.id = "count";
         series.label = "count";
         series.split_mode = "terms";
         series.split_color_mode = "rainbow";
         series.terms_field = term;
-        if (stacked) {
-            series.chart_type = "bar";
-            series.stacked = "stacked";
-        }
+        series.terms_order_by = "count";
+        series.chart_type = "bar";
+        series.stacked = "stacked";
         series.metrics.add(new TSVB.Metric("count", null));
         tsvb.params.series.add(series);
         return tsvb;
@@ -278,11 +285,13 @@ public class KibanaObjectBuilder {
         tsvb.params.show_legend = 1;
 
         var series = new TSVB.Series();
+        series.color = "#000000";
         series.id = "count";
         series.label = "count";
         series.split_mode = "terms";
         series.split_color_mode = "rainbow";
         series.terms_field = "result";
+        series.terms_order_by = "count";
         series.chart_type = "bar";
         series.stacked = "stacked";
         series.metrics.add(new TSVB.Metric("count", null));
@@ -295,11 +304,13 @@ public class KibanaObjectBuilder {
         tsvb.params.show_legend = 1;
 
         var series = new TSVB.Series();
+        series.color = "#000000";
         series.id = "elapsed";
         series.label = "elapsed";
         series.split_mode = "terms";
         series.split_color_mode = "rainbow";
         series.terms_field = "action";
+        series.terms_order_by = "sum";
         series.chart_type = "bar";
         series.value_template = "{{value}} ns";
         series.stacked = "stacked";

@@ -36,6 +36,7 @@ public class TSVB {
         public String color;
         public String split_mode = "everything";
         public String terms_field;
+        public String terms_order_by;
         public String split_color_mode;
         public int separate_axis = 0;
         public String axis_position;
