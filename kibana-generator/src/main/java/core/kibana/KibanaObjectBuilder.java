@@ -44,7 +44,6 @@ public class KibanaObjectBuilder {
         objects.add(visualization(gc("jvm")));
 
         objects.add(visualization(httpActiveRequests()));
-        objects.add(visualization(businessUniqueVisitor()));
 
         addPerf("db", "rows", "db");
         objects.add(visualization(poolCount("db")));
@@ -70,7 +69,6 @@ public class KibanaObjectBuilder {
         objects.add(visualization(kafkaRequestSize("log-forwarder")));
 
         addPerf("kafka", "msgs", "kafka");
-
         objects.add(visualization(heap("kafka")));
         objects.add(visualization(gc("kafka")));
         objects.add(visualization(kafkaBytesRate()));
@@ -86,6 +84,7 @@ public class KibanaObjectBuilder {
 
         objects.add(visualization(traceCountByResult()));
 
+        objects.add(visualization(businessUniqueVisitor()));
         objects.add(visualization(metric("business-customer_registered", "stats.customer_registered", "Customer Registered")));
         objects.add(visualization(metric("business-order_amount", "stats.order_amount", "Total Order Amount")));
         objects.add(visualization(metric("business-order_placed", "stats.order_placed", "Order Placed")));
