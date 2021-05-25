@@ -6,22 +6,28 @@ import java.util.List;
 /**
  * @author neo
  */
-public class TSVBMetric {
+public class TSVB {
     public String title;
     public String type = "metrics";
     public Params params = new Params();
+
+    public TSVB(String id, String index) {
+        title = id;
+        params.id = id;
+        params.index_pattern = index + "-*";
+    }
 
     public static class Params {
         public String id;
         public String type = "timeseries";
         public String time_field = "@timestamp";
         public String index_pattern;
-        public String axis_formatter = "number";
         public String axis_scale = "normal";
         public String axis_position = "left";
         public int show_legend = 0;
         public int show_grid = 1;
         public List<Series> series = new ArrayList<>();
+        public String time_range_mode;
     }
 
     public static class Series {
@@ -48,6 +54,12 @@ public class TSVBMetric {
         public String type;
         public String field;
         public List<Percentile> percentiles;
+
+        public Metric(String type, String field) {
+            this.id = type;
+            this.type = type;
+            this.field = field;
+        }
     }
 
     public static class Percentile {
@@ -56,5 +68,10 @@ public class TSVBMetric {
         public String value;
         public double shade = 0.2;
         public String percentile = "";
+
+        public Percentile(String value) {
+            this.id = value;
+            this.value = value;
+        }
     }
 }

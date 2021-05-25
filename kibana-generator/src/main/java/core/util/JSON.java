@@ -19,6 +19,7 @@ public class JSON {
         return JsonMapper.builder()
                 .defaultDateFormat(new StdDateFormat())
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
+//                .enable(SerializationFeature.INDENT_OUTPUT)
                 .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                 .deactivateDefaultTyping()
                 .build();
