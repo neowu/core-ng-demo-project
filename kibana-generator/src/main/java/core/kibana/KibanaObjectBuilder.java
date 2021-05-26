@@ -43,7 +43,11 @@ public class KibanaObjectBuilder {
         objects.add(visualization(heap("jvm")));
         objects.add(visualization(gc("jvm")));
 
-        objects.add(visualization(httpActiveRequests()));
+        objects.add(visualization(maxAvg("stat-http_active_requests", "stat", "stats.http_active_requests", "active http requests", color(), "number")));
+        objects.add(visualization(percentile("perf-http", "perf_stats.http.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
+        objects.add(visualization(percentile("perf-http_dns", "perf_stats.http_dns.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
+        objects.add(visualization(percentile("perf-http_conn", "perf_stats.http_conn.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
+        objects.add(visualization(perfHTTPIO()));
 
         addPerf("db", "rows", "db");
         objects.add(visualization(poolCount("db")));
@@ -54,6 +58,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(usedMax("stat-redis_mem", "stats.redis_mem_max", "stats.redis_mem_used", "memory")));
 
         objects.add(visualization(poolCount("redis-cache")));
+        objects.add(visualization(poolCount("redis-session")));
         objects.add(visualization(cacheHitRate()));
         objects.add(visualization(maxAvg("stat-cache_size", "stat", "stats.cache_size", "cache size", color(), "number")));
 
@@ -106,6 +111,20 @@ public class KibanaObjectBuilder {
         objects.add(visualization(tsvb));
     }
 
+    private TSVB perfHTTPIO() {
+        var tsvb = new TSVB("perf-http_count", "action");
+        var s1 = series("sum", "perf_stats.http.count", "http", "number", color());
+        s1.fill = 0;
+        tsvb.params.series.add(s1);
+        var s2 = series("sum", "perf_stats.http_dns.count", "dns", "number", color());
+        s2.fill = 0;
+        tsvb.params.series.add(s2);
+        var s3 = series("sum", "perf_stats.http_conn.count", "conn", "number", color());
+        s3.fill = 0;
+        tsvb.params.series.add(s3);
+        return tsvb;
+    }
+
     private TSVB max(String id, String index, String field, String label, String formatter, String color) {
         var tsvb = new TSVB(id, index);
         tsvb.params.series.add(series("max", field, label, formatter, color));
@@ -129,12 +148,6 @@ public class KibanaObjectBuilder {
         misses.chart_type = "bar";
         misses.stacked = "stacked";
         tsvb.params.series.add(misses);
-        return tsvb;
-    }
-
-    private TSVB httpActiveRequests() {
-        var tsvb = new TSVB("stat-http_active_requests", "stat");
-        tsvb.params.series.add(series("sum", "stats.http_active_requests", "active requests", "number", color()));
         return tsvb;
     }
 
