@@ -44,10 +44,14 @@ public class KibanaObjectBuilder {
         objects.add(visualization(gc("jvm")));
 
         objects.add(visualization(maxAvg("stat-http_active_requests", "stat", "stats.http_active_requests", "active http requests", color(), "number")));
+        objects.add(visualization(valueTemplate(maxAvg("action-http_delay", "action", "stats.http_delay", "http delay", color(), "number"), "{{value}} ns")));
+        objects.add(visualization(actionHTTPIO()));
+
         objects.add(visualization(percentile("perf-http", "perf_stats.http.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
         objects.add(visualization(percentile("perf-http_dns", "perf_stats.http_dns.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
         objects.add(visualization(percentile("perf-http_conn", "perf_stats.http_conn.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
         objects.add(visualization(perfHTTPIO()));
+        objects.add(visualization(httpRetries()));
 
         addPerf("db", "rows", "db");
         objects.add(visualization(poolCount("db")));
@@ -63,6 +67,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(maxAvg("stat-cache_size", "stat", "stats.cache_size", "cache size", color(), "number")));
 
         objects.add(visualization(valueTemplate(maxAvg("action-consumer_delay", "action", "stats.consumer_delay", "consumer delay", color(), "number"), "{{value}} ns")));
+        objects.add(visualization(valueTemplate(maxAvg("action-task_delay", "action", "stats.task_delay", "task delay", color(), "number"), "{{value}} ns")));
 
         objects.add(visualization(kafkaConsumerConsumedRate()));
         objects.add(visualization(kafkaConsumerFetchRate(color())));
@@ -106,22 +111,38 @@ public class KibanaObjectBuilder {
         read.value_template = write.value_template;
         tsvb.params.series.add(read);
         var operations = series("sum", "perf_stats." + key + ".count", "operations", "number", color());
+        operations.separate_axis = 1;
+        operations.axis_position = "right";
         operations.fill = 0;
         tsvb.params.series.add(operations);
         objects.add(visualization(tsvb));
     }
 
     private TSVB perfHTTPIO() {
-        var tsvb = new TSVB("perf-http_count", "action");
+        var tsvb = new TSVB("perf-http_io", "action");
+        tsvb.params.show_grid = 0;
+        tsvb.params.series.add(series("sum", "perf_stats.http.read_entries", "response body length", "bytes", color()));
+        tsvb.params.series.add(series("sum", "perf_stats.http.write_entries", "request body length", "bytes", color()));
         var s1 = series("sum", "perf_stats.http.count", "http", "number", color());
+        s1.separate_axis = 1;
+        s1.axis_position = "right";
         s1.fill = 0;
         tsvb.params.series.add(s1);
-        var s2 = series("sum", "perf_stats.http_dns.count", "dns", "number", color());
-        s2.fill = 0;
-        tsvb.params.series.add(s2);
-        var s3 = series("sum", "perf_stats.http_conn.count", "conn", "number", color());
-        s3.fill = 0;
-        tsvb.params.series.add(s3);
+        return tsvb;
+    }
+
+    private TSVB httpRetries() {
+        var tsvb = new TSVB("action-http_retries", "action");
+        TSVB.Series s1 = series("sum", "stats.http_retries", "http retries", "number", color());
+        s1.chart_type = "bar";
+        tsvb.params.series.add(s1);
+        return tsvb;
+    }
+
+    private TSVB actionHTTPIO() {
+        var tsvb = new TSVB("action-http_io", "action");
+        tsvb.params.series.add(series("sum", "stats.request_body_length", "request body length", "bytes", color()));
+        tsvb.params.series.add(series("sum", "stats.response_body_length", "response body length", "bytes", color()));
         return tsvb;
     }
 
