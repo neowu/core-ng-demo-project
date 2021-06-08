@@ -47,9 +47,9 @@ public class KibanaObjectBuilder {
         objects.add(visualization(valueTemplate(maxAvg("action-http_delay", "action", "stats.http_delay", "http delay", color(), "number"), "{{value}} ns")));
         objects.add(visualization(actionHTTPIO()));
 
-        objects.add(visualization(percentile("perf-http", "perf_stats.http.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
-        objects.add(visualization(percentile("perf-http_dns", "perf_stats.http_dns.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
-        objects.add(visualization(percentile("perf-http_conn", "perf_stats.http_conn.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
+        objects.add(visualization(percentile("perf-http_client", "perf_stats.http.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
+        objects.add(visualization(percentile("perf-http_client_dns", "perf_stats.http_dns.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
+        objects.add(visualization(percentile("perf-http_client_conn", "perf_stats.http_conn.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
         objects.add(visualization(perfHTTPIO()));
         objects.add(visualization(httpRetries()));
 
@@ -119,7 +119,7 @@ public class KibanaObjectBuilder {
     }
 
     private TSVB perfHTTPIO() {
-        var tsvb = new TSVB("perf-http_io", "action");
+        var tsvb = new TSVB("perf-http_client_io", "action");
         tsvb.params.show_grid = 0;
         tsvb.params.series.add(series("sum", "perf_stats.http.read_entries", "response body length", "bytes", color()));
         tsvb.params.series.add(series("sum", "perf_stats.http.write_entries", "request body length", "bytes", color()));
@@ -132,7 +132,7 @@ public class KibanaObjectBuilder {
     }
 
     private TSVB httpRetries() {
-        var tsvb = new TSVB("action-http_retries", "action");
+        var tsvb = new TSVB("action-http_client_retries", "action");
         TSVB.Series s1 = series("sum", "stats.http_retries", "http retries", "number", color());
         s1.chart_type = "bar";
         tsvb.params.series.add(s1);
