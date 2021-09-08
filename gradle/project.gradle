@@ -5,8 +5,8 @@ subprojects {
 
     apply plugin: 'java'
 
-    sourceCompatibility = JavaVersion.VERSION_15
-    targetCompatibility = JavaVersion.VERSION_15
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
@@ -61,8 +61,8 @@ apply from: file("${rootDir}/gradle/check.gradle")
 allprojects {
     apply plugin: 'idea'
     idea.module {
-        outputDir = file("${rootDir}/build/${rootDir.relativePath(projectDir)}/classes/java/main")
-        testOutputDir = file("${rootDir}/build/${rootDir.relativePath(projectDir)}/classes/java/test")
+        outputDir = file("${rootDir}/build/${rootDir.relativePath(projectDir)}/idea/production")
+        testOutputDir = file("${rootDir}/build/${rootDir.relativePath(projectDir)}/idea/test")
     }
 }
 
