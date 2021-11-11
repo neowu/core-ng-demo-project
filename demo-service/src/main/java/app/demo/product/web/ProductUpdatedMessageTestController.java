@@ -3,6 +3,7 @@ package app.demo.product.web;
 import app.demo.api.product.kafka.ProductUpdatedMessage;
 import core.framework.inject.Inject;
 import core.framework.kafka.MessagePublisher;
+import core.framework.log.ActionLogContext;
 import core.framework.web.Controller;
 import core.framework.web.Request;
 import core.framework.web.Response;
@@ -16,7 +17,8 @@ public class ProductUpdatedMessageTestController implements Controller {
 
     @Override
     public Response execute(Request request) {
-        for (int i = 0; i < 100; i++) {
+        ActionLogContext.triggerTrace(true);
+        for (int i = 0; i < 50; i++) {
             ProductUpdatedMessage value = new ProductUpdatedMessage();
             value.id = String.valueOf(i);
             value.name = "name-" + i;
