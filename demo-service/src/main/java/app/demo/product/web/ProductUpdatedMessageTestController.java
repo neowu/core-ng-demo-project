@@ -18,7 +18,7 @@ public class ProductUpdatedMessageTestController implements Controller {
     @Override
     public Response execute(Request request) {
         ActionLogContext.triggerTrace(true);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             ProductUpdatedMessage value = new ProductUpdatedMessage();
             value.id = String.valueOf(i);
             value.name = "name-" + i;
