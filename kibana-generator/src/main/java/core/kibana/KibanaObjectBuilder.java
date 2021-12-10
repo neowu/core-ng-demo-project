@@ -55,6 +55,7 @@ public class KibanaObjectBuilder {
 
         addPerf("db", "rows", "db");
         objects.add(visualization(poolCount("db")));
+        objects.add(visualization(dbQueries()));
 
         addPerf("redis", "keys", "redis");
         objects.add(visualization(poolCount("redis")));
@@ -139,6 +140,12 @@ public class KibanaObjectBuilder {
         return tsvb;
     }
 
+    private TSVB dbQueries() {
+        var tsvb = new TSVB("action-db_queries", "action");
+        tsvb.params.series.add(series("sum", "stats.db_queries", "db queries", "number", color()));
+        return tsvb;
+    }
+
     private TSVB actionHTTPIO() {
         var tsvb = new TSVB("action-http_io", "action");
         tsvb.params.series.add(series("sum", "stats.request_body_length", "request body length", "bytes", color()));
@@ -160,7 +167,7 @@ public class KibanaObjectBuilder {
     }
 
     private TSVB cacheHitRate() {   // hard code color to make miss/hit contrast
-        var tsvb = new TSVB("stat-cache_hit_rate", "action");
+        var tsvb = new TSVB("action-cache_hit_rate", "action");
         var hits = series("sum", "stats.cache_hits", "cache hits", "number", "#43AA8B");
         hits.chart_type = "bar";
         hits.stacked = "stacked";
