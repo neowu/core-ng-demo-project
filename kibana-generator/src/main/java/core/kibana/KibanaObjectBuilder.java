@@ -283,8 +283,6 @@ public class KibanaObjectBuilder {
         tsvb.params.show_grid = 0;
         var youngElapsed = series("sum", "stats." + name + "_gc_young_elapsed", "young gc elapsed", "number", color());
         youngElapsed.value_template = "{{value}} ns";
-        youngElapsed.separate_axis = 1;
-        youngElapsed.axis_position = "left";
         var youngCount = series("sum", "stats." + name + "_gc_young_count", "young gc count", "number", color());
         youngCount.separate_axis = 1;
         youngCount.axis_position = "right";
@@ -292,8 +290,6 @@ public class KibanaObjectBuilder {
 
         var oldElapsed = series("sum", "stats." + name + "_gc_old_elapsed", "old gc elapsed", "number", color());
         oldElapsed.value_template = "{{value}} ns";
-        oldElapsed.separate_axis = 1;
-        oldElapsed.axis_position = "left";
         var oldCount = series("sum", "stats." + name + "_gc_old_count", "old gc count", "number", color());
         oldCount.separate_axis = 1;
         oldCount.axis_position = "right";
