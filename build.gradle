@@ -24,9 +24,9 @@ subprojects {
     }
 }
 
-def coreNGVersion = '7.9.3'
+def coreNGVersion = '7.10.3'
 def hsqlVersion = '2.6.0'
-def jacksonVersion = '2.12.3'
+def jacksonVersion = '2.13.1'
 def mysqlVersion = '8.0.28'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
@@ -97,7 +97,6 @@ project(':benchmark') {
         implementation "com.fasterxml.jackson.module:jackson-module-blackbird:${jacksonVersion}"
     }
 }
-
 
 project(':kibana-generator') {
     dependencies {
