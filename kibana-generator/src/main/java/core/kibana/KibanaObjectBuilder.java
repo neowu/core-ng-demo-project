@@ -231,8 +231,8 @@ public class KibanaObjectBuilder {
     private TSVB kafkaProducerRequestSize(String name) {
         String postfix = name == null ? "" : "_" + name;
         var tsvb = new TSVB("stat-kafka_producer" + postfix + "_request_size", "stat");
-        tsvb.params.series.add(series("avg", "stats.kafka_producer" + postfix + "_request_size_avg", "avg request size", "bytes", color()));
         tsvb.params.series.add(series("max", "stats.kafka_producer" + postfix + "_request_size_max", "max request size", "bytes", color()));
+        tsvb.params.series.add(series("avg", "stats.kafka_producer" + postfix + "_request_size_avg", "avg request size", "bytes", color()));
         return tsvb;
     }
 
