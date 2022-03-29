@@ -75,6 +75,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(max("stat-kafka_consumer_max_lag", "stat", "stats.kafka_consumer_records_max_lag", "max lag", "number", color())));
         objects.add(visualization(kafkaProducerProducedRate(null)));
         objects.add(visualization(kafkaProducerRequestSize(null)));
+        objects.add(visualization(max("stat-kafka_max_message_size", "stat", "stats.kafka_max_message_size", "max message size", "bytes", color())));
 
         objects.add(visualization(kafkaProducerProducedRate("log-forwarder")));
         objects.add(visualization(kafkaProducerRequestSize("log-forwarder")));
@@ -229,8 +230,9 @@ public class KibanaObjectBuilder {
 
     private TSVB kafkaProducerRequestSize(String name) {
         String postfix = name == null ? "" : "_" + name;
-        var tsvb = new TSVB("stat-kafka_producer" + postfix + "_request_size_avg", "stat");
+        var tsvb = new TSVB("stat-kafka_producer" + postfix + "_request_size", "stat");
         tsvb.params.series.add(series("avg", "stats.kafka_producer" + postfix + "_request_size_avg", "avg request size", "bytes", color()));
+        tsvb.params.series.add(series("max", "stats.kafka_producer" + postfix + "_request_size_max", "max request size", "bytes", color()));
         return tsvb;
     }
 

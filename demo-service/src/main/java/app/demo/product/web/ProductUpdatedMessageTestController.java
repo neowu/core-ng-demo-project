@@ -21,7 +21,7 @@ public class ProductUpdatedMessageTestController implements Controller {
         for (int i = 0; i < 10; i++) {
             ProductUpdatedMessage value = new ProductUpdatedMessage();
             value.id = String.valueOf(i);
-            value.name = "name-" + i;
+            value.name = "name-" + i + Randoms.alphaNumeric(1024 * 1025);
             publisher.publish(value.id, value);
         }
         return Response.empty();
