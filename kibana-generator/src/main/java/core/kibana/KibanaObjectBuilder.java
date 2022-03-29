@@ -75,7 +75,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(max("stat-kafka_consumer_max_lag", "stat", "stats.kafka_consumer_records_max_lag", "max lag", "number", color())));
         objects.add(visualization(kafkaProducerProducedRate(null)));
         objects.add(visualization(kafkaProducerRequestSize(null)));
-        objects.add(visualization(max("stat-kafka_max_message_size", "stat", "stats.kafka_max_message_size", "max message size", "bytes", color())));
+        objects.add(visualization(max("stat-kafka_max_message_size", "action", "stats.kafka_max_message_size", "max message size", "bytes", color())));
 
         objects.add(visualization(kafkaProducerProducedRate("log-forwarder")));
         objects.add(visualization(kafkaProducerRequestSize("log-forwarder")));
