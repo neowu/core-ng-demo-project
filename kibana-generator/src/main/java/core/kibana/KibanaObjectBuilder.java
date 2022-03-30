@@ -67,8 +67,8 @@ public class KibanaObjectBuilder {
         objects.add(visualization(cacheHitRate()));
         objects.add(visualization(maxAvg("stat-cache_size", "stat", "stats.cache_size", "cache size", color(), "number")));
 
-        objects.add(visualization(valueTemplate(maxAvg("action-consumer_delay", "action", "stats.consumer_delay", "consumer delay", color(), "number"), "{{value}} ns")));
-        objects.add(visualization(valueTemplate(maxAvg("action-task_delay", "action", "stats.task_delay", "task delay", color(), "number"), "{{value}} ns")));
+        objects.add(visualization(valueTemplate(maxAvg("action-consumer_delay", "action", "stats.consumer_delay", "consumer delay", color(), "ns,s,"), "{{value}} s")));
+        objects.add(visualization(valueTemplate(maxAvg("action-task_delay", "action", "stats.task_delay", "task delay", color(), "ns,s,"), "{{value}} s")));
 
         objects.add(visualization(kafkaConsumerConsumedRate()));
         objects.add(visualization(kafkaConsumerFetchRate(color())));
