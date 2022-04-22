@@ -87,6 +87,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(max("stat-kafka_disk", "stat", "stats.kafka_disk_used", "used disk size", "bytes", color())));
 
         addPerf("es", "docs", "elasticsearch");
+        objects.add(visualization(maxAvg("stat-es_cpu_usage", "stat", "stats.es_cpu_usage", "cpu usage", color(), "percent")));
         objects.add(visualization(usedMax("stat-es_disk", "stats.es_disk_max", "stats.es_disk_used", "disk")));
         objects.add(visualization(heap("es")));
         objects.add(visualization(gc("es")));
