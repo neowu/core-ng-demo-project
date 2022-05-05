@@ -11,7 +11,6 @@ import core.framework.http.HTTPClient;
 import core.framework.module.Module;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static core.framework.http.HTTPMethod.GET;
 
@@ -32,7 +31,7 @@ public class ProductModule extends Module {
         api().service(ProductWebService.class, bind(ProductWebServiceImpl.class));
 
         http().limitRate()
-                .add("product", 3, 20, TimeUnit.MINUTES);
+                .add("product", 3, 20, Duration.ofMinutes(1));
     }
 
     private void configureKafka() {
