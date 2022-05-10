@@ -27,7 +27,7 @@ subprojects {
 def coreNGVersion = '7.10.4'
 def hsqlVersion = '2.6.0'
 def jacksonVersion = '2.13.1'
-def mysqlVersion = '8.0.28'
+def mysqlVersion = '8.0.29'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
