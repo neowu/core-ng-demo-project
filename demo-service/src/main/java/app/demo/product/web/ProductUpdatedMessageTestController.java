@@ -1,6 +1,7 @@
 package app.demo.product.web;
 
 import app.demo.api.product.kafka.ProductUpdatedMessage;
+import core.framework.db.DBWarning;
 import core.framework.inject.Inject;
 import core.framework.kafka.MessagePublisher;
 import core.framework.log.ActionLogContext;
@@ -16,6 +17,7 @@ public class ProductUpdatedMessageTestController implements Controller {
     MessagePublisher<ProductUpdatedMessage> publisher;
 
     @Override
+    @DBWarning(maxOperations = 10_000, maxRows = 3000)
     public Response execute(Request request) {
         ActionLogContext.triggerTrace(true);
         for (int i = 0; i < 10; i++) {
