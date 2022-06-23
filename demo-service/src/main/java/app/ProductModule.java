@@ -3,7 +3,7 @@ package app;
 import app.demo.api.ProductWebService;
 import app.demo.api.product.ProductView;
 import app.demo.api.product.kafka.ProductUpdatedMessage;
-import app.demo.product.kafka.ProductUpdatedMessageHandler;
+import app.demo.product.kafka.ProductUpdatedBulkMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
@@ -37,7 +37,7 @@ public class ProductModule extends Module {
     private void configureKafka() {
         kafka().uri("localhost");
 
-        kafka().subscribe("product-updated", ProductUpdatedMessage.class, bind(ProductUpdatedMessageHandler.class));
+        kafka().subscribe("product-updated", ProductUpdatedMessage.class, bind(ProductUpdatedBulkMessageHandler.class));
         kafka().poolSize(2);
 
         kafka().publish("product-updated", ProductUpdatedMessage.class);
