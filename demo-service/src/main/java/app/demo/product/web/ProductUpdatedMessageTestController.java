@@ -16,7 +16,7 @@ public class ProductUpdatedMessageTestController implements Controller {
     MessagePublisher<ProductUpdatedMessage> publisher;
 
     @Override
-    @IOWarning(operation = "kafka", maxWrites = 2)
+    @IOWarning(operation = "kafka", maxTotalWrites = 2)
     public Response execute(Request request) {
         ActionLogContext.triggerTrace(true);
         for (int i = 0; i < 10; i++) {
