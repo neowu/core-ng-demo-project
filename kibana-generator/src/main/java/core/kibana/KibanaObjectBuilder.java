@@ -94,6 +94,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(max("stat-es_docs", "stat", "stats.es_docs", "docs", "number", color())));
 
         addPerf("mongo", "docs", "mongo");
+        objects.add(visualization(poolCount("mongo")));
 
         objects.add(visualization(traceCountByResult()));
 
