@@ -14,7 +14,7 @@ import core.framework.util.Strings;
 import core.framework.web.exception.ConflictException;
 import core.framework.web.exception.NotFoundException;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,12 +33,11 @@ public class CustomerService {
             throw new ConflictException("customer already exists, email=" + request.email);
         }
 
-        Customer customer = new Customer();
+        var customer = new Customer();
         customer.status = CustomerStatus.ACTIVE;
         customer.email = request.email;
-        customer.firstName = request.firstName;
-        customer.lastName = request.lastName;
-        customer.updatedTime = LocalDateTime.now();
+        customer.name = request.name;
+        customer.updatedTime = ZonedDateTime.now();
         customer.id = customerRepository.insert(customer).orElseThrow();
 
         return view(customer);
@@ -46,11 +45,8 @@ public class CustomerService {
 
     public CustomerView update(Long id, UpdateCustomerRequest request) {
         Customer customer = customerRepository.get(id).orElseThrow(() -> new NotFoundException("customer not found, id=" + id));
-        customer.updatedTime = LocalDateTime.now();
-        customer.firstName = request.firstName;
-        if (request.lastName != null) {
-            customer.lastName = request.lastName;
-        }
+        customer.name = request.name;
+        customer.updatedTime = ZonedDateTime.now();
         customerRepository.partialUpdate(customer);
         return view(customer);
     }
@@ -63,11 +59,8 @@ public class CustomerService {
         if (!Strings.isBlank(request.email)) {
             query.where("email = ?", request.email);
         }
-        if (!Strings.isBlank(request.firstName)) {
-            query.where("first_name like ?", Strings.format("{}%", request.firstName));
-        }
-        if (!Strings.isBlank(request.lastName)) {
-            query.where("last_name like ?", Strings.format("{}%", request.lastName));
+        if (!Strings.isBlank(request.name)) {
+            query.where("name like ?", Strings.format("{}%", request.name));
         }
         result.customers = query.fetch().stream().map(this::view).collect(Collectors.toList());
         result.total = query.count();
@@ -76,12 +69,11 @@ public class CustomerService {
     }
 
     private CustomerView view(Customer customer) {
-        CustomerView result = new CustomerView();
-        result.id = customer.id;
-        result.email = customer.email;
-        result.firstName = customer.firstName;
-        result.lastName = customer.lastName;
-        result.updatedTime = customer.updatedTime;
-        return result;
+        var view = new CustomerView();
+        view.id = String.valueOf(customer.id);
+        view.email = customer.email;
+        view.name = customer.name;
+        view.updatedTime = customer.updatedTime;
+        return view;
     }
 }

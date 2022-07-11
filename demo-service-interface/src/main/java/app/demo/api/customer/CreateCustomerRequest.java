@@ -10,12 +10,7 @@ public class CreateCustomerRequest {
     @Property(name = "email")
     public String email;
 
-    @NotNull
     @NotBlank
-    @Property(name = "first_name")
-    public String firstName;
-
-    @NotBlank
-    @Property(name = "last_name")
-    public String lastName;
+    @Property(name = "name")
+    public String name;
 }

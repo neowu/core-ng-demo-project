@@ -1,0 +1,7 @@
+POST https://localhost:8443/mongo/customer
+Content-Type: application/json
+
+{"email": "user@test.com", "name": "test"}
+
+###
+GET https://localhost:8443/mongo/customer/62cbc7a6995e24532f2e8e1f

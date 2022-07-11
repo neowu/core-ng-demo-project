@@ -6,7 +6,7 @@ import core.framework.db.Column;
 import core.framework.db.PrimaryKey;
 import core.framework.db.Table;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Table(name = "customer")
 public class Customer {
@@ -23,16 +23,11 @@ public class Customer {
     @Column(name = "email")
     public String email;
 
-    @NotNull
     @NotBlank
-    @Column(name = "first_name")
-    public String firstName;
-
-    @NotBlank
-    @Column(name = "last_name")
-    public String lastName;
+    @Column(name = "name")
+    public String name;
 
     @NotNull
     @Column(name = "updated_time")
-    public LocalDateTime updatedTime;
+    public ZonedDateTime updatedTime;
 }
