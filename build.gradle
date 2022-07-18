@@ -34,6 +34,7 @@ configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
 
     dependencies {
         runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+        runtimeOnly 'org.postgresql:postgresql:42.4.0'
     }
 }
 
@@ -82,6 +83,7 @@ project(':demo-service') {
         testImplementation "core.framework:core-ng-mongo-test:${coreNGVersion}"
         testImplementation "core.framework:core-ng-search-test:${coreNGVersion}"
         runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+        runtimeOnly 'org.postgresql:postgresql:42.4.0'
         testRuntimeOnly "org.hsqldb:hsqldb:${hsqlVersion}"
     }
 }
