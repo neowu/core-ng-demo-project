@@ -17,7 +17,7 @@ public class DemoServiceApp extends App {
 //        redis().host("localhost");
         load(new ProductModule());
 //        load(new JobModule());
-        load(new CustomerModule());
+//        load(new CustomerModule());
 
         http().route(HTTPMethod.GET, "/503", request -> Response.text("hello").status(HTTPStatus.SERVICE_UNAVAILABLE));
         http().route(HTTPMethod.GET, "/204", request -> Response.empty());
