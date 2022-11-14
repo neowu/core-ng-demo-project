@@ -26,14 +26,14 @@ subprojects {
 
 def coreNGVersion = '8.0.5'
 def hsqlVersion = '2.6.0'
-def jacksonVersion = '2.13.3'
-def mysqlVersion = '8.0.29'
+def jacksonVersion = '2.14.0'
+def mysqlVersion = '8.0.31'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
 
     dependencies {
-        runtimeOnly "mysql:mysql-connector-java:${mysqlVersion}"
+        runtimeOnly "com.mysql:mysql-connector-j:${mysqlVersion}"
         runtimeOnly 'org.postgresql:postgresql:42.4.0'
     }
 }
