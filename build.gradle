@@ -24,8 +24,8 @@ subprojects {
     }
 }
 
-def coreNGVersion = '8.0.5'
-def hsqlVersion = '2.6.0'
+def coreNGVersion = '8.0.8'
+def hsqlVersion = '2.7.1'
 def jacksonVersion = '2.14.0'
 def mysqlVersion = '8.0.31'
 
