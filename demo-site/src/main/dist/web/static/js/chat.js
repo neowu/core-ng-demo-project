@@ -21,8 +21,8 @@ function send(message) {
     return false;
 }
 
-document.getElementById("message").onkeypress = function () {
-    if (event.keyCode === 13) {
+document.getElementById("message").onkeydown = function (event) {
+    if (event.key === "Enter") {
         const input = document.getElementById("message");
         send(input.value);
         input.value = ''
