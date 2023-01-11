@@ -7,13 +7,10 @@ import org.bson.Document;
  */
 public class Main {
     public static void main(String[] args) {
-        var migration = new MongoMigration("sys.properties", "sys.mongo.adminURI");
+        var migration = new MongoMigration("sys.properties");
         migration.migrate(mongo -> {
-            mongo.runCommand(new Document().append("setParameter", 1).append("notablescan", 1));
-        });
+            mongo.runAdminCommand(new Document().append("setParameter", 1).append("notablescan", 1));
 
-        migration = new MongoMigration("sys.properties");
-        migration.migrate(mongo -> {
             mongo.createIndex("test", Indexes.ascending("name"));
         });
     }
