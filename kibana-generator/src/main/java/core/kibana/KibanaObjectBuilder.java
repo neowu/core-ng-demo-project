@@ -95,7 +95,7 @@ public class KibanaObjectBuilder {
 
         addPerf("mongo", "docs", "mongo");
         objects.add(visualization(poolCount("mongo")));
-        objects.add(visualization(mongoObjects()));
+        objects.add(visualization(mongoDocs()));
         objects.add(visualization(usedMax("stat-mongo_disk", "stats.mongo_disk_max", "stats.mongo_disk_used", "disk")));
 
         objects.add(visualization(traceCountByResult()));
@@ -106,9 +106,9 @@ public class KibanaObjectBuilder {
         objects.add(visualization(metric("business-order_placed", "stats.order_placed", "Order Placed")));
     }
 
-    private TSVB mongoObjects() {
+    private TSVB mongoDocs() {
         TSVB tsvb = max("stat-mongo_objects", "stat", "stats.mongo_total_size", "total size", "bytes", color());
-        TSVB.Series series = series("max", "stats.mongo_objects", "objects", "number", color());
+        TSVB.Series series = series("max", "stats.mongo_docs", "docs", "number", color());
         series.separate_axis = 1;
         series.axis_position = "right";
         series.fill = 0;
