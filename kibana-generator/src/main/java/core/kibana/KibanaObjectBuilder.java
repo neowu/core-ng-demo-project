@@ -95,6 +95,8 @@ public class KibanaObjectBuilder {
 
         addPerf("mongo", "docs", "mongo");
         objects.add(visualization(poolCount("mongo")));
+        objects.add(visualization(mongoObjects()));
+        objects.add(visualization(usedMax("stat-mongo_disk", "stats.mongo_disk_max", "stats.mongo_disk_used", "disk")));
 
         objects.add(visualization(traceCountByResult()));
 
@@ -102,6 +104,16 @@ public class KibanaObjectBuilder {
         objects.add(visualization(metric("business-customer_registered", "stats.customer_registered", "Customer Registered")));
         objects.add(visualization(metric("business-order_amount", "stats.order_amount", "Total Order Amount")));
         objects.add(visualization(metric("business-order_placed", "stats.order_placed", "Order Placed")));
+    }
+
+    private TSVB mongoObjects() {
+        TSVB tsvb = max("stat-mongo_objects", "stat", "stats.mongo_total_size", "total size", "bytes", color());
+        TSVB.Series series = series("max", "stats.mongo_objects", "objects", "number", color());
+        series.separate_axis = 1;
+        series.axis_position = "right";
+        series.fill = 0;
+        tsvb.params.series.add(series);
+        return tsvb;
     }
 
     private void addPerf(String name, String unit, String key) {
