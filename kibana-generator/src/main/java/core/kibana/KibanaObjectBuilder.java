@@ -107,7 +107,7 @@ public class KibanaObjectBuilder {
     }
 
     private TSVB mongoDocs() {
-        TSVB tsvb = max("stat-mongo_objects", "stat", "stats.mongo_total_size", "total size", "bytes", color());
+        TSVB tsvb = max("stat-mongo_docs", "stat", "stats.mongo_total_size", "total size", "bytes", color());
         TSVB.Series series = series("max", "stats.mongo_docs", "docs", "number", color());
         series.separate_axis = 1;
         series.axis_position = "right";
