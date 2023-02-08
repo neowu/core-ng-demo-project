@@ -44,6 +44,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(gc("jvm")));
 
         objects.add(visualization(maxAvg("stat-http_active_requests", "stat", "stats.http_active_requests", "active http requests", color(), "number")));
+        objects.add(visualization(maxAvg("stat-ws_active_channels", "stat", "stats.ws_active_channels", "active ws channels", color(), "number")));
         objects.add(visualization(valueTemplate(maxAvg("action-http_delay", "action", "stats.http_delay", "http delay", color(), "number"), "{{value}} ns")));
         objects.add(visualization(actionHTTPIO()));
 
