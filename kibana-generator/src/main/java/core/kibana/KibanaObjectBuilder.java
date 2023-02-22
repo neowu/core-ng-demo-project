@@ -110,6 +110,7 @@ public class KibanaObjectBuilder {
 
     private TSVB mongoDocs() {
         TSVB tsvb = max("stat-mongo_docs", "stat", "stats.mongo_total_size", "total size", "bytes", color());
+        tsvb.params.show_grid = 0;
         TSVB.Series series = series("max", "stats.mongo_docs", "docs", "number", color());
         series.separate_axis = 1;
         series.axis_position = "right";
@@ -122,6 +123,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(percentile("perf-" + name, "perf_stats." + key + ".total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
 
         var tsvb = new TSVB("perf-" + name + "_io", "action");
+        tsvb.params.show_grid = 0;
         var write = series("sum", "perf_stats." + key + ".write_entries", "write " + unit, "number", color());
         write.value_template = "{{value}} " + unit;
         tsvb.params.series.add(write);
@@ -139,7 +141,6 @@ public class KibanaObjectBuilder {
     // max split by host and stacked
     private TSVB activeStats(String id, String field, String label) {
         var tsvb = new TSVB(id, "stat");
-        tsvb.params.show_grid = 0;
         tsvb.params.filter = new TSVB.Filter();
         tsvb.params.filter.query = field + ": *";
         var s1 = series("max", field, label, "number", color());
