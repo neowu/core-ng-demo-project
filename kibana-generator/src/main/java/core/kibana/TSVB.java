@@ -28,6 +28,13 @@ public class TSVB {
         public int show_grid = 1;
         public List<Series> series = new ArrayList<>();
         public String time_range_mode;
+        // "filter": {"query": "stats.ws_active_channels: *", "language": "kuery"},
+        public Filter filter;
+    }
+
+    public static class Filter {
+        public String query;
+        public String language = "kuery";
     }
 
     public static class Series {

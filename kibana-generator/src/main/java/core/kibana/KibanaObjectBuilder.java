@@ -43,8 +43,8 @@ public class KibanaObjectBuilder {
         objects.add(visualization(heap("jvm")));
         objects.add(visualization(gc("jvm")));
 
-        objects.add(visualization(maxAvg("stat-http_active_requests", "stat", "stats.http_active_requests", "active http requests", color(), "number")));
-        objects.add(visualization(maxAvg("stat-ws_active_channels", "stat", "stats.ws_active_channels", "active ws channels", color(), "number")));
+        objects.add(visualization(activeStats("stat-http_active_requests", "stats.http_active_requests", "active requests")));
+        objects.add(visualization(activeStats("stat-ws_active_channels", "stats.ws_active_channels", "active ws channels")));
         objects.add(visualization(valueTemplate(maxAvg("action-http_delay", "action", "stats.http_delay", "http delay", color(), "number"), "{{value}} ns")));
         objects.add(visualization(actionHTTPIO()));
 
@@ -53,6 +53,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(percentile("perf-http_client_conn", "perf_stats.http_conn.total_elapsed", "total elapsed", color(), new String[]{"99", "90", "50"})));
         objects.add(visualization(perfHTTPIO()));
         objects.add(visualization(httpRetries()));
+        objects.add(visualization(perfWSIO()));
 
         addPerf("db", "rows", "db");
         objects.add(visualization(poolCount("db")));
@@ -135,12 +136,40 @@ public class KibanaObjectBuilder {
         objects.add(visualization(tsvb));
     }
 
+    // max split by host and stacked
+    private TSVB activeStats(String id, String field, String label) {
+        var tsvb = new TSVB(id, "stat");
+        tsvb.params.show_grid = 0;
+        tsvb.params.filter = new TSVB.Filter();
+        tsvb.params.filter.query = field + ": *";
+        var s1 = series("max", field, label, "number", color());
+        s1.chart_type = "bar";
+        s1.stacked = "stacked";
+        s1.split_mode = "terms";
+        s1.terms_field = "host";
+        tsvb.params.series.add(s1);
+        return tsvb;
+    }
+
     private TSVB perfHTTPIO() {
         var tsvb = new TSVB("perf-http_client_io", "action");
         tsvb.params.show_grid = 0;
         tsvb.params.series.add(series("sum", "perf_stats.http.read_entries", "response body length", "bytes", color()));
         tsvb.params.series.add(series("sum", "perf_stats.http.write_entries", "request body length", "bytes", color()));
-        var s1 = series("sum", "perf_stats.http.count", "http", "number", color());
+        var s1 = series("sum", "perf_stats.http.count", "operations", "number", color());
+        s1.separate_axis = 1;
+        s1.axis_position = "right";
+        s1.fill = 0;
+        tsvb.params.series.add(s1);
+        return tsvb;
+    }
+
+    private TSVB perfWSIO() {
+        var tsvb = new TSVB("perf-ws_io", "action");
+        tsvb.params.show_grid = 0;
+        tsvb.params.series.add(series("sum", "perf_stats.ws.read_entries", "client message length", "bytes", color()));
+        tsvb.params.series.add(series("sum", "perf_stats.ws.write_entries", "server message length", "bytes", color()));
+        var s1 = series("sum", "perf_stats.ws.count", "operations", "number", color());
         s1.separate_axis = 1;
         s1.axis_position = "right";
         s1.fill = 0;
