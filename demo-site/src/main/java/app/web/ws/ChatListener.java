@@ -22,6 +22,9 @@ public class ChatListener implements ChannelListener<ChatMessage, ChatMessage> {
             channel.close();
             return;
         }
+        if ("error".equals(message.text)) {
+            throw new Error("syntactic error");
+        }
         ChatMessage response = new ChatMessage();
         response.text = "mirror back: " + message.text + " by " + channel.context().get("name");
         channel.send(response);
