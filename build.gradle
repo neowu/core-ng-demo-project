@@ -24,10 +24,10 @@ subprojects {
     }
 }
 
-def coreNGVersion = '8.0.10'
+def coreNGVersion = '8.1.1'
 def hsqlVersion = '2.7.1'
-def jacksonVersion = '2.14.1'
-def mysqlVersion = '8.0.31'
+def jacksonVersion = '2.14.2'
+def mysqlVersion = '8.0.32'
 
 configure(subprojects.findAll { it.name.endsWith('-db-migration') }) {
     apply from: file("${rootDir}/gradle/db-migration.gradle")
@@ -95,7 +95,7 @@ project(':benchmark') {
     dependencies {
         implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.27'
         implementation "core.framework:core-ng:${coreNGVersion}"
-        implementation 'io.undertow:undertow-core:2.3.4.Final'
+        implementation 'io.undertow:undertow-core:2.3.5.Final'
         implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
         implementation "com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}"
         implementation "com.fasterxml.jackson.module:jackson-module-blackbird:${jacksonVersion}"
