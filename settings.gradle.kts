@@ -9,8 +9,4 @@ include(
     "benchmark"
 )
 
-include(
-    "parent:test-client"
-)
-
 includeBuild("../core-ng-project")
