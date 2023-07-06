@@ -17,11 +17,13 @@ subprojects {
         }
     }
 
-    sourceSets {
-        create("dev") {
-            java.srcDir("src/dev/java")
-            compileClasspath += sourceSets["main"].runtimeClasspath
-            runtimeClasspath += sourceSets["main"].runtimeClasspath
+    if (childProjects.isEmpty()) {
+        sourceSets {
+            create("dev") {
+                java.srcDir("src/dev/java")
+                compileClasspath += sourceSets["main"].runtimeClasspath
+                runtimeClasspath += sourceSets["main"].runtimeClasspath
+            }
         }
     }
 }
@@ -47,7 +49,7 @@ configure(subprojects.filter { it.name.endsWith("-es-migration") }) {
         implementation("core.framework:core-ng-search:${coreNGVersion}")
     }
     tasks.register("esMigrate") {
-        dependsOn(tasks.getByName("run"))
+        dependsOn("run")
     }
 }
 
@@ -58,7 +60,7 @@ configure(subprojects.filter { it.name.endsWith("-mongo-migration") }) {
         implementation("core.framework:core-ng-mongo:${coreNGVersion}")
     }
     tasks.register("mongoMigrate") {
-        dependsOn(tasks.getByName("run"))
+        dependsOn("run")
     }
 }
 
