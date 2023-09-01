@@ -86,7 +86,7 @@ project(":demo-service") {
         implementation("com.squareup.okhttp3:okhttp-sse:4.11.0")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
-        runtimeOnly("mysql:mysql-connector-java:${mysqlVersion}")
+        runtimeOnly("com.mysql:mysql-connector-j:${mysqlVersion}")
         runtimeOnly("org.postgresql:postgresql:42.4.0")
         testRuntimeOnly("org.hsqldb:hsqldb:${hsqlVersion}")
     }
