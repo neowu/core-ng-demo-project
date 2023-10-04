@@ -22,7 +22,7 @@ tasks.named<Test>("test") {
 }
 
 tasks.named<Tar>("distTar") {
-    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+    archiveFileName.set("${archiveBaseName.get()}.${archiveExtension.get()}")
 }
 
 tasks.named<Zip>("distZip") {
@@ -75,12 +75,12 @@ afterEvaluate {
                     include("web/**")
                     into("app")
                 }
-                into("${layout.buildDirectory}/docker/package")
+                into("${layout.buildDirectory.dir("docker/package").get()}")
             }
             if (file("docker/Dockerfile").exists()) {
                 project.sync {
                     from(file("docker"))
-                    into("${layout.buildDirectory}/docker")
+                    into("${layout.buildDirectory.dir("docker").get()}")
                     preserve {
                         include("package/**")
                     }
