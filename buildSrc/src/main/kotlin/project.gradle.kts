@@ -83,5 +83,6 @@ allprojects {
 }
 
 tasks.named<Wrapper>("wrapper") {
-    gradleVersion = "8.3"
+    gradleVersion = "latest"
+
 }
