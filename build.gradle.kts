@@ -31,7 +31,7 @@ subprojects {
 val coreNGVersion = "8.1.5"
 val hsqlVersion = "2.7.1"
 val jacksonVersion = "2.15.2"
-val mysqlVersion = "8.1.0"
+val mysqlVersion = "8.2.0"
 
 configure(subprojects.filter { it.name.endsWith("-db-migration") }) {
     apply(plugin = "db-migration")
