@@ -31,7 +31,6 @@ public class KibanaObjectBuilder {
         objects.add(visualization(splitByTerm("action-count-by-action", "action")));
         objects.add(visualization(elapsedByAction()));
         objects.add(visualization(percentile("action-elapsed", "elapsed", "elapsed", color(), new String[]{"99", "90", "50"})));
-        objects.add(visualization(percentile("action-cpu_time", "stats.cpu_time", "cpu time", color(), new String[]{"99", "90", "50"})));
 
         objects.add(visualization(maxAvg("stat-sys_load", "stat", "stats.sys_load_avg", "sys load", color(), "number")));
         objects.add(visualization(maxAvg("stat-cpu_usage", "stat", "stats.cpu_usage", "cpu usage", color(), "percent")));
@@ -39,6 +38,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(statMem()));
 
         objects.add(visualization(maxAvg("stat-thread", "stat", "stats.thread_count", "thread count", color(), "number")));
+        objects.add(visualization(maxAvg("stat-virtual_thread", "stat", "stats.virtual_thread_count", "virtual thread count", color(), "number")));
 
         objects.add(visualization(heap("jvm")));
         objects.add(visualization(gc("jvm")));
