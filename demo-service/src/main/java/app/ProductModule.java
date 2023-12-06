@@ -3,7 +3,7 @@ package app;
 import app.demo.api.ProductWebService;
 import app.demo.api.product.ProductView;
 import app.demo.api.product.kafka.ProductUpdatedMessage;
-import app.demo.product.kafka.ProductUpdatedBulkMessageHandler;
+import app.demo.product.kafka.ProductUpdatedMessageHandler;
 import app.demo.product.service.ProductService;
 import app.demo.product.web.ProductUpdatedMessageTestController;
 import app.demo.product.web.ProductWebServiceImpl;
