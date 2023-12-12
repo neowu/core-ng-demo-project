@@ -36,8 +36,8 @@ configure(subprojects.filter { it.name.endsWith("-db-migration") }) {
     apply(plugin = "db-migration")
 
     dependencies {
-        runtimeOnly("com.mysql:mysql-connector-j:8.2.0@jar")
-        runtimeOnly("org.postgresql:postgresql:42.4.0")
+        runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
+        runtimeOnly("org.postgresql:postgresql:42.7.1")
     }
 }
 
@@ -85,8 +85,8 @@ project(":demo-service") {
         implementation("com.squareup.okhttp3:okhttp-sse:4.11.0")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
-        runtimeOnly("core.framework.mysql:mysql-connector-j:8.2.0-p2")
-        runtimeOnly("org.postgresql:postgresql:42.4.0")
+        runtimeOnly("core.framework.mysql:mysql-connector-j:8.2.0")
+        runtimeOnly("org.postgresql:postgresql:42.7.1")
         testRuntimeOnly("org.hsqldb:hsqldb:${hsqlVersion}")
     }
 }
