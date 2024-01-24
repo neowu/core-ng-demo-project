@@ -28,7 +28,7 @@ subprojects {
     }
 }
 
-val coreNGVersion = "8.1.5"
+val coreNGVersion = "9.0.5"
 val hsqlVersion = "2.7.2"
 val jacksonVersion = "2.16.1"
 
@@ -36,7 +36,7 @@ configure(subprojects.filter { it.name.endsWith("-db-migration") }) {
     apply(plugin = "db-migration")
 
     dependencies {
-        runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
+        runtimeOnly("com.mysql:mysql-connector-j:8.3.0")
         runtimeOnly("org.postgresql:postgresql:42.7.1")
     }
 }
@@ -85,7 +85,7 @@ project(":demo-service") {
         implementation("com.squareup.okhttp3:okhttp-sse:4.11.0")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
-        runtimeOnly("core.framework.mysql:mysql-connector-j:8.3.0-r1")
+        runtimeOnly("core.framework.mysql:mysql-connector-j:8.3.0")
         runtimeOnly("org.postgresql:postgresql:42.7.1")
         testRuntimeOnly("org.hsqldb:hsqldb:${hsqlVersion}")
     }
