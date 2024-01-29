@@ -5,7 +5,7 @@ tasks.named("mkdir") {
 }
 
 afterEvaluate {
-    if (!project.extensions.extraProperties.has("frontendDir")) throw Error("$project does not have frontendDir property, assign by project.ext[\"frontendDir\"]")
+    if (!project.extensions.extraProperties.has("frontendDir")) throw Error("project does not have frontendDir property, assign by project.ext[\"frontendDir\"]")
     val frontendDir = file(project.extensions.extraProperties.get("frontendDir") as String)
 
     tasks.register("buildFrontend") {
