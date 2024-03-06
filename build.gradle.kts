@@ -34,7 +34,7 @@ subprojects {
     }
 }
 
-val coreNGVersion = "9.0.5"
+val coreNGVersion = "9.0.8"
 val hsqlVersion = "2.7.2"
 val jacksonVersion = "2.16.1"
 
@@ -91,7 +91,7 @@ project(":demo-service") {
         implementation("com.squareup.okhttp3:okhttp-sse:4.11.0")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
-        runtimeOnly("core.framework.mysql:mysql-connector-j:8.3.0")
+        runtimeOnly("core.framework.mysql:mysql-connector-j:8.3.0-r1")
         runtimeOnly("org.postgresql:postgresql:42.7.1")
         testRuntimeOnly("org.hsqldb:hsqldb:${hsqlVersion}")
     }
