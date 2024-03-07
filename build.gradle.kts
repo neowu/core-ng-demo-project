@@ -88,6 +88,7 @@ project(":demo-service") {
         implementation(project(":demo-service-interface"))
         implementation("core.framework:core-ng-mongo:${coreNGVersion}")
         implementation("core.framework:core-ng-search:${coreNGVersion}")
+        implementation("com.squareup.okhttp3:okhttp-sse:4.12.0@jar")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
         runtimeOnly("core.framework.mysql:mysql-connector-j:8.3.0-r1")
