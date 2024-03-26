@@ -48,22 +48,17 @@ subprojects {
     pmd {
         ruleSets = listOf()
         ruleSetFiles = rootProject.files("buildSrc/src/main/check/pmd.xml")
-        toolVersion = "6.55.0"
+        toolVersion = "7.0.0"
         isConsoleOutput = true
 
         tasks.withType<Pmd> {
             group = "verification"
         }
-
-        dependencies {
-            pmd("net.sourceforge.pmd:pmd-java:6.55.0")
-            pmd("org.ow2.asm:asm:9.6")
-        }
     }
 
     spotbugs {
         dependencies {
-            spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.0")
+            spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.4")
         }
 
         toolVersion = "4.8.3"
