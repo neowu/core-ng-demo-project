@@ -15,12 +15,6 @@ subprojects {
                 includeGroupByRegex("core\\.framework.*")
             }
         }
-        maven {
-            url = uri("https://maven.codelibs.org/")
-            content {
-                includeGroup("org.codelibs.elasticsearch.module")
-            }
-        }
     }
 
     if (childProjects.isEmpty()) {
