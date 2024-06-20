@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ChatController {
     @Inject
-    WebSocketContext context;
+    WebSocketContext<ChatMessage> context;
     @Inject
     LanguageManager languageManager;
 
@@ -31,7 +31,7 @@ public class ChatController {
             channel.send(message);
         }
 
-        List<Channel<ChatMessage>> room = context.room("private");
+        List<Channel<ChatMessage>> room = context.group("private");
         for (Channel<ChatMessage> channel : room) {
             var message = new ChatMessage();
             message.text = "hello from private";
