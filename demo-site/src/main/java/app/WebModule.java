@@ -1,7 +1,5 @@
 package app;
 
-import app.web.ChatController;
-import app.web.ChatPage;
 import app.web.IndexController;
 import app.web.IndexPage;
 import app.web.LanguageManager;
@@ -12,8 +10,6 @@ import app.web.ajax.AJAXController;
 import app.web.ajax.Bean;
 import app.web.ajax.ErrorCodes;
 import app.web.interceptor.TestInterceptor;
-import app.web.ws.ChatListener;
-import app.web.ws.ChatMessage;
 import core.framework.api.http.HTTPStatus;
 import core.framework.module.Module;
 import core.framework.web.Response;
@@ -65,17 +61,7 @@ public class WebModule extends Module {
         var wildcardController = bind(WildcardController.class);
         http().route(GET, "/:all(*)", wildcardController::wildcard);
 
-        configureChat();
-    }
-
-    private void configureChat() {
-        http().limitRate().add("message", 5, 1, Duration.ofSeconds(1));
-        ws().listen("/ws/chat", ChatMessage.class, ChatMessage.class, new ChatListener());
-
-        var controller = bind(ChatController.class);
-        site().template("/template/chat.html", ChatPage.class);
-        http().route(GET, "/chat", controller::chat);
-        http().route(GET, "/chat-publish", controller::publish);
-        http().route(GET, "/chat-close", controller::close);
+        load(new ChatModule());
+        load(new NotificationModule());
     }
 }

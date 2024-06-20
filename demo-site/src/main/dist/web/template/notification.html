@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>sse example</title>
+    <script type="application/javascript">
+        const evtSource = new EventSource("/sse");
+        evtSource.onmessage = (event) => {
+            const newElement = document.createElement("li");
+            const eventList = document.getElementById("event");
+            newElement.textContent = `message: ${event.data}`;
+            eventList.appendChild(newElement);
+        };
+        evtSource.onerror = (err) => {
+            const newElement = document.createElement("li");
+            const eventList = document.getElementById("event");
+            newElement.textContent = `err: ${err}`;
+            eventList.appendChild(newElement);
+        }
+    </script>
+</head>
+<body>
+<div class="page">
+    <div class="center">
+        <h1>SSE</h1>
+        <div id="event">
+        </div>
+    </div>
+</div>
+</body>
+</html>

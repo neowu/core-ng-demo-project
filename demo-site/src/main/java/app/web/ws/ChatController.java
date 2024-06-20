@@ -1,6 +1,6 @@
-package app.web;
+package app.web.ws;
 
-import app.web.ws.ChatMessage;
+import app.web.LanguageManager;
 import core.framework.inject.Inject;
 import core.framework.web.Request;
 import core.framework.web.Response;
