@@ -29,4 +29,9 @@ public class ChatListener implements ChannelListener<ChatMessage, ChatMessage> {
         response.text = "mirror back: " + message.text + " by " + channel.context().get("name");
         channel.send(response);
     }
+
+    @Override
+    public void onClose(Channel<ChatMessage> channel, int code, String reason) {
+        System.out.println("channel closed, code=" + code + ", name=" + channel.context().get("name"));
+    }
 }

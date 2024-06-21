@@ -4,12 +4,15 @@ import app.web.LanguageManager;
 import core.framework.inject.Inject;
 import core.framework.web.Request;
 import core.framework.web.Response;
-import core.framework.web.sse.ServerSentEventChannel;
+import core.framework.web.sse.Channel;
 import core.framework.web.sse.ServerSentEventContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.ZonedDateTime;
 
 public class NotificationController {
+    private final Logger logger = LoggerFactory.getLogger(NotificationController.class);
     @Inject
     ServerSentEventContext<NotificationEvent> context;
     @Inject
@@ -20,17 +23,11 @@ public class NotificationController {
     }
 
     public Response publish(Request request) {
+        logger.warn("test");
         var event = new NotificationEvent();
-        event.text = "message at " + ZonedDateTime.now() + "1234".repeat(2000) + "9999";
-        for (int i = 0; i <= 10; i++) {
-            for (ServerSentEventChannel<NotificationEvent> channel : context.all()) {
-                channel.send(event);
-            }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        event.text = "message at " + ZonedDateTime.now(); //"1234".repeat(2000) + "9999";
+        for (Channel<NotificationEvent> channel : context.all()) {
+            channel.send(event);
         }
         return Response.text("done");
     }
