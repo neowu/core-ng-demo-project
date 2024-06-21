@@ -20,12 +20,18 @@ public class NotificationController {
     }
 
     public Response publish(Request request) {
-        for (ServerSentEventChannel<NotificationEvent> channel : context.all()) {
-            var event = new NotificationEvent();
-            event.text = "message at " + ZonedDateTime.now() + "1234".repeat(2000) + "9999";
-            channel.send(event);
+        var event = new NotificationEvent();
+        event.text = "message at " + ZonedDateTime.now() + "1234".repeat(2000) + "9999";
+        for (int i = 0; i <= 10; i++) {
+            for (ServerSentEventChannel<NotificationEvent> channel : context.all()) {
+                channel.send(event);
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
-
         return Response.text("done");
     }
 
