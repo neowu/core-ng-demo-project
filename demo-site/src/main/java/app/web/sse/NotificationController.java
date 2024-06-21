@@ -10,9 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.ZonedDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class NotificationController {
     private final Logger logger = LoggerFactory.getLogger(NotificationController.class);
+    private final AtomicInteger id = new AtomicInteger();
     @Inject
     ServerSentEventContext<NotificationEvent> context;
     @Inject
@@ -27,7 +29,7 @@ public class NotificationController {
         var event = new NotificationEvent();
         event.text = "message at " + ZonedDateTime.now(); //"1234".repeat(2000) + "9999";
         for (Channel<NotificationEvent> channel : context.all()) {
-            channel.send(event);
+            channel.send(String.valueOf(id.incrementAndGet()), event);
         }
         return Response.text("done");
     }
