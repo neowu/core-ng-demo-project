@@ -55,6 +55,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(perfHTTPIO()));
         objects.add(visualization(httpRetries()));
         objects.add(visualization(perfWSIO()));
+        objects.add(visualization(perfSSEIO()));
 
         addPerf("db", "rows", "db");
         objects.add(visualization(poolCount("db")));
@@ -172,6 +173,18 @@ public class KibanaObjectBuilder {
         tsvb.params.series.add(series("sum", "perf_stats.ws.read_entries", "client message length", "bytes", color()));
         tsvb.params.series.add(series("sum", "perf_stats.ws.write_entries", "server message length", "bytes", color()));
         var s1 = series("sum", "perf_stats.ws.count", "operations", "number", color());
+        s1.separate_axis = 1;
+        s1.axis_position = "right";
+        s1.fill = 0;
+        tsvb.params.series.add(s1);
+        return tsvb;
+    }
+
+    private TSVB perfSSEIO() {
+        var tsvb = new TSVB("perf-sse_io", "action");
+        tsvb.params.show_grid = 0;
+        tsvb.params.series.add(series("sum", "perf_stats.sse.write_entries", "data length", "bytes", color()));
+        var s1 = series("sum", "perf_stats.sse.count", "operations", "number", color());
         s1.separate_axis = 1;
         s1.axis_position = "right";
         s1.fill = 0;

@@ -22,7 +22,7 @@ public class NotificationEventListener implements ChannelListener<NotificationEv
             Threads.sleepRoughly(Duration.ofSeconds(1));
         }
 
-//        channel.close();
+        channel.close();
 //        throw new Error("test error");
     }
 }
