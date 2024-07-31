@@ -18,7 +18,7 @@ public class NotificationEventListener implements ChannelListener<NotificationEv
         for (int i = 0; i < 10; i++) {
             final NotificationEvent event = new NotificationEvent();
             event.text = "on connect " + i;
-            channel.send(event);
+            channel.send(String.valueOf(i), event);
             Threads.sleepRoughly(Duration.ofSeconds(1));
         }
 
