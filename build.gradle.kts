@@ -30,7 +30,7 @@ subprojects {
 
 val coreNGVersion = "9.0.9"
 val hsqlVersion = "2.7.2"
-val jacksonVersion = "2.17.0"
+val jacksonVersion = "2.17.2"
 
 configure(subprojects.filter { it.name.endsWith("-db-migration") }) {
     apply(plugin = "db-migration")
@@ -82,7 +82,6 @@ project(":demo-service") {
         implementation(project(":demo-service-interface"))
         implementation("core.framework:core-ng-mongo:${coreNGVersion}")
         implementation("core.framework:core-ng-search:${coreNGVersion}")
-        implementation("com.squareup.okhttp3:okhttp-sse:4.12.0@jar")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
         runtimeOnly("core.framework.mysql:mysql-connector-j:8.4.0-r2")
@@ -98,7 +97,7 @@ project(":benchmark") {
     dependencies {
         implementation("org.openjdk.jmh:jmh-generator-annprocess:1.27")
         implementation("core.framework:core-ng:${coreNGVersion}")
-        implementation("io.undertow:undertow-core:2.3.10.Final")
+        implementation("io.undertow:undertow-core:2.3.17.Final")
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
         implementation("com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}")
         implementation("com.fasterxml.jackson.module:jackson-module-blackbird:${jacksonVersion}")
