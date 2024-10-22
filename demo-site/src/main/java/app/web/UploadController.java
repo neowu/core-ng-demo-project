@@ -1,6 +1,7 @@
 package app.web;
 
 import core.framework.inject.Inject;
+import core.framework.util.Files;
 import core.framework.web.MultipartFile;
 import core.framework.web.Request;
 import core.framework.web.Response;
@@ -18,6 +19,6 @@ public class UploadController {
 
     public Response post(Request request) {
         MultipartFile file = request.files().get("test");
-        return Response.text("uploaded, fileName=" + file.fileName);
+        return Response.text("uploaded, fileName=" + file.fileName + ", size=" + Files.size(file.path));
     }
 }

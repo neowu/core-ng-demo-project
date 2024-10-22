@@ -28,7 +28,7 @@ subprojects {
     }
 }
 
-val coreNGVersion = "9.0.9"
+val coreNGVersion = "9.1.3"
 val hsqlVersion = "2.7.2"
 val jacksonVersion = "2.17.2"
 
