@@ -1,4 +1,5 @@
 import com.github.spotbugs.snom.Confidence
+import org.gradle.kotlin.dsl.configure
 
 plugins {
     checkstyle apply false
@@ -19,7 +20,7 @@ subprojects {
 
     checkstyle {
         dependencies {
-            checkstyle("com.puppycrawl.tools:checkstyle:10.18.1")
+            checkstyle("com.puppycrawl.tools:checkstyle:10.20.1")
             checkstyle("com.github.sevntu-checkstyle:sevntu-checks:1.44.1")
         }
 
@@ -47,7 +48,7 @@ subprojects {
     pmd {
         ruleSets = listOf()
         ruleSetFiles = rootProject.files("buildSrc/src/main/check/pmd.xml")
-        toolVersion = "7.4.0"
+        toolVersion = "7.7.0"
         isConsoleOutput = true
 
         tasks.withType<Pmd> {
