@@ -84,7 +84,7 @@ project(":demo-service") {
         implementation("core.framework:core-ng-search:${coreNGVersion}")
         testImplementation("core.framework:core-ng-mongo-test:${coreNGVersion}")
         testImplementation("core.framework:core-ng-search-test:${coreNGVersion}")
-        runtimeOnly("core.framework.mysql:mysql-connector-j:8.4.0-r2")
+        runtimeOnly("core.framework.mysql:mysql-connector-j:8.4.0-r4")
 //        runtimeOnly("org.postgresql:postgresql:42.7.1")
         testRuntimeOnly("org.hsqldb:hsqldb:${hsqlVersion}")
     }
