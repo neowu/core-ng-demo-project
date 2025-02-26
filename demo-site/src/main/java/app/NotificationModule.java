@@ -4,7 +4,6 @@ import app.web.sse.NotificationController;
 import app.web.sse.NotificationEvent;
 import app.web.sse.NotificationEventListener;
 import app.web.sse.NotificationPage;
-import core.framework.http.HTTPMethod;
 import core.framework.module.Module;
 
 import static core.framework.http.HTTPMethod.GET;
@@ -12,7 +11,9 @@ import static core.framework.http.HTTPMethod.GET;
 public class NotificationModule extends Module {
     @Override
     protected void initialize() {
-        sse().listen(HTTPMethod.PUT, "/sse", NotificationEvent.class, bind(NotificationEventListener.class));
+        NotificationEventListener listener = bind(NotificationEventListener.class);
+        sse().listen(GET, "/sse", NotificationEvent.class, listener);
+//        sse().listen(PUT, "/sse", NotificationEvent.class, listener);
 
         var controller = bind(NotificationController.class);
         site().template("/template/notification.html", NotificationPage.class);
