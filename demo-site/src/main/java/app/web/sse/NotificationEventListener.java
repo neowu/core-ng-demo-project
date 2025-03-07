@@ -4,6 +4,7 @@ import core.framework.log.ActionLogContext;
 import core.framework.util.Strings;
 import core.framework.util.Threads;
 import core.framework.web.Request;
+import core.framework.web.rate.LimitRate;
 import core.framework.web.sse.Channel;
 import core.framework.web.sse.ChannelListener;
 
@@ -11,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 public class NotificationEventListener implements ChannelListener<NotificationEvent> {
+    @LimitRate("sse")
     @Override
     public void onConnect(Request request, Channel<NotificationEvent> channel, String lastEventId) {
         ActionLogContext.triggerTrace(true);

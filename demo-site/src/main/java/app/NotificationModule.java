@@ -6,12 +6,15 @@ import app.web.sse.NotificationEventListener;
 import app.web.sse.NotificationPage;
 import core.framework.module.Module;
 
+import java.time.Duration;
+
 import static core.framework.http.HTTPMethod.GET;
 
 public class NotificationModule extends Module {
     @Override
     protected void initialize() {
         NotificationEventListener listener = bind(NotificationEventListener.class);
+        http().limitRate().add("sse", 10, 10, Duration.ofMinutes(1));
         sse().listen(GET, "/sse", NotificationEvent.class, listener);
 //        sse().listen(PUT, "/sse", NotificationEvent.class, listener);
 
