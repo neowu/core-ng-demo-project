@@ -61,7 +61,6 @@ public class WebModule extends Module {
         var wildcardController = bind(WildcardController.class);
         http().route(GET, "/:all(*)", wildcardController::wildcard);
 
-        load(new ChatModule());
         load(new NotificationModule());
     }
 }
