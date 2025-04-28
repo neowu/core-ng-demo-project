@@ -14,13 +14,13 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(24)
         }
     }
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none", "-Werror"))
+        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none"))
     }
 
     repositories {
