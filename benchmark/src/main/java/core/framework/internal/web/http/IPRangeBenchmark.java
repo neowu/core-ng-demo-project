@@ -1,6 +1,6 @@
 package core.framework.internal.web.http;
 
-import core.framework.module.IPv4RangeFileParser;
+import core.framework.module.IPRangeFileParser;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
@@ -29,7 +29,7 @@ public class IPRangeBenchmark {
 
     @Setup
     public void setup() {
-        List<String> cidrs = new IPv4RangeFileParser("ip-range-test/cidrs.txt").parse();
+        List<String> cidrs = new IPRangeFileParser("ip-range-test/cidrs.txt").parse();
         ranges = new IPv4Ranges(cidrs);
         this.cidrs = cidrs.stream().map(CIDR::new).collect(Collectors.toList());
     }
@@ -50,9 +50,9 @@ public class IPRangeBenchmark {
 
     @Benchmark
     public void ranges() {
-        ranges.matches(IPv4Ranges.address("119.137.52.1"));
-        ranges.matches(IPv4Ranges.address("119.137.53.1"));
-        ranges.matches(IPv4Ranges.address("119.137.53.254"));
-        ranges.matches(IPv4Ranges.address("119.137.54.254"));
+        ranges.matches(IPRanges.address("119.137.52.1"));
+        ranges.matches(IPRanges.address("119.137.53.1"));
+        ranges.matches(IPRanges.address("119.137.53.254"));
+        ranges.matches(IPRanges.address("119.137.54.254"));
     }
 }
