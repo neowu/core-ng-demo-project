@@ -95,7 +95,7 @@ project(":demo-site") {
 
 project(":benchmark") {
     dependencies {
-        implementation("org.openjdk.jmh:jmh-generator-annprocess:1.27")
+        implementation("org.openjdk.jmh:jmh-generator-annprocess:1.37")
         implementation("core.framework:core-ng:${coreNGVersion}")
         implementation("io.undertow:undertow-core:2.3.18.Final")
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
