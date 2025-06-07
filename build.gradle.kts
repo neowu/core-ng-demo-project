@@ -12,7 +12,8 @@ subprojects {
         maven {
             url = uri("https://neowu.github.io/maven-repo/")
             content {
-                includeGroupByRegex("core\\.framework.*")
+                includeGroup("core.framework")
+                includeGroup("core.framework.elasticsearch.module")
             }
         }
     }
