@@ -13,6 +13,7 @@ subprojects {
             url = uri("https://neowu.github.io/maven-repo/")
             content {
                 includeGroup("core.framework")
+                includeGroup("core.framework.mysql")
                 includeGroup("core.framework.elasticsearch.module")
             }
         }
@@ -29,7 +30,7 @@ subprojects {
     }
 }
 
-val coreNGVersion = "9.2.1"
+val coreNGVersion = "9.2.2"
 val hsqlVersion = "2.7.4"
 val jacksonVersion = "2.18.4"
 
