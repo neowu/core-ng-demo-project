@@ -20,7 +20,7 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none"))
+        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none", "-Werror"))
     }
 
     repositories {
@@ -75,9 +75,9 @@ subprojects {
             }
         }
     }
-}
 
-apply(plugin = "check")
+    apply(plugin = "check")
+}
 
 allprojects {
     apply(plugin = "idea")
