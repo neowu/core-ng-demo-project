@@ -1,8 +1,7 @@
 plugins {
     java
+    project
 }
-
-apply(plugin = "project")
 
 subprojects {
     group = "core.demo"
