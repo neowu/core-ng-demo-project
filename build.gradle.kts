@@ -92,6 +92,8 @@ project(":demo-service") {
 }
 
 project(":demo-site") {
+    apply(plugin = "frontend")
+    project.ext["frontendDir"] = "${rootDir}/../ub-frontend-project/web/game"
 }
 
 project(":benchmark") {
