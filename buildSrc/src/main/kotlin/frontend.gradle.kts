@@ -6,7 +6,7 @@ tasks.named("mkdir") {
 
 interface Context {
     @get:Inject
-    val operation: ExecOperations
+    val exec: ExecOperations
 
     @get:Inject
     val fs: FileSystemOperations
@@ -19,20 +19,20 @@ afterEvaluate {
     if (!frontendDir.exists()) throw Error("$frontendDir does not exist")
 
     val context = project.objects.newInstance<Context>()
-    val env = project.properties["env"] // use gradlew -Penv=${env} to pass
+    val env = project.properties["env"] as String? // use gradlew -Penv=${env} to pass
 
     tasks.register("buildFrontend") {
         group = "build"
         doLast {
-            context.operation.exec {
+            context.exec.exec {
                 workingDir(frontendDir)
                 commandLine(Frontend.commandLine(listOf("pnpm", "install")))
             }
 
             val command = mutableListOf("pnpm", "run", "build")
-            if (env != null) command.addAll(listOf("--env", env as String))
+            if (env != null) command.addAll(listOf("--env", env))
 
-            context.operation.exec {
+            context.exec.exec {
                 workingDir(frontendDir)
                 commandLine(Frontend.commandLine(command))
             }
