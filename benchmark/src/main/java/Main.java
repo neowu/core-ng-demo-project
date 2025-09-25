@@ -9,7 +9,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * @author neo
  */
 public class Main {
-    public static void main(String[] args) throws RunnerException {
+    static void main() throws RunnerException {
         ChainedOptionsBuilder builder = new OptionsBuilder()
                 .include(IPTrieBenchmark.class.getSimpleName())
                 .forks(1);
