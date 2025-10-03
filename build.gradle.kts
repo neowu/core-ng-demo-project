@@ -100,7 +100,7 @@ project(":benchmark") {
     dependencies {
         implementation("org.openjdk.jmh:jmh-generator-annprocess:1.37")
         implementation("core.framework:core-ng:${coreNGVersion}")
-        implementation("io.undertow:undertow-core:2.3.18.Final")
+        implementation("io.undertow:undertow-core:2.3.19.Final")
         implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
         implementation("com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}")
         implementation("com.fasterxml.jackson.module:jackson-module-blackbird:${jacksonVersion}")

@@ -4,6 +4,7 @@ import core.framework.log.ActionLogContext;
 import core.framework.util.Strings;
 import core.framework.util.Threads;
 import core.framework.web.Request;
+import core.framework.web.exception.UnauthorizedException;
 import core.framework.web.rate.LimitRate;
 import core.framework.web.sse.Channel;
 import core.framework.web.sse.ChannelListener;
@@ -31,7 +32,7 @@ public class NotificationEventListener implements ChannelListener<NotificationEv
         }
 
 //        channel.close();
-//        throw new Error("test error");
+        throw new UnauthorizedException("test unauthorized exception");
     }
 
     @Override
