@@ -8,17 +8,15 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 /**
  * @author neo
  */
-public class Main {
-    static void main() throws RunnerException {
-        ChainedOptionsBuilder builder = new OptionsBuilder()
-                .include(IPTrieBenchmark.class.getSimpleName())
-                .forks(1);
+void main() throws RunnerException {
+    ChainedOptionsBuilder builder = new OptionsBuilder()
+            .include(IPTrieBenchmark.class.getSimpleName())
+            .forks(1);
 
 //        builder.addProfiler(GCProfiler.class);
 //        builder.addProfiler(StackProfiler.class)
 //            .jvmArgsAppend("-Djmh.stack.lines=3");
 
-        Options options = builder.build();
-        new Runner(options).run();
-    }
+    Options options = builder.build();
+    new Runner(options).run();
 }

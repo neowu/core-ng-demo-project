@@ -5,13 +5,11 @@ import org.bson.Document;
 /**
  * @author neo
  */
-public class Main {
-    static void main() {
-        var migration = new MongoMigration("sys.properties");
-        migration.migrate(mongo -> {
-            mongo.runAdminCommand(new Document().append("setParameter", 1).append("notablescan", 1));
+void main() {
+    var migration = new MongoMigration("sys.properties");
+    migration.migrate(mongo -> {
+        mongo.runAdminCommand(new Document().append("setParameter", 1).append("notablescan", 1));
 
-            mongo.createIndex("test", Indexes.ascending("name"));
-        });
-    }
+        mongo.createIndex("test", Indexes.ascending("name"));
+    });
 }
