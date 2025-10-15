@@ -1,5 +1,6 @@
 package core.framework.internal.log;
 
+import core.framework.log.LogLevel;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Measurement;
