@@ -74,6 +74,7 @@ configure(listOf(project(":demo-service"), project(":demo-site"))) {
     apply(plugin = "app")
     dependencies {
         implementation("core.framework:core-ng:${coreNGVersion}")
+        compileOnly("com.github.spotbugs:spotbugs-annotations:4.9.3")
         testImplementation("core.framework:core-ng-test:${coreNGVersion}")
     }
 }
