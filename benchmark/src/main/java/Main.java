@@ -1,4 +1,4 @@
-import core.framework.internal.web.http.IPTrieBenchmark;
+import core.framework.json.JSONDeserializeBenchmark;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.ChainedOptionsBuilder;
@@ -10,7 +10,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  */
 void main() throws RunnerException {
     ChainedOptionsBuilder builder = new OptionsBuilder()
-            .include(IPTrieBenchmark.class.getSimpleName())
+            .include(JSONDeserializeBenchmark.class.getSimpleName())
             .forks(1);
 
 //        builder.addProfiler(GCProfiler.class);
