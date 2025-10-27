@@ -1,8 +1,12 @@
-package core.framework.json;
+package json;
 
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.StreamReadFeature;
+import com.fasterxml.jackson.core.StreamWriteFeature;
+import com.fasterxml.jackson.core.util.JsonRecyclerPools;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -13,17 +17,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
-import core.framework.api.json.Property;
 import core.framework.internal.json.JSONAnnotationIntrospector;
 import core.framework.internal.json.JSONMapper;
 import core.framework.internal.json.JSONReader;
 import core.framework.util.ClasspathResources;
-import core.framework.util.Lists;
-import core.framework.util.Maps;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
@@ -33,15 +34,11 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -61,56 +58,10 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 @Warmup(iterations = 3, time = 3)
 @Measurement(iterations = 10, time = 3)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
+@Fork(value = 1)
 public class JSONDeserializeBenchmark {
     private ObjectReader noneReader;
-    private JSONReader<TestBean> afterburnerReader;
-
-    private byte[] body;
-
-    // afterburner uses asm, blackbird uses LambdaMetafactory, so it doesn't support field access yet and LambdaMetafactory tends to be slower as well
-    @Setup
-    public void setup() throws JsonProcessingException {
-        ObjectMapper mapper = createObjectMapper("none");
-        JavaType type = mapper.getTypeFactory().constructType(TestBean.class);
-        noneReader = mapper.readerFor(type);
-        afterburnerReader = JSONMapper.reader(TestBean.class);
-
-        body = ClasspathResources.bytes("json-test/test.json");
-    }
-
-    @Benchmark
-    public void none() throws IOException {
-        Object bean = noneReader.readValue(body);
-    }
-
-    @Benchmark
-    public void afterburner() throws IOException {
-        TestBean bean = afterburnerReader.fromJSON(body);
-    }
-
-    private ObjectMapper createObjectMapper(String mode) {
-        JsonMapper.Builder builder = JsonMapper.builder();
-
-        if ("blackbird".equals(mode)) {
-            builder.addModule(new BlackbirdModule());
-        } else if ("afterburner".equals(mode)) {
-            // disable value class loader to avoid jdk illegal reflection warning, requires JSON class/fields must be public
-            builder.addModule(new AfterburnerModule().setUseValueClassLoader(false));
-        }
-
-        return builder.addModule(timeModule())
-                .defaultDateFormat(new StdDateFormat())
-                // only auto detect field, and default visibility is public_only, refer to com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std
-                .visibility(new VisibilityChecker.Std(NONE, NONE, NONE, NONE, PUBLIC_ONLY))
-                .enable(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS)
-                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .annotationIntrospector(new JSONAnnotationIntrospector())
-                .deactivateDefaultTyping()
-                .build();
-    }
-
-    private JavaTimeModule timeModule() {
+    private static JavaTimeModule timeModule() {
         var module = new JavaTimeModule();
 
         // redefine date time formatter to output nano seconds in at least 3 digits, which inline with ISO standard and ES standard
@@ -137,61 +88,67 @@ public class JSONDeserializeBenchmark {
                 .toFormatter()));
         return module;
     }
+    private ObjectReader blackbirdReader;
 
-    public static class TestBean {
-        @Property(name = "map")
-        public final Map<String, String> mapField = Maps.newHashMap();
+    private byte[] body;
+    private JSONReader<TestJSON> afterburnerReader;
 
-        @Property(name = "list")
-        public final List<String> listField = Lists.newArrayList();
+    // afterburner uses asm, blackbird uses LambdaMetafactory, so it doesn't support field access yet and LambdaMetafactory tends to be slower as well
+    @Setup
+    public void setup() throws JsonProcessingException {
+        ObjectMapper mapper = createObjectMapper("none");
+        noneReader = mapper.readerFor(mapper.getTypeFactory().constructType(TestJSON.class));
 
-        @Property(name = "children")
-        public final List<Child> childrenField = Lists.newArrayList();
+        ObjectMapper mapper1 = createObjectMapper("blackbird");
+        blackbirdReader = mapper1.readerFor(mapper1.getTypeFactory().constructType(TestJSON.class));
 
-        @Property(name = "child")
-        public Child childField;
+        afterburnerReader = JSONMapper.reader(TestJSON.class);
 
-        @Property(name = "string")
-        public String stringField;
+        body = ClasspathResources.bytes("json-test/test.json");
+    }
 
-        @Property(name = "date")
-        public LocalDate dateField;
+    @Benchmark
+    public void none() throws IOException {
+        TestJSON bean = noneReader.readValue(body);
+    }
 
-        @Property(name = "dateTime")
-        public LocalDateTime dateTimeField;
+    @Benchmark
+    public void blackbird() throws IOException {
+        TestJSON bean = blackbirdReader.readValue(body);
+    }
 
-        @Property(name = "zonedDateTime")
-        public ZonedDateTime zonedDateTimeField;
+    @Benchmark
+    public void afterburner() throws IOException {
+        TestJSON bean = afterburnerReader.fromJSON(body);
+    }
 
-        @Property(name = "instant")
-        public Instant instantField;
+    private ObjectMapper createObjectMapper(String mode) {
+        JsonFactory jsonFactory = JsonFactory.builder()
+                .recyclerPool(JsonRecyclerPools.sharedConcurrentDequePool())
+                .build();
+        JsonMapper.Builder builder = JsonMapper.builder(jsonFactory);
 
-        public Integer notAnnotatedField;
-
-        @Property(name = "empty")
-        public Empty empty;
-
-        @Property(name = "defaultValue")
-        public String defaultValueField = "defaultValue";
-
-        public enum TestEnum {
-            @Property(name = "A1")
-            A,
-            @Property(name = "B1")
-            B,
-            C
+        if ("blackbird".equals(mode)) {
+            builder.addModule(new BlackbirdModule());
         }
 
-        public static class Child {
-            @Property(name = "boolean")
-            public Boolean booleanField;
 
-            @Property(name = "long")
-            public Long longField;
-        }
+        // refer to com.fasterxml.jackson.databind.ObjectMapper.DEFAULT_BASE for default settings, e.g. cacheProvider
+        return builder
+                .addModule(timeModule())
+                .defaultDateFormat(new StdDateFormat())
 
-        public static class Empty {
-
-        }
+                .visibility(new VisibilityChecker.Std(NONE, NONE, NONE, NONE, PUBLIC_ONLY))
+                .enable(StreamReadFeature.USE_FAST_DOUBLE_PARSER)
+                .enable(StreamReadFeature.USE_FAST_BIG_NUMBER_PARSER)
+                .enable(StreamWriteFeature.USE_FAST_DOUBLE_WRITER)
+                .enable(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS)
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                // e.g. disable convert empty string to Integer null
+                .disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
+                .annotationIntrospector(new JSONAnnotationIntrospector())
+                .deactivateDefaultTyping()
+                .build();
     }
 }

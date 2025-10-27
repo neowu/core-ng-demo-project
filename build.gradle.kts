@@ -1,6 +1,7 @@
 plugins {
     java
     project
+    id("me.champeau.jmh") version "0.7.3"
 }
 
 subprojects {
@@ -29,7 +30,7 @@ subprojects {
     }
 }
 
-val coreNGVersion = "9.2.2"
+val coreNGVersion = "9.3.0"
 val hsqlVersion = "2.7.4"
 val jacksonVersion = "2.20.0"
 
@@ -98,7 +99,12 @@ project(":demo-site") {
 }
 
 project(":benchmark") {
+    apply(plugin = "me.champeau.jmh")
+
     dependencies {
+        jmh("org.openjdk.jmh:jmh-generator-annprocess:1.37")
+        jmh("core.framework:core-ng:${coreNGVersion}")
+
         implementation("org.openjdk.jmh:jmh-generator-annprocess:1.37")
         implementation("core.framework:core-ng:${coreNGVersion}")
         implementation("io.undertow:undertow-core:2.3.19.Final")
