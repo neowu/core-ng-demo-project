@@ -18,7 +18,7 @@ public class JSON {
     private static ObjectMapper createObjectMapper() {
         return JsonMapper.builder()
                 .defaultDateFormat(new StdDateFormat())
-                .serializationInclusion(JsonInclude.Include.NON_NULL)
+                .defaultPropertyInclusion(JsonInclude.Value.construct(JsonInclude.Include.NON_NULL, JsonInclude.Include.NON_NULL))
 //                .enable(SerializationFeature.INDENT_OUTPUT)
                 .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
                 .deactivateDefaultTyping()
