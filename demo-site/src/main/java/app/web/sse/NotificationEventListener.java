@@ -1,6 +1,7 @@
 package app.web.sse;
 
 import core.framework.log.ActionLogContext;
+import core.framework.log.IOWarning;
 import core.framework.util.Strings;
 import core.framework.util.Threads;
 import core.framework.web.Request;
@@ -13,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 public class NotificationEventListener implements ChannelListener<NotificationEvent> {
+
+    @IOWarning(operation = "db", maxTotalReadBytes = 100_000)
     @LimitRate("sse")
     @Override
     public void onConnect(Request request, Channel<NotificationEvent> channel, String lastEventId) {

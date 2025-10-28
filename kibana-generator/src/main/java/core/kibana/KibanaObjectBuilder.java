@@ -155,8 +155,8 @@ public class KibanaObjectBuilder {
     private TSVB perfHTTPIO() {
         var tsvb = new TSVB("perf-http_client_io", "action");
         tsvb.params.show_grid = 0;
-        tsvb.params.series.add(series("sum", "perf_stats.http.read_entries", "response body length", "bytes", color()));
-        tsvb.params.series.add(series("sum", "perf_stats.http.write_entries", "request body length", "bytes", color()));
+        tsvb.params.series.add(series("sum", "perf_stats.http.read_bytes", "response body length", "bytes", color()));
+        tsvb.params.series.add(series("sum", "perf_stats.http.write_bytes", "request body length", "bytes", color()));
         var s1 = series("sum", "perf_stats.http.count", "operations", "number", color());
         s1.separate_axis = 1;
         s1.axis_position = "right";
@@ -168,8 +168,8 @@ public class KibanaObjectBuilder {
     private TSVB perfSSEIO() {
         var tsvb = new TSVB("perf-sse_io", "action");
         tsvb.params.show_grid = 0;
-        tsvb.params.series.add(series("sum", "perf_stats.sse.write_entries", "data length", "bytes", color()));
-        var s1 = series("sum", "perf_stats.sse.count", "operations", "number", color());
+        tsvb.params.series.add(series("sum", "perf_stats.sse.write_bytes", "write event length", "bytes", color()));
+        var s1 = series("sum", "perf_stats.sse.write_entries", "write event count", "number", color());
         s1.separate_axis = 1;
         s1.axis_position = "right";
         s1.fill = 0;
