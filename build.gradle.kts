@@ -102,7 +102,6 @@ project(":benchmark") {
     apply(plugin = "me.champeau.jmh")
 
     dependencies {
-        jmh("org.openjdk.jmh:jmh-generator-annprocess:1.37")
         jmh("core.framework:core-ng:${coreNGVersion}")
 
         implementation("org.openjdk.jmh:jmh-generator-annprocess:1.37")
