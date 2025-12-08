@@ -1,7 +1,7 @@
 plugins {
     java
     project
-    id("me.champeau.jmh") version "0.7.3"
+//    id("me.champeau.jmh") version "0.7.3"
 }
 
 subprojects {
@@ -99,10 +99,10 @@ project(":demo-site") {
 }
 
 project(":benchmark") {
-    apply(plugin = "me.champeau.jmh")
+//    apply(plugin = "me.champeau.jmh")
 
     dependencies {
-        jmh("core.framework:core-ng:${coreNGVersion}")
+//        jmh("core.framework:core-ng:${coreNGVersion}")
 
         implementation("org.openjdk.jmh:jmh-generator-annprocess:1.37")
         implementation("core.framework:core-ng:${coreNGVersion}")
