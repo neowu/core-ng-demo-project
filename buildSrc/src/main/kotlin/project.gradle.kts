@@ -1,8 +1,8 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
-    java apply false
-    idea apply false
+    java
+    idea
 }
 
 defaultTasks("clean", "build")
@@ -20,7 +20,7 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none"))
+        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none", "-Werror"))
     }
 
     repositories {
