@@ -11,9 +11,6 @@
       "name": {
         "type": "text"
       },
-      "desc": {
-        "type": "text"
-      },
       "created_time": {
         "type": "date"
       }
