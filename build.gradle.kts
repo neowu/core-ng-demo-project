@@ -32,7 +32,7 @@ subprojects {
 
 val coreNGVersion = "9.3.0"
 val hsqlVersion = "2.7.4"
-val jacksonVersion = "2.20.0"
+val jacksonVersion = "3.1.0"
 
 configure(subprojects.filter { it.name.endsWith("-db-migration") }) {
     apply(plugin = "db-migration")
@@ -107,14 +107,13 @@ project(":benchmark") {
         implementation("org.openjdk.jmh:jmh-generator-annprocess:1.37")
         implementation("core.framework:core-ng:${coreNGVersion}")
         implementation("io.undertow:undertow-core:2.3.23.Final")
-        implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
-        implementation("com.fasterxml.jackson.module:jackson-module-afterburner:${jacksonVersion}")
-        implementation("com.fasterxml.jackson.module:jackson-module-blackbird:${jacksonVersion}")
+        implementation("tools.jackson.module:jackson-module-afterburner:${jacksonVersion}")
+        implementation("tools.jackson.module:jackson-module-blackbird:${jacksonVersion}")
     }
 }
 
 project(":kibana-generator") {
     dependencies {
-        implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+        implementation("tools.jackson.core:jackson-databind:${jacksonVersion}")
     }
 }

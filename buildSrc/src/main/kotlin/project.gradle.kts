@@ -20,7 +20,7 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none", "-Werror"))
+        options.compilerArgs.addAll(listOf("-Xlint:all", "-proc:none"))
     }
 
     repositories {

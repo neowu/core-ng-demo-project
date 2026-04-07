@@ -1,23 +1,8 @@
 package core.framework.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.util.StdDateFormat;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
-import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
-import com.fasterxml.jackson.module.blackbird.BlackbirdModule;
 import core.framework.api.json.Property;
 import core.framework.internal.json.JSONAnnotationIntrospector;
+import core.framework.internal.json.JSONMapper;
 import core.framework.util.Lists;
 import core.framework.util.Maps;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -29,27 +14,31 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
+import tools.jackson.core.StreamReadFeature;
+import tools.jackson.core.StreamWriteFeature;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectReader;
+import tools.jackson.databind.ObjectWriter;
+import tools.jackson.databind.cfg.EnumFeature;
+import tools.jackson.databind.introspect.VisibilityChecker;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.util.StdDateFormat;
+import tools.jackson.module.afterburner.AfterburnerModule;
+import tools.jackson.module.blackbird.BlackbirdModule;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.PUBLIC_ONLY;
-import static java.time.format.DateTimeFormatter.ISO_INSTANT;
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
-import static java.time.temporal.ChronoField.HOUR_OF_DAY;
-import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
-import static java.time.temporal.ChronoField.NANO_OF_SECOND;
-import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 
 /**
  * @author neo
@@ -60,6 +49,32 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 @Measurement(iterations = 10, time = 3)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 public class JSONBenchmark {
+    private static ObjectMapper createObjectMapper(String mode) {
+        JsonMapper.Builder builder = JsonMapper.builder();
+
+        if ("blackbird".equals(mode)) {
+            builder.addModule(new BlackbirdModule());
+        } else if ("afterburner".equals(mode)) {
+            // disable value class loader to avoid jdk illegal reflection warning, requires JSON class/fields must be public
+            builder.addModule(new AfterburnerModule().setUseValueClassLoader(false));
+        }
+
+        return builder.addModule(JSONMapper.timeModule())
+                .defaultDateFormat(new StdDateFormat())
+                // only auto detect field, and default visibility is public_only, refer to com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std
+                // only detect public fields, refer to com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std
+                .changeDefaultVisibility(_ -> new VisibilityChecker(PUBLIC_ONLY, NONE, NONE, NONE, NONE, NONE))
+                .enable(StreamWriteFeature.USE_FAST_DOUBLE_WRITER)
+                .enable(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION)
+                .disable(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY)
+                // e.g. disable convert empty string to Integer null
+                .disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
+                .enable(EnumFeature.FAIL_ON_NUMBERS_FOR_ENUMS)
+                .disable(EnumFeature.WRITE_ENUMS_USING_TO_STRING)
+                .annotationIntrospector(new JSONAnnotationIntrospector())
+                .deactivateDefaultTyping()
+                .build();
+    }
     private ObjectReader noneReader;
     private ObjectWriter noneWriter;
     private ObjectReader afterburnerReader;
@@ -69,9 +84,31 @@ public class JSONBenchmark {
     private byte[] body;
     private TestBean bean;
 
+    static void main() {
+        var bean = new TestBean();
+        bean.stringField = "value1234567890value1234567890value1234567890value1234567890value1234567890value1234567890";
+        bean.dateTimeField = LocalDateTime.now();
+        bean.mapField.put("key", "value");
+        bean.listField.add("value");
+        bean.childrenField.add(new TestBean.Child());
+        bean.childField = new TestBean.Child();
+        bean.childField.booleanField = true;
+        System.out.println(JSON.toJSON(bean));
+    }
+
+    @Benchmark
+    public void none() throws IOException {
+//        Object bean = reader.readValue(new String(body, StandardCharsets.UTF_8));
+//        byte[] json = writer.writeValueAsBytes(bean);
+//        byte[] bytes = Strings.bytes(writer.writeValueAsString(bean));
+
+        Object bean = noneReader.readValue(body);
+        noneWriter.writeValueAsString(bean);
+    }
+
     // afterburner uses asm, blackbird uses LambdaMetafactory, so it doesn't support field access yet and LambdaMetafactory tends to be slower as well
     @Setup
-    public void setup() throws JsonProcessingException {
+    public void setup() {
         ObjectMapper mapper = createObjectMapper("none");
         JavaType type = mapper.getTypeFactory().constructType(TestBean.class);
         noneReader = mapper.readerFor(type);
@@ -100,75 +137,9 @@ public class JSONBenchmark {
     }
 
     @Benchmark
-    public void none() throws IOException {
-//        Object bean = reader.readValue(new String(body, StandardCharsets.UTF_8));
-//        byte[] json = writer.writeValueAsBytes(bean);
-//        byte[] bytes = Strings.bytes(writer.writeValueAsString(bean));
-
-        Object bean = noneReader.readValue(body);
-        noneWriter.writeValueAsString(bean);
-    }
-
-    @Benchmark
-    public void blackbird() throws IOException {
+    public void blackbird() {
         Object bean = blackbirdReader.readValue(body);
         blackbirdWriter.writeValueAsString(bean);
-    }
-
-    @Benchmark
-    public void afterburner() throws IOException {
-        Object bean = afterburnerReader.readValue(body);
-        afterburnerWriter.writeValueAsString(bean);
-    }
-
-    private ObjectMapper createObjectMapper(String mode) {
-        JsonMapper.Builder builder = JsonMapper.builder();
-
-        if ("blackbird".equals(mode)) {
-            builder.addModule(new BlackbirdModule());
-        } else if ("afterburner".equals(mode)) {
-            // disable value class loader to avoid jdk illegal reflection warning, requires JSON class/fields must be public
-            builder.addModule(new AfterburnerModule().setUseValueClassLoader(false));
-        }
-
-        return builder.addModule(timeModule())
-                .defaultDateFormat(new StdDateFormat())
-                // only auto detect field, and default visibility is public_only, refer to com.fasterxml.jackson.databind.introspect.VisibilityChecker.Std
-                .visibility(new VisibilityChecker.Std(NONE, NONE, NONE, NONE, PUBLIC_ONLY))
-                .enable(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS)
-                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .annotationIntrospector(new JSONAnnotationIntrospector())
-                .deactivateDefaultTyping()
-                .build();
-    }
-
-    private JavaTimeModule timeModule() {
-        var module = new JavaTimeModule();
-
-        // redefine date time formatter to output nano seconds in at least 3 digits, which inline with ISO standard and ES standard
-        DateTimeFormatter localTimeFormatter = new DateTimeFormatterBuilder()
-                .parseStrict()
-                .appendValue(HOUR_OF_DAY, 2)
-                .appendLiteral(':')
-                .appendValue(MINUTE_OF_HOUR, 2)
-                .appendLiteral(':')
-                .appendValue(SECOND_OF_MINUTE, 2)
-                .appendFraction(NANO_OF_SECOND, 3, 9, true) // always output 3 digits of nano seconds (iso date format doesn't specify how many digits it should present, here always keep 3)
-                .toFormatter();
-
-        module.addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(ISO_INSTANT));
-        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(new DateTimeFormatterBuilder()
-                .parseStrict()
-                .append(ISO_LOCAL_DATE)
-                .appendLiteral('T')
-                .append(localTimeFormatter)
-                .toFormatter()));
-        module.addSerializer(LocalTime.class, new LocalTimeSerializer(new DateTimeFormatterBuilder()
-                .parseStrict()
-                .append(localTimeFormatter)
-                .toFormatter()));
-        return module;
     }
 
     public static class TestBean {
@@ -226,5 +197,11 @@ public class JSONBenchmark {
         public static class Empty {
 
         }
+    }
+
+    @Benchmark
+    public void afterburner() {
+        Object bean = afterburnerReader.readValue(body);
+        afterburnerWriter.writeValueAsString(bean);
     }
 }
