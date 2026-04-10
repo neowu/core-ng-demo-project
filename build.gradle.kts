@@ -114,6 +114,6 @@ project(":benchmark") {
 
 project(":kibana-generator") {
     dependencies {
-        implementation("tools.jackson.core:jackson-databind:${jacksonVersion}")
+        implementation("core.framework:core-ng:${coreNGVersion}")
     }
 }

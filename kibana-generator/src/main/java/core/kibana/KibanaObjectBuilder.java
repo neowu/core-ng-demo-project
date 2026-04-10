@@ -1,6 +1,6 @@
 package core.kibana;
 
-import core.util.JSON;
+import core.framework.json.JSON;
 
 import java.util.ArrayList;
 import java.util.Arrays;

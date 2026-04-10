@@ -1,6 +1,6 @@
 package core.kibana;
 
-import core.util.JSON;
+import core.framework.json.JSON;
 
 /**
  * @author neo
