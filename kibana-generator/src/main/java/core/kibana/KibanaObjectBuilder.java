@@ -94,7 +94,7 @@ public class KibanaObjectBuilder {
         objects.add(visualization(heap("es")));
         objects.add(visualization(gc("es")));
         objects.add(visualization(max("stat-es_docs", "stat", "stats.es_docs", "docs", "number", color())));
-        objects.add(visualization(poolCount("es")));
+        objects.add(visualization(activeStats("stat-es_active_requests", "stats.es_active_requests", "active es requests")));
 
         addPerf("mongo", "docs", "mongo");
         objects.add(visualization(poolCount("mongo")));
