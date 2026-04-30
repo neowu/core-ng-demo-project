@@ -14,7 +14,7 @@ checkstyle {
         checkstyle("com.github.sevntu-checkstyle:sevntu-checks:1.44.1")
     }
 
-    configFile = rootProject.file("buildSrc/src/main/check/checkstyle.xml")
+    configFile = rootProject.file("buildSrc/src/main/lint/checkstyle.xml")
     configProperties["configDir"] = configFile.parentFile
 
     tasks.named<Checkstyle>("checkstyleMain") {
@@ -37,7 +37,7 @@ checkstyle {
 
 pmd {
     ruleSets = listOf()
-    ruleSetFiles = rootProject.files("buildSrc/src/main/check/pmd.xml")
+    ruleSetFiles = rootProject.files("buildSrc/src/main/lint/pmd.xml")
     toolVersion = "7.23.0"
     isConsoleOutput = true
 
@@ -54,7 +54,7 @@ spotbugs {
     toolVersion = "4.9.8"
     reportLevel = Confidence.LOW
     extraArgs = listOf("-longBugCodes")
-    includeFilter = rootProject.file("buildSrc/src/main/check/spotbugs.xml")
+    includeFilter = rootProject.file("buildSrc/src/main/lint/spotbugs.xml")
 }
 
 jacoco {
