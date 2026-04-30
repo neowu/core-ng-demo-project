@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    implementation("core.framework:core-ng-api")
+    implementation(libs.coreng.api)
 }

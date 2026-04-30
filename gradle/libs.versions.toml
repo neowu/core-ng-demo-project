@@ -1,0 +1,16 @@
+[versions]
+coreng = "9.5.1"
+
+[libraries]
+coreng-api = { module = "core.framework:core-ng-api", version.ref = "coreng" }
+coreng = { module = "core.framework:core-ng", version.ref = "coreng" }
+coreng-test = { module = "core.framework:core-ng-test", version.ref = "coreng" }
+coreng-mongo = { module = "core.framework:core-ng-mongo", version.ref = "coreng" }
+coreng-mongo-test = { module = "core.framework:core-ng-mongo-test", version.ref = "coreng" }
+coreng-search = { module = "core.framework:core-ng-search", version.ref = "coreng" }
+coreng-search-test = { module = "core.framework:core-ng-search-test", version.ref = "coreng" }
+
+mysql = "core.framework.mysql:mysql-connector-j:8.4.0-r6"
+postgresql = "org.postgresql:postgresql:42.7.10"
+hsqldb = "org.hsqldb:hsqldb:2.7.4"
+

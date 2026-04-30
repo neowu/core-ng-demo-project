@@ -8,6 +8,6 @@ plugins {
 project.ext["frontendDir"] = "${rootDir}/demo-site/web"
 
 dependencies {
-    implementation("core.framework:core-ng")
-    testImplementation("core.framework:core-ng-test")
+    implementation(libs.coreng)
+    testImplementation(libs.coreng.test)
 }

@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation("core.framework:core-ng")
-    implementation("core.framework:core-ng-search")
+    implementation(libs.coreng)
+    implementation(libs.coreng.search)
 }
 
 tasks.register("esMigrate") {

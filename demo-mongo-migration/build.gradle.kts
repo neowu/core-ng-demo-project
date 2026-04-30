@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation("core.framework:core-ng")
-    implementation("core.framework:core-ng-mongo")
+    implementation(libs.coreng)
+    implementation(libs.coreng.mongo)
 }
 
 tasks.register("mongoMigrate") {
