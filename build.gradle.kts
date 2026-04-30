@@ -17,3 +17,7 @@ subprojects {
         }
     }
 }
+
+tasks.named<Wrapper>("wrapper") {
+    gradleVersion = "latest"
+}
