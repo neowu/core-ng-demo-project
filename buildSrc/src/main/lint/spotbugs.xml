@@ -136,7 +136,6 @@
             MS_FINAL_PKGPROTECT,
             MS_SHOULD_BE_FINAL,
             MS_SHOULD_BE_REFACTORED_TO_BE_FINAL,
-            MS_PKGPROTECT,
             MS_MUTABLE_HASHTABLE,
             MS_MUTABLE_ARRAY,
             MS_MUTABLE_COLLECTION,
