@@ -3,6 +3,7 @@ include(
     "demo-service",
     "demo-service-db-migration",
     "demo-site",
+    "demo-agent",
     "demo-es-migration",
     "demo-mongo-migration",
     "kibana-generator",

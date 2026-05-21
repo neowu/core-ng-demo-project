@@ -9,3 +9,5 @@ buildSrc/build/
 .DS_Store
 node_modules/
 out/
+.env
+/.run
