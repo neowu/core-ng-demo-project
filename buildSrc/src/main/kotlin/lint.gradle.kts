@@ -10,7 +10,7 @@ plugins {
 
 checkstyle {
     dependencies {
-        checkstyle("com.puppycrawl.tools:checkstyle:13.4.0")
+        checkstyle("com.puppycrawl.tools:checkstyle:13.11.0")
         checkstyle("com.github.sevntu-checkstyle:sevntu-checks:1.44.1")
     }
 
@@ -23,6 +23,8 @@ checkstyle {
             include("conf/**/*.properties")
             include("src/main/java/**/*.java")
             include("src/main/**/*.properties")
+            include("src/main/**/*.csv")
+            include("src/main/**/*.json")
         }
     }
 
@@ -31,6 +33,8 @@ checkstyle {
         source = fileTree(projectDir) {
             include("src/test/java/**/*.java")       // not include java files in resources
             include("src/test/**/*.properties")
+            include("src/test/**/*.csv")
+            include("src/test/**/*.json")
         }
     }
 }
@@ -38,7 +42,7 @@ checkstyle {
 pmd {
     ruleSets = listOf()
     ruleSetFiles = rootProject.files("buildSrc/src/main/lint/pmd.xml")
-    toolVersion = "7.23.0"
+    toolVersion = "7.28.0"
     isConsoleOutput = true
 
     tasks.withType<Pmd> {
@@ -48,17 +52,17 @@ pmd {
 
 spotbugs {
     dependencies {
-        spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.6.15")
+        spotbugsPlugins("com.mebigfatguy.sb-contrib:sb-contrib:7.7.4")
     }
 
-    toolVersion = "4.9.8"
+    toolVersion = "4.10.4"
     reportLevel = Confidence.LOW
     extraArgs = listOf("-longBugCodes")
     includeFilter = rootProject.file("buildSrc/src/main/lint/spotbugs.xml")
 }
 
 jacoco {
-    toolVersion = "0.8.14"
+    toolVersion = "0.8.15"
 
     tasks.named<JacocoReport>("testCodeCoverageReport") {
         reports {
